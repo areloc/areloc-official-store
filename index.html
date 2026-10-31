@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,73 +6,214 @@
 <meta name="theme-color" content="#000000">
 <title>ARELOC — Official Store</title>
 <meta name="description" content="ARELOC Official Store. Trust the process. Good things take time.">
+
 <style>
-:root{--black:#050505;--white:#fff;--gray:#777;--line:#e8e8e8}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif}
-button,input,select{font:inherit}
-button,a{-webkit-tap-highlight-color:transparent}
-a{color:inherit;text-decoration:none}
-img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+a{text-decoration:none;color:inherit}
 #app{width:100%;max-width:1500px;margin:auto;overflow:hidden}
-.topbar{height:68px;padding:0 5%;display:flex;align-items:center;justify-content:space-between;background:#050505;color:white;position:relative;z-index:20}
+img{display:block;max-width:100%}
+
+/* HEADER */
+.topbar{
+ height:68px;padding:0 5%;display:flex;align-items:center;
+ justify-content:space-between;background:#050505;color:#fff;
+ position:relative;z-index:20
+}
 .brand{font-size:27px;font-weight:900;letter-spacing:4px}
 .brand small{display:block;font-size:8px;letter-spacing:4px;text-align:center;margin-top:2px}
-.menu-button{border:1px solid #555;background:transparent;color:white;padding:10px 14px;font-size:11px;letter-spacing:2px}
 .nav{display:flex;gap:25px;align-items:center}
-.nav button{background:none;border:0;color:white;font-size:10px;letter-spacing:1.5px;cursor:pointer}
-.nav button:hover{color:#aaa}
-.mobile-nav{display:none;background:#080808;padding:12px 5%;gap:0;flex-direction:column}
-.mobile-nav button{padding:14px 5px;text-align:left;border:0;border-bottom:1px solid #292929;background:none;color:#fff;font-size:11px;letter-spacing:2px}
+.nav button,.mobile-nav button{
+ background:none;border:0;color:#fff;font-size:10px;letter-spacing:1.5px
+}
+.menu-button{
+ border:1px solid #555;background:transparent;color:#fff;
+ padding:10px 14px;font-size:11px;letter-spacing:2px
+}
+.mobile-nav{display:none;background:#080808;padding:12px 5%;flex-direction:column}
+.mobile-nav button{
+ padding:14px 5px;text-align:left;border-bottom:1px solid #292929
+}
+.mobile-nav.open{display:flex}
 .page{display:none}
 .page.active{display:block}
-.areloc-slider{height:clamp(360px,65vw,620px);max-height:620px;position:relative;overflow:hidden;background:#050505;color:#fff;touch-action:pan-y}
+
+/* HERO SLIDER */
+.areloc-slider{
+ height:clamp(390px,58vw,650px);max-height:650px;
+ position:relative;overflow:hidden;background:#050505;color:#fff;
+ touch-action:pan-y
+}
 .areloc-slides{display:flex;height:100%;transition:transform .65s ease}
 .areloc-slide{flex:0 0 100%;height:100%;min-width:100%;position:relative}
-.areloc-slide img{width:100%;height:100%;object-fit:cover;object-position:center}
-.areloc-slide:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05) 25%,rgba(0,0,0,.78))}
-.areloc-hero-text{position:absolute;z-index:2;left:15px;right:15px;bottom:65px;text-align:center}
-.areloc-hero-text small{font-size:10px;letter-spacing:5px}
-.areloc-hero-text h1{font-size:clamp(45px,10vw,90px);font-weight:900;letter-spacing:7px;margin:12px 0}
-.areloc-hero-text p{font-size:10px;letter-spacing:2px;line-height:1.8}
-.white-btn{display:inline-block;background:white;color:#000;padding:14px 24px;margin-top:15px;font-size:10px;letter-spacing:2px;font-weight:bold}
-.slider-arrow{position:absolute;z-index:4;top:50%;transform:translateY(-50%);width:38px;height:38px;border-radius:50%;border:1px solid #ffffff99;background:#0006;color:white;font-size:24px}
-.slider-prev{left:12px}.slider-next{right:12px}
-.slider-dots{position:absolute;z-index:5;bottom:20px;left:0;right:0;display:flex;justify-content:center;gap:9px}
-.slider-dot{width:7px;height:7px;border:0;border-radius:20px;background:#888;padding:0}
-.slider-dot.active{width:22px;background:#fff}
-.section{padding:65px 5%}
-.section-heading{text-align:center;margin:0 auto 35px}
-.eyebrow{font-size:9px;letter-spacing:4px;color:#777}
-.section-heading h2{font-size:clamp(24px,5vw,38px);letter-spacing:2px;margin:12px 0;font-weight:900}
-.section-heading p{font-size:12px;color:#777;line-height:1.8;max-width:550px;margin:auto}
-.home-intro{text-align:center;padding:55px 8%;background:#fff}
-.home-intro h2{font-size:22px;letter-spacing:3px}
-.home-intro p{font-size:13px;line-height:1.9;color:#666;max-width:600px;margin:15px auto}
-.statement{background:#050505;color:#fff;text-align:center;padding:40px 15px;font-size:13px;letter-spacing:3px;font-weight:bold}
-.home-feature{padding:55px 5%;text-align:center}
-.home-feature h2{font-size:25px;letter-spacing:3px}
-.home-feature p{font-size:12px;color:#777;line-height:1.8}
-.black-btn{display:inline-block;background:#050505;color:white;border:0;padding:15px 25px;font-size:10px;letter-spacing:2px;cursor:pointer}
+.areloc-slide img{
+ width:100%;height:100%;object-fit:cover;object-position:center
+}
+.areloc-slide:after{
+ content:"";position:absolute;inset:0;
+ background:linear-gradient(90deg,rgba(0,0,0,.05),rgba(0,0,0,.65))
+}
+.areloc-hero-text{
+ position:absolute;z-index:2;right:8%;top:50%;
+ transform:translateY(-50%);width:48%;text-align:left
+}
+.areloc-hero-text small{font-size:11px;letter-spacing:5px}
+.areloc-hero-text h1{
+ font-size:clamp(42px,7vw,92px);font-weight:900;
+ letter-spacing:2px;line-height:.95;margin:18px 0
+}
+.areloc-hero-text p{font-size:11px;letter-spacing:3px;line-height:1.8}
+.white-btn{
+ display:inline-block;background:white;color:#000;padding:15px 25px;
+ margin-top:18px;font-size:11px;letter-spacing:1.5px;font-weight:bold
+}
+.slider-arrow{
+ position:absolute;z-index:4;top:50%;transform:translateY(-50%);
+ width:42px;height:42px;border-radius:50%;
+ border:1px solid #ffffff99;background:#0007;color:white;font-size:25px
+}
+.slider-prev{left:15px}
+.slider-next{right:15px}
+.slider-dots{
+ position:absolute;z-index:5;bottom:20px;left:0;right:0;
+ display:flex;justify-content:center;gap:10px
+}
+.slider-dot{width:8px;height:8px;border:0;border-radius:20px;background:#888;padding:0}
+.slider-dot.active{width:23px;background:#fff}
+
+/* HOME SECTION */
+.home-section{position:relative;overflow:hidden}
+.section-image{width:100%;height:100%;object-fit:cover}
+.section-kicker{
+ font-size:10px;font-weight:bold;letter-spacing:2px;margin-bottom:15px
+}
+.section-title{
+ font-size:clamp(28px,5vw,54px);font-weight:900;
+ line-height:1.02;letter-spacing:-1px;margin:0 0 12px
+}
+.section-copy{font-size:14px;line-height:1.8;margin:0 0 20px}
+.dark-button{
+ display:inline-block;background:#050505;color:#fff;
+ padding:14px 20px;font-size:11px;font-weight:bold;letter-spacing:1px
+}
+
+/* BRAND INTRO */
+.intro-section{
+ min-height:300px;display:grid;grid-template-columns:1fr 1fr;
+ background:#f3f3f3
+}
+.intro-copy{
+ padding:45px 7%;display:flex;flex-direction:column;
+ justify-content:center;align-items:flex-start
+}
+.intro-image{min-height:300px}
+.intro-image img{width:100%;height:100%;object-fit:cover;object-position:center}
+
+/* BRAND STATEMENT */
+.brand-statement{
+ display:grid;grid-template-columns:1fr 1fr;
+ min-height:250px;background:#050505;color:#fff
+}
+.statement-image{min-height:250px}
+.statement-image img{width:100%;height:100%;object-fit:cover}
+.statement-copy{
+ padding:35px 8%;display:flex;flex-direction:column;
+ justify-content:center
+}
+.statement-copy h2{
+ font-size:clamp(27px,4vw,48px);font-weight:900;
+ line-height:1.1;margin:12px 0
+}
+.statement-copy p{font-size:12px;letter-spacing:4px;line-height:1.8}
+
+/* EXPLORE COLLECTION */
+.explore-section{
+ min-height:290px;display:grid;grid-template-columns:1fr 1.15fr;
+ background:#f4f4f4
+}
+.explore-copy{
+ padding:40px 7%;display:flex;flex-direction:column;
+ justify-content:center;align-items:flex-start
+}
+.explore-image{min-height:290px}
+.explore-image img{width:100%;height:100%;object-fit:cover}
+
+/* WHY ARELOC */
+.why-section{
+ min-height:230px;display:grid;grid-template-columns:1fr 1fr;
+ background:#f1f1f1
+}
+.why-copy{padding:30px 7%;display:flex;flex-direction:column;justify-content:center}
+.why-image{min-height:230px}
+.why-image img{width:100%;height:100%;object-fit:cover}
+.why-values{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px}
+.why-value{text-align:center;padding:8px 5px;border-right:1px solid #999}
+.why-value:last-child{border:0}
+.why-symbol{font-size:25px;font-weight:bold}
+.why-value strong{display:block;font-size:10px;letter-spacing:1px;margin-top:8px}
+
+/* HOME END */
+.home-end{
+ min-height:220px;background:#050505;color:#fff;
+ display:flex;align-items:center;justify-content:center;
+ text-align:center;padding:45px 20px;
+ position:relative;overflow:hidden
+}
+.home-end:before{
+ content:"ARELOC";position:absolute;left:0;right:0;top:50%;
+ transform:translateY(-50%);font-size:clamp(80px,18vw,220px);
+ font-weight:900;letter-spacing:8px;color:#ffffff09;white-space:nowrap
+}
+.home-end-content{position:relative;z-index:1}
+.home-end h2{
+ font-size:clamp(28px,5vw,48px);font-style:italic;
+ font-weight:900;margin:0 0 8px
+}
+.home-end p{font-size:13px;letter-spacing:3px;margin:10px 0 18px}
+.home-end .white-btn{margin-top:5px}
+
+/* CATALOG */
 .catalog-top{padding:45px 5% 20px;text-align:center}
+.eyebrow{font-size:9px;letter-spacing:4px;color:#777}
 .catalog-top h1{font-size:30px;letter-spacing:3px;margin:8px 0}
 .catalog-top p{font-size:12px;color:#777;line-height:1.8}
-.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 18px;padding:15px 5% 65px}
+.product-grid{
+ display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+ gap:28px 18px;padding:15px 5% 65px
+}
 .product-card{min-width:0;cursor:pointer}
-.product-card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#f3f3f3}
+.product-card img{
+ width:100%;aspect-ratio:3/4;object-fit:cover;background:#f3f3f3
+}
 .product-info{padding:12px 0}
 .product-name{font-size:11px;font-weight:800;letter-spacing:1px;line-height:1.5}
 .product-price{font-size:12px;margin-top:7px}
-.view-details{display:block;margin-top:12px;width:100%;background:#050505;color:white;border:0;padding:12px 5px;font-size:9px;letter-spacing:1.5px;cursor:pointer}
+.view-details{
+ display:block;margin-top:12px;width:100%;background:#050505;
+ color:white;border:0;padding:12px 5px;font-size:9px;letter-spacing:1.5px
+}
+
+/* DETAIL */
 .detail-wrap{padding:35px 5% 65px;max-width:1100px;margin:auto}
-.back-button{border:0;background:none;padding:10px 0;margin-bottom:20px;font-size:11px;letter-spacing:1px;cursor:pointer}
+.back-button{
+ border:0;background:none;padding:10px 0;margin-bottom:20px;
+ font-size:11px;letter-spacing:1px
+}
 .detail-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px}
-.main-photo{width:100%;aspect-ratio:3/4;object-fit:contain;background:#f6f6f6}
-.thumb-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.thumb-grid button{border:1px solid #eee;padding:0;background:#f7f7f7}
-.thumb-grid button.selected{border:2px solid #000}
-.thumb-grid img{width:100%;aspect-ratio:1/1;object-fit:cover}
+.product-gallery{width:100%;overflow:hidden}
+.product-slider{
+ width:100%;aspect-ratio:3/4;overflow:hidden;background:#f5f5f5;touch-action:pan-y
+}
+.product-slides{display:flex;width:100%;height:100%;transition:transform .35s ease}
+.product-slides img{
+ flex:0 0 100%;width:100%;height:100%;object-fit:contain;
+ background:#f5f5f5;user-select:none;-webkit-user-drag:none
+}
+.product-dots{display:flex;justify-content:center;align-items:center;gap:8px;padding:15px 0 5px}
+.product-dot{width:7px;height:7px;border:0;border-radius:50%;padding:0;background:#ccc}
+.product-dot.active{width:20px;border-radius:10px;background:#000}
 .detail-info{padding-top:10px}
 .detail-tag{font-size:9px;letter-spacing:3px;color:#777}
 .detail-info h1{font-size:27px;letter-spacing:1px;line-height:1.25;margin:12px 0}
@@ -86,9 +226,16 @@ img{display:block;max-width:100%}
 .qty-control{display:flex;align-items:center;gap:15px}
 .qty-control button{width:36px;height:36px;border:1px solid #ddd;background:white}
 .qty-control span{min-width:20px;text-align:center}
-.buy-button{width:100%;margin-top:25px;padding:17px;background:#050505;color:#fff;border:0;font-size:11px;letter-spacing:2px;font-weight:bold}
+.buy-button{
+ width:100%;margin-top:25px;padding:17px;background:#050505;
+ color:#fff;border:0;font-size:11px;letter-spacing:2px;font-weight:bold
+}
 .buy-note{font-size:10px;color:#888;line-height:1.7;margin-top:12px}
-.about-content,.contact-content{max-width:800px;margin:auto;text-align:center;padding:65px 7% 85px}
+
+/* ABOUT & CONTACT */
+.about-content,.contact-content{
+ max-width:800px;margin:auto;text-align:center;padding:65px 7% 85px
+}
 .about-content h1,.contact-content h1{font-size:32px;letter-spacing:3px}
 .about-content p,.contact-content p{font-size:13px;line-height:2;color:#666}
 .about-values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:35px}
@@ -96,28 +243,72 @@ img{display:block;max-width:100%}
 .value-box strong{font-size:11px;letter-spacing:1px}
 .value-box p{font-size:10px}
 .contact-card{background:#f5f5f5;padding:30px 15px;margin:25px auto;max-width:430px}
-.whatsapp-button{display:inline-block;background:#050505;color:white;padding:16px 25px;font-size:11px;letter-spacing:2px}
+.whatsapp-button{
+ display:inline-block;background:#050505;color:white;
+ padding:16px 25px;font-size:11px;letter-spacing:2px
+}
+
+/* FOOTER */
 footer{background:#050505;color:#fff;padding:40px 5% 25px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
 .footer-brand{font-size:24px;font-weight:900;letter-spacing:4px}
 footer p{font-size:11px;color:#aaa;line-height:1.9}
 footer h3{font-size:10px;letter-spacing:2px}
 .footer-links{display:flex;flex-direction:column;gap:12px}
-.footer-links button{padding:0;text-align:left;border:0;background:none;color:#aaa;font-size:11px}
-.copyright{text-align:center;border-top:1px solid #333;margin-top:30px;padding-top:20px;color:#888;font-size:9px;letter-spacing:1px}
-@media(max-width:850px){.nav{gap:12px}.nav button{font-size:9px}.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.footer-links button{
+ padding:0;text-align:left;border:0;background:none;color:#aaa;font-size:11px
+}
+.copyright{
+ text-align:center;border-top:1px solid #333;margin-top:30px;
+ padding-top:20px;color:#888;font-size:9px;letter-spacing:1px
+}
+
+/* RESPONSIVE */
+@media(max-width:850px){
+ .nav{gap:12px}
+ .nav button{font-size:9px}
+ .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
 @media(max-width:600px){
  .topbar{height:62px;padding:0 18px}
  .brand{font-size:24px}
  .nav{display:none}
  .menu-button{padding:9px 12px}
- .mobile-nav.open{display:flex}
  .areloc-slider{height:470px;max-height:76vh}
- .areloc-hero-text{bottom:65px}
- .areloc-hero-text h1{font-size:48px}
+ .areloc-slide img{object-position:center}
+ .areloc-slide:after{
+  background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.72))
+ }
+ .areloc-hero-text{
+  left:9%;right:9%;top:auto;bottom:65px;
+  transform:none;width:auto;text-align:center
+ }
+ .areloc-hero-text h1{font-size:48px;letter-spacing:3px}
  .areloc-hero-text p{font-size:9px;letter-spacing:1.5px}
- .section{padding:45px 5%}
- .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px;padding:10px 4% 50px}
+ .areloc-hero-text small{font-size:9px;letter-spacing:3px}
+ .slider-arrow{width:34px;height:34px;font-size:21px}
+ .intro-section,.brand-statement,.explore-section,.why-section{
+  grid-template-columns:1fr
+ }
+ .intro-copy{padding:38px 7%}
+ .intro-image{height:270px;min-height:0}
+ .statement-image{height:220px;min-height:0}
+ .statement-copy{padding:32px 7%;text-align:center}
+ .statement-copy h2{font-size:32px}
+ .explore-copy{padding:38px 7%}
+ .explore-image{height:240px;min-height:0}
+ .why-copy{padding:30px 6%}
+ .why-image{height:190px;min-height:0}
+ .why-values{margin-top:15px}
+ .why-symbol{font-size:22px}
+ .home-end{min-height:210px}
+ .home-end h2{font-size:29px}
+ .home-end p{font-size:10px;letter-spacing:2px}
+ .catalog-top{padding:35px 5% 18px}
+ .product-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px 12px;padding:10px 4% 50px
+ }
  .product-name{font-size:10px}
  .product-price{font-size:11px}
  .view-details{font-size:8px;padding:12px 3px}
@@ -130,10 +321,14 @@ footer h3{font-size:10px;letter-spacing:2px}
 }
 </style>
 </head>
+
 <body>
 <div id="app">
+
 <header class="topbar">
- <a class="brand" href="#" onclick="showPage('home');return false">ARELOC<small>OFFICIAL STORE</small></a>
+ <a class="brand" href="#" onclick="showPage('home');return false">
+  ARELOC<small>OFFICIAL STORE</small>
+ </a>
  <nav class="nav">
   <button onclick="showPage('home')">HOME</button>
   <button onclick="showPage('katalog')">KATALOG</button>
@@ -142,6 +337,7 @@ footer h3{font-size:10px;letter-spacing:2px}
  </nav>
  <button class="menu-button" onclick="toggleMenu()">MENU ☰</button>
 </header>
+
 <nav class="mobile-nav" id="mobileNav">
  <button onclick="showPage('home')">HOME</button>
  <button onclick="showPage('katalog')">KATALOG PRODUK</button>
@@ -150,23 +346,42 @@ footer h3{font-size:10px;letter-spacing:2px}
 </nav>
 
 <main>
+
+<!-- HOME -->
 <section class="page active" id="home">
+
+ <!-- 1. HERO BANNER -->
  <div class="areloc-slider" id="arelocSlider">
   <div class="areloc-slides" id="arelocSlides">
-   <div class="areloc-slide"><img src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC header 1"></div>
-   <div class="areloc-slide"><img src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC header 2"></div>
-   <div class="areloc-slide"><img src="https://files.catbox.moe/uaw67i.jpg" alt="ARELOC header 3"></div>
-   <div class="areloc-slide"><img src="https://files.catbox.moe/0x44q5.jpg" alt="ARELOC header 4"></div>
-   <div class="areloc-slide"><img src="https://files.catbox.moe/ypo2yc.jpg" alt="ARELOC header 5"></div>
+   <div class="areloc-slide">
+    <img src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Banner 1">
+   </div>
+   <div class="areloc-slide">
+    <img src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Banner 2">
+   </div>
+   <div class="areloc-slide">
+    <img src="https://files.catbox.moe/uaw67i.jpg" alt="ARELOC Banner 3">
+   </div>
+   <div class="areloc-slide">
+    <img src="https://files.catbox.moe/0x44q5.jpg" alt="ARELOC Banner 4">
+   </div>
+   <div class="areloc-slide">
+    <img src="https://files.catbox.moe/ypo2yc.jpg" alt="ARELOC Banner 5">
+   </div>
   </div>
+
   <div class="areloc-hero-text">
-   <small>WELCOME TO</small>
-   <h1>ARELOC</h1>
-   <p>TRUST THE PROCESS. GOOD THINGS TAKE TIME.</p>
-   <a href="#" class="white-btn" onclick="showPage('katalog');return false">EXPLORE COLLECTION</a>
+   <small>ARELOC — OFFICIAL STORE</small>
+   <h1>TRUST<br>THE PROCESS.</h1>
+   <p>GOOD THINGS TAKE TIME.</p>
+   <a href="#" class="white-btn" onclick="showPage('katalog');return false">
+    SHOP NOW →
+   </a>
   </div>
-  <button class="slider-arrow slider-prev" onclick="moveSlide(-1)" aria-label="Foto sebelumnya">‹</button>
-  <button class="slider-arrow slider-next" onclick="moveSlide(1)" aria-label="Foto berikutnya">›</button>
+
+  <button class="slider-arrow slider-prev" onclick="moveSlide(-1)">‹</button>
+  <button class="slider-arrow slider-next" onclick="moveSlide(1)">›</button>
+
   <div class="slider-dots" id="sliderDots">
    <button class="slider-dot active" onclick="goSlide(0)"></button>
    <button class="slider-dot" onclick="goSlide(1)"></button>
@@ -175,20 +390,97 @@ footer h3{font-size:10px;letter-spacing:2px}
    <button class="slider-dot" onclick="goSlide(4)"></button>
   </div>
  </div>
- <div class="home-intro">
-  <div class="eyebrow">ARELOC — OFFICIAL STORE</div>
-  <h2>WEAR YOUR IDENTITY</h2>
-  <p>Streetwear untuk kamu yang memiliki karakter, percaya diri, dan berani mengekspresikan diri. Temukan gaya yang menjadi identitasmu bersama ARELOC.</p>
- </div>
- <div class="statement">TRUST THE PROCESS. GOOD THINGS TAKE TIME.</div>
- <div class="home-feature">
-  <div class="eyebrow">DISCOVER ARELOC</div>
-  <h2>FIND YOUR STYLE</h2>
-  <p>Jelajahi koleksi ARELOC dan temukan pilihan yang paling mewakili karakter kamu.</p>
-  <button class="black-btn" onclick="showPage('katalog')">LIHAT SEMUA PRODUK</button>
- </div>
+
+ <!-- 2. BRAND INTRODUCTION -->
+ <section class="home-section intro-section">
+  <div class="intro-copy">
+   <div class="section-kicker">01 — BRAND INTRODUCTION</div>
+   <h2 class="section-title">MORE THAN<br>JUST A T-SHIRT</h2>
+   <p class="section-copy">
+    Streetwear is an expression of identity.
+   </p>
+   <a href="#" class="dark-button" onclick="showPage('tentang');return false">
+    LEARN MORE →
+   </a>
+  </div>
+  <div class="intro-image">
+   <img src="https://files.catbox.moe/7agje5.webp"
+        alt="ARELOC Brand Introduction" loading="lazy">
+  </div>
+ </section>
+
+ <!-- 3. BRAND STATEMENT -->
+ <section class="home-section brand-statement">
+  <div class="statement-image">
+   <img src="https://files.catbox.moe/oa18nr.png"
+        alt="ARELOC Streetwear Identity" loading="lazy">
+  </div>
+  <div class="statement-copy">
+   <div class="section-kicker">02 — BRAND STATEMENT</div>
+   <h2>TRUST THE PROCESS.</h2>
+   <p>GOOD THINGS TAKE TIME.</p>
+  </div>
+ </section>
+
+ <!-- 4. EXPLORE COLLECTION -->
+ <section class="home-section explore-section">
+  <div class="explore-copy">
+   <div class="section-kicker">03 — EXPLORE COLLECTION</div>
+   <h2 class="section-title">FIND YOUR STYLE</h2>
+   <p class="section-copy">
+    Discover your identity with ARELOC.
+   </p>
+   <a href="#" class="dark-button" onclick="showPage('katalog');return false">
+    VIEW ALL COLLECTION →
+   </a>
+  </div>
+  <div class="explore-image">
+   <img src="https://files.catbox.moe/oymgva.png"
+        alt="Explore ARELOC Collection" loading="lazy">
+  </div>
+ </section>
+
+ <!-- 5. WHY ARELOC -->
+ <section class="home-section why-section">
+  <div class="why-copy">
+   <div class="section-kicker">04 — WHY ARELOC</div>
+   <h2 class="section-title" style="font-size:30px">BUILT WITH CHARACTER</h2>
+
+   <div class="why-values">
+    <div class="why-value">
+     <div class="why-symbol">◇</div>
+     <strong>IDENTITY</strong>
+    </div>
+    <div class="why-value">
+     <div class="why-symbol">✧</div>
+     <strong>QUALITY</strong>
+    </div>
+    <div class="why-value">
+     <div class="why-symbol">◎</div>
+     <strong>CULTURE</strong>
+    </div>
+   </div>
+  </div>
+  <div class="why-image">
+   <img src="https://files.catbox.moe/sgpzwg.png"
+        alt="ARELOC Product Detail" loading="lazy">
+  </div>
+ </section>
+
+ <!-- 6. HOME CLOSING -->
+ <section class="home-end">
+  <div class="home-end-content">
+   <h2>WELCOME TO ARELOC</h2>
+   <p>Your style. Your identity.</p>
+   <a href="#" class="white-btn" onclick="showPage('katalog');return false">
+    SHOP ARELOC →
+   </a>
+  </div>
+ </section>
+
 </section>
 
+<!-- KATALOG -->
 <section class="page" id="katalog">
  <div class="catalog-top">
   <div class="eyebrow">ARELOC — OFFICIAL STORE</div>
@@ -198,73 +490,135 @@ footer h3{font-size:10px;letter-spacing:2px}
  <div class="product-grid" id="productGrid"></div>
 </section>
 
+<!-- DETAIL PRODUK -->
 <section class="page" id="detail">
  <div class="detail-wrap">
-  <button class="back-button" onclick="showPage('katalog')">← KEMBALI KE KATALOG</button>
+  <button class="back-button" onclick="showPage('katalog')">
+   ← KEMBALI KE KATALOG
+  </button>
+
   <div class="detail-grid">
-   <div>
-    <img class="main-photo" id="detailMainPhoto" src="" alt="Foto produk ARELOC">
-    <div class="thumb-grid" id="detailThumbs"></div>
+   <div class="product-gallery">
+    <div class="product-slider" id="productSlider">
+     <div class="product-slides" id="productSlides"></div>
+    </div>
+    <div class="product-dots" id="productDots"></div>
    </div>
+
    <div class="detail-info">
     <div class="detail-tag">ARELOC — OFFICIAL STORE</div>
     <h1 id="detailName"></h1>
     <div class="detail-price" id="detailPrice"></div>
-    <p class="detail-description">Dirancang untuk mengekspresikan karakter dan identitas. Pilih ukuran yang sesuai, lalu pesan langsung melalui WhatsApp ARELOC Official Store.</p>
+
+    <p class="detail-description">
+     Dirancang untuk mengekspresikan karakter dan identitas.
+     Pilih ukuran yang sesuai, lalu pesan langsung melalui
+     WhatsApp ARELOC Official Store.
+    </p>
+
     <span class="field-label">PILIH UKURAN</span>
     <div class="size-options">
      <button onclick="chooseSize('M')" class="selected">M</button>
      <button onclick="chooseSize('L')">L</button>
      <button onclick="chooseSize('XL')">XL</button>
     </div>
+
     <span class="field-label">JUMLAH</span>
     <div class="qty-control">
      <button onclick="changeQty(-1)">−</button>
      <span id="quantity">1</span>
      <button onclick="changeQty(1)">+</button>
     </div>
-    <button class="buy-button" onclick="orderWhatsApp()">BELI SEKARANG — WHATSAPP</button>
-    <p class="buy-note">Pesanan akan diteruskan ke WhatsApp ARELOC. Silakan konfirmasi stok, ukuran, dan detail pengiriman melalui chat.</p>
+
+    <button class="buy-button" onclick="orderWhatsApp()">
+     BELI SEKARANG — WHATSAPP
+    </button>
+
+    <p class="buy-note">
+     Pesanan akan diteruskan ke WhatsApp ARELOC.
+     Silakan konfirmasi stok, ukuran, dan detail pengiriman melalui chat.
+    </p>
    </div>
   </div>
  </div>
 </section>
 
+<!-- TENTANG KAMI -->
 <section class="page" id="tentang">
  <div class="about-content">
   <div class="eyebrow">GET TO KNOW US</div>
   <h1>ABOUT ARELOC</h1>
-  <p>ARELOC adalah brand streetwear yang hadir untuk mereka yang percaya bahwa gaya adalah bagian dari identitas. Kami mengangkat desain yang berkarakter, ekspresif, dan dekat dengan semangat anak muda.</p>
-  <p>Setiap koleksi membawa pesan tentang proses, kepercayaan diri, dan keberanian untuk menjadi diri sendiri.</p>
-  <div class="statement">TRUST THE PROCESS. GOOD THINGS TAKE TIME.</div>
+
+  <p>
+   ARELOC adalah brand streetwear yang hadir untuk mereka
+   yang percaya bahwa gaya adalah bagian dari identitas.
+   Kami mengangkat desain yang berkarakter, ekspresif,
+   dan dekat dengan semangat anak muda.
+  </p>
+
+  <p>
+   Setiap koleksi membawa pesan tentang proses,
+   kepercayaan diri, dan keberanian untuk menjadi diri sendiri.
+  </p>
+
+  <div class="statement">
+   TRUST THE PROCESS. GOOD THINGS TAKE TIME.
+  </div>
+
   <div class="about-values">
-   <div class="value-box"><strong>IDENTITY</strong><p>Ekspresikan karakter diri.</p></div>
-   <div class="value-box"><strong>CONFIDENCE</strong><p>Percaya pada pilihanmu.</p></div>
-   <div class="value-box"><strong>PROCESS</strong><p>Hargai setiap perjalanan.</p></div>
+   <div class="value-box">
+    <strong>IDENTITY</strong>
+    <p>Ekspresikan karakter diri.</p>
+   </div>
+   <div class="value-box">
+    <strong>CONFIDENCE</strong>
+    <p>Percaya pada pilihanmu.</p>
+   </div>
+   <div class="value-box">
+    <strong>PROCESS</strong>
+    <p>Hargai setiap perjalanan.</p>
+   </div>
   </div>
  </div>
 </section>
 
+<!-- KONTAK -->
 <section class="page" id="kontak">
  <div class="contact-content">
   <div class="eyebrow">WE ARE HERE TO HELP</div>
   <h1>CONTACT ARELOC</h1>
-  <p>Untuk pertanyaan produk, ketersediaan ukuran, pemesanan, dan informasi lainnya, silakan hubungi kami melalui WhatsApp.</p>
+
+  <p>
+   Untuk pertanyaan produk, ketersediaan ukuran,
+   pemesanan, dan informasi lainnya, silakan hubungi
+   kami melalui WhatsApp.
+  </p>
+
   <div class="contact-card">
    <h3>ARELOC CUSTOMER SERVICE</h3>
    <p>Hubungi kami melalui WhatsApp untuk informasi dan pemesanan.</p>
-   <a class="whatsapp-button" href="https://wa.me/6285196674994" target="_blank" rel="noopener">CHAT VIA WHATSAPP</a>
+   <a class="whatsapp-button"
+      href="https://wa.me/6285196674994"
+      target="_blank" rel="noopener">
+    CHAT VIA WHATSAPP
+   </a>
   </div>
  </div>
 </section>
+
 </main>
 
+<!-- FOOTER -->
 <footer>
  <div class="footer-grid">
   <div>
    <div class="footer-brand">ARELOC</div>
-   <p>OFFICIAL STORE<br>TRUST THE PROCESS. GOOD THINGS TAKE TIME.</p>
+   <p>
+    OFFICIAL STORE<br>
+    TRUST THE PROCESS. GOOD THINGS TAKE TIME.
+   </p>
   </div>
+
   <div>
    <h3>EXPLORE</h3>
    <div class="footer-links">
@@ -273,16 +627,22 @@ footer h3{font-size:10px;letter-spacing:2px}
     <button onclick="showPage('tentang')">Tentang Kami</button>
    </div>
   </div>
+
   <div>
    <h3>HELP</h3>
    <div class="footer-links">
     <button onclick="showPage('kontak')">Hubungi Kami</button>
-    <a href="https://wa.me/6285196674994" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://wa.me/6285196674994"
+       target="_blank" rel="noopener">WhatsApp</a>
    </div>
   </div>
  </div>
- <div class="copyright">© 2026 ARELOC OFFICIAL STORE. ALL RIGHTS RESERVED.</div>
+
+ <div class="copyright">
+  © 2026 ARELOC OFFICIAL STORE. ALL RIGHTS RESERVED.
+ </div>
 </footer>
+
 </div>
 
 <script>
@@ -290,26 +650,26 @@ const WA_NUMBER="6285196674994";
 const PRICE=158000;
 
 const products=[
- {name:"MASTER ZEN TEE",images:["https://files.catbox.moe/oa18nr.png","https://files.catbox.moe/kvs69e.png","https://files.catbox.moe/xcw2by.jpg","https://files.catbox.moe/m2c54f.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/wb4bbu.png"]},
- {name:"ARELOC ORIGINAL",images:["https://files.catbox.moe/7agje5.webp","https://files.catbox.moe/bfwogp.webp","https://files.catbox.moe/agpjfp.png","https://files.catbox.moe/z2af5u.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/0g1gcr.webp"]},
- {name:"ARELOC IDENTITY",images:["https://files.catbox.moe/oymgva.png","https://files.catbox.moe/i2mzln.png","https://files.catbox.moe/7bpgnz.png","https://files.catbox.moe/ks69s6.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/sv9tsu.png"]},
- {name:"ARELOC ARCADE",images:["https://i.postimg.cc/X7z1SWCd/Desain-tanpa-judul-20261025-202008-0000.png","https://files.catbox.moe/3o80ts.webp","https://i.postimg.cc/J42YV8kX/Meta-AI-863185546-2378171602948192-2127709932747747172-n-20261025-220841.jpg","https://i.postimg.cc/FsRCBz7J/Desain-tanpa-judul-20261025-215256-0000.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/wcjj4g.jpg"]},
- {name:"SURFING",images:["https://files.catbox.moe/veus0r.jpg","https://files.catbox.moe/1h6aek.jpg","https://files.catbox.moe/oy29ju.jpg","https://files.catbox.moe/kp0eco.jpg"]},
- {name:"LORD OF ISLAND",images:["https://files.catbox.moe/e6h8hs.jpg","https://files.catbox.moe/3tmu9v.jpg","https://files.catbox.moe/bfpekw.jpg","https://files.catbox.moe/ngr08s.jpg"]},
- {name:"GOOD ISLAND",images:["https://files.catbox.moe/4ekmvn.jpg","https://files.catbox.moe/dt8niq.jpg","https://files.catbox.moe/gzvbr7.jpg","https://files.catbox.moe/ijfj7e.jpg"]},
- {name:"EASTER ISLAND",images:["https://files.catbox.moe/th1er5.jpg","https://files.catbox.moe/7d9ksd.jpg","https://files.catbox.moe/038j89.jpg","https://files.catbox.moe/d7daba.jpg"]},
- {name:"DROP 01",images:["https://files.catbox.moe/ureqs5.jpg","https://files.catbox.moe/d4n8cy.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/bh71pb.jpg"]},
- {name:"DROP 02",images:["https://files.catbox.moe/p1ana0.jpg","https://files.catbox.moe/vrbesy.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/p59qrb.jpg"]},
- {name:"DROP 03",images:["https://files.catbox.moe/iophn4.jpg","https://files.catbox.moe/o974mb.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/brgdmd.jpg"]},
- {name:"DROP 04",images:["https://files.catbox.moe/bmcha5.jpg","https://files.catbox.moe/dq0j8z.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/psc4ne.jpg"]},
- {name:"ARELOC VITAGEN RETRO",images:["https://files.catbox.moe/o37tsk.webp","https://files.catbox.moe/oixu4g.jpg","https://files.catbox.moe/b2xlbd.jpg"]},
- {name:"ARELOC NO MERCY",images:["https://files.catbox.moe/ns0nye.webp","https://files.catbox.moe/t2axzk.jpg","https://files.catbox.moe/e97pvr.webp"]},
- {name:"ARELOC UNBOUND",images:["https://files.catbox.moe/meuhb9.jpg","https://files.catbox.moe/fnm6cm.jpg","https://files.catbox.moe/9jxate.jpg"]},
- {name:"ARELOC ESCAPE",images:["https://files.catbox.moe/wvz8ny.jpg","https://files.catbox.moe/u7zylg.jpg","https://files.catbox.moe/n4vzi9.webp"]},
- {name:"ARELOC BMX",images:["https://files.catbox.moe/wzn5jk.jpg","https://files.catbox.moe/ie18bn.jpg","https://files.catbox.moe/hp01ks.webp"]},
- {name:"ARELOC WINGED RIDE",images:["https://files.catbox.moe/3zhm6v.jpg","https://files.catbox.moe/9bc4p7.jpg","https://files.catbox.moe/bevds0.webp"]},
- {name:"GAMER RETRO",images:["https://files.catbox.moe/ohjz1t.webp","https://files.catbox.moe/5lawaa.webp","https://files.catbox.moe/aoa8t0.webp","https://files.catbox.moe/egn52o.webp","https://files.catbox.moe/re7llx.webp","https://files.catbox.moe/se35fg.webp"]},
- {name:"ARELOC ON GAME",images:["https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_872250258_2485232432001403_1163174335895665898_n_20261030_215009.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_877609723_1082413618112906_8457328235178106399_n_20261030_215015.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_876551603_1060239416992560_7788849580095933902_n_20261030_215146.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_881687910_1006723919114251_5241633869512828322_n_20261030_215022.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_858618607_887375927720596_2208322653680019690_n_20261030_215029.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376172/Meta_AI_872250239_1109807298606255_5802110478454215812_n_20261030_215310.webp.jpg"]}
+{name:"MASTER ZEN TEE",images:["https://files.catbox.moe/oa18nr.png","https://files.catbox.moe/kvs69e.png","https://files.catbox.moe/xcw2by.jpg","https://files.catbox.moe/m2c54f.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/wb4bbu.png"]},
+{name:"ARELOC ORIGINAL",images:["https://files.catbox.moe/7agje5.webp","https://files.catbox.moe/bfwogp.webp","https://files.catbox.moe/agpjfp.png","https://files.catbox.moe/z2af5u.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/0g1gcr.webp"]},
+{name:"ARELOC IDENTITY",images:["https://files.catbox.moe/oymgva.png","https://files.catbox.moe/i2mzln.png","https://files.catbox.moe/7bpgnz.png","https://files.catbox.moe/ks69s6.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/sv9tsu.png"]},
+{name:"ARELOC ARCADE",images:["https://i.postimg.cc/X7z1SWCd/Desain-tanpa-judul-20261025-202008-0000.png","https://files.catbox.moe/3o80ts.webp","https://i.postimg.cc/J42YV8kX/Meta-AI-863185546-2378171602948192-2127709932747747172-n-20261025-220841.jpg","https://i.postimg.cc/FsRCBz7J/Desain-tanpa-judul-20261025-215256-0000.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/wcjj4g.jpg"]},
+{name:"SURFING",images:["https://files.catbox.moe/veus0r.jpg","https://files.catbox.moe/1h6aek.jpg","https://files.catbox.moe/oy29ju.jpg","https://files.catbox.moe/kp0eco.jpg"]},
+{name:"LORD OF ISLAND",images:["https://files.catbox.moe/e6h8hs.jpg","https://files.catbox.moe/3tmu9v.jpg","https://files.catbox.moe/bfpekw.jpg","https://files.catbox.moe/ngr08s.jpg"]},
+{name:"GOOD ISLAND",images:["https://files.catbox.moe/4ekmvn.jpg","https://files.catbox.moe/dt8niq.jpg","https://files.catbox.moe/gzvbr7.jpg","https://files.catbox.moe/ijfj7e.jpg"]},
+{name:"EASTER ISLAND",images:["https://files.catbox.moe/th1er5.jpg","https://files.catbox.moe/7d9ksd.jpg","https://files.catbox.moe/038j89.jpg","https://files.catbox.moe/d7daba.jpg"]},
+{name:"DROP 01",images:["https://files.catbox.moe/ureqs5.jpg","https://files.catbox.moe/d4n8cy.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/bh71pb.jpg"]},
+{name:"DROP 02",images:["https://files.catbox.moe/p1ana0.jpg","https://files.catbox.moe/vrbesy.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/p59qrb.jpg"]},
+{name:"DROP 03",images:["https://files.catbox.moe/iophn4.jpg","https://files.catbox.moe/o974mb.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/brgdmd.jpg"]},
+{name:"DROP 04",images:["https://files.catbox.moe/bmcha5.jpg","https://files.catbox.moe/dq0j8z.jpg","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/psc4ne.jpg"]},
+{name:"ARELOC VITAGEN RETRO",images:["https://files.catbox.moe/o37tsk.webp","https://files.catbox.moe/oixu4g.jpg","https://files.catbox.moe/b2xlbd.jpg"]},
+{name:"ARELOC NO MERCY",images:["https://files.catbox.moe/ns0nye.webp","https://files.catbox.moe/t2axzk.jpg","https://files.catbox.moe/e97pvr.webp"]},
+{name:"ARELOC UNBOUND",images:["https://files.catbox.moe/meuhb9.jpg","https://files.catbox.moe/fnm6cm.jpg","https://files.catbox.moe/9jxate.jpg"]},
+{name:"ARELOC ESCAPE",images:["https://files.catbox.moe/wvz8ny.jpg","https://files.catbox.moe/u7zylg.jpg","https://files.catbox.moe/n4vzi9.webp"]},
+{name:"ARELOC BMX",images:["https://files.catbox.moe/wzn5jk.jpg","https://files.catbox.moe/ie18bn.jpg","https://files.catbox.moe/hp01ks.webp"]},
+{name:"ARELOC WINGED RIDE",images:["https://files.catbox.moe/3zhm6v.jpg","https://files.catbox.moe/9bc4p7.jpg","https://files.catbox.moe/bevds0.webp"]},
+{name:"GAMER RETRO",images:["https://files.catbox.moe/ohjz1t.webp","https://files.catbox.moe/5lawaa.webp","https://files.catbox.moe/aoa8t0.webp","https://files.catbox.moe/egn52o.webp","https://files.catbox.moe/re7llx.webp","https://files.catbox.moe/se35fg.webp"]},
+{name:"ARELOC ON GAME",images:["https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_872250258_2485232432001403_1163174335895665898_n_20261030_215009.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_877609723_1082413618112906_8457328235178106399_n_20261030_215015.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_876551603_1060239416992560_7788849580095933902_n_20261030_215146.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_881687910_1006723919114251_5241633869512828322_n_20261030_215022.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_858618607_887375927720596_2208322653680019690_n_20261030_215029.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376172/Meta_AI_872250239_1109807298606255_5802110478454215812_n_20261030_215310.webp.jpg"]}
 ];
 
 let currentProduct=0;
@@ -317,9 +677,13 @@ let currentSize="M";
 let quantity=1;
 let currentSlide=0;
 let slideTimer=null;
+let productPhotoIndex=0;
+let productTouchStart=0;
 
 function rupiah(value){
- return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
+ return new Intl.NumberFormat("id-ID",{
+  style:"currency",currency:"IDR",maximumFractionDigits:0
+ }).format(value);
 }
 
 function toggleMenu(){
@@ -327,11 +691,16 @@ function toggleMenu(){
 }
 
 function showPage(id){
- document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
+ document.querySelectorAll(".page").forEach(page=>{
+  page.classList.remove("active");
+ });
+
  const target=document.getElementById(id);
  if(target)target.classList.add("active");
+
  document.getElementById("mobileNav").classList.remove("open");
  window.scrollTo({top:0,behavior:"smooth"});
+
  if(id!=="detail"){
   history.replaceState({page:id},"","#"+id);
  }
@@ -339,13 +708,17 @@ function showPage(id){
 
 function renderProducts(){
  const grid=document.getElementById("productGrid");
+
  grid.innerHTML=products.map((product,index)=>`
   <article class="product-card" onclick="openProduct(${index})">
    <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
    <div class="product-info">
     <div class="product-name">${product.name}</div>
     <div class="product-price">${rupiah(PRICE)}</div>
-    <button class="view-details" type="button" onclick="event.stopPropagation();openProduct(${index})">VIEW DETAILS</button>
+    <button class="view-details" type="button"
+     onclick="event.stopPropagation();openProduct(${index})">
+     VIEW DETAILS
+    </button>
    </div>
   </article>
  `).join("");
@@ -355,35 +728,53 @@ function openProduct(index){
  currentProduct=index;
  currentSize="M";
  quantity=1;
- const product=products[index];
- document.getElementById("detailName").textContent=product.name;
+
+ document.getElementById("detailName").textContent=products[index].name;
  document.getElementById("detailPrice").textContent=rupiah(PRICE);
  document.getElementById("quantity").textContent=quantity;
+
  document.querySelectorAll(".size-options button").forEach(button=>{
   button.classList.toggle("selected",button.textContent===currentSize);
  });
+
  renderGallery();
  showPage("detail");
  history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
 }
 
+/* GALERI FOTO PRODUK */
 function renderGallery(){
  const product=products[currentProduct];
- document.getElementById("detailMainPhoto").src=product.images[0];
- document.getElementById("detailMainPhoto").alt=product.name;
- document.getElementById("detailThumbs").innerHTML=product.images.map((url,index)=>`
-  <button type="button" class="${index===0?"selected":""}" onclick="changePhoto(${index})">
-   <img src="${url}" alt="${product.name} foto ${index+1}" loading="lazy">
-  </button>
- `).join("");
+ productPhotoIndex=0;
+
+ const slides=document.getElementById("productSlides");
+ const dots=document.getElementById("productDots");
+
+ slides.innerHTML=product.images.map((url,index)=>
+  `<img src="${url}" alt="${product.name} foto ${index+1}" draggable="false">`
+ ).join("");
+
+ dots.innerHTML=product.images.map((url,index)=>
+  `<button type="button" class="product-dot ${index===0?"active":""}"
+   onclick="goProductPhoto(${index})" aria-label="Foto ${index+1}"></button>`
+ ).join("");
+
+ updateProductGallery();
 }
 
-function changePhoto(index){
- const product=products[currentProduct];
- document.getElementById("detailMainPhoto").src=product.images[index];
- document.querySelectorAll(".thumb-grid button").forEach((button,i)=>{
-  button.classList.toggle("selected",i===index);
+function updateProductGallery(){
+ const slides=document.getElementById("productSlides");
+ slides.style.transform="translateX(-"+(productPhotoIndex*100)+"%)";
+
+ document.querySelectorAll(".product-dot").forEach((dot,index)=>{
+  dot.classList.toggle("active",index===productPhotoIndex);
  });
+}
+
+function goProductPhoto(index){
+ const total=products[currentProduct].images.length;
+ productPhotoIndex=(index+total)%total;
+ updateProductGallery();
 }
 
 function chooseSize(size){
@@ -401,34 +792,56 @@ function changeQty(amount){
 function orderWhatsApp(){
  const product=products[currentProduct];
  const total=PRICE*quantity;
+
  const message=
- `Halo ARELOC, saya ingin memesan produk:%0A%0A`+
- `Produk: ${encodeURIComponent(product.name)}%0A`+
- `Harga: ${encodeURIComponent(rupiah(PRICE))}%0A`+
- `Ukuran: ${currentSize}%0A`+
- `Jumlah: ${quantity}%0A`+
- `Total: ${encodeURIComponent(rupiah(total))}%0A%0A`+
+ `Halo ARELOC, saya ingin memesan produk:\n\n`+
+ `Produk: ${product.name}\n`+
+ `Harga: ${rupiah(PRICE)}\n`+
+ `Ukuran: ${currentSize}\n`+
+ `Jumlah: ${quantity}\n`+
+ `Total: ${rupiah(total)}\n\n`+
  `Mohon informasi stok dan cara pengiriman. Terima kasih.`;
- window.open("https://wa.me/"+WA_NUMBER+"?text="+message,"_blank");
+
+ window.open(
+  "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),
+  "_blank"
+ );
 }
 
-/* HEADER SLIDER */
+/* GESER GALERI PRODUK DI HP */
+const productSlider=document.getElementById("productSlider");
+
+productSlider.addEventListener("touchstart",event=>{
+ productTouchStart=event.touches[0].clientX;
+},{passive:true});
+
+productSlider.addEventListener("touchend",event=>{
+ const distance=event.changedTouches[0].clientX-productTouchStart;
+ if(Math.abs(distance)>40){
+  goProductPhoto(productPhotoIndex+(distance<0?1:-1));
+ }
+},{passive:true});
+
+/* SLIDER HEADER */
 function updateSlide(){
  const slides=document.getElementById("arelocSlides");
- if(!slides)return;
  slides.style.transform="translateX(-"+(currentSlide*100)+"%)";
+
  document.querySelectorAll(".slider-dot").forEach((dot,index)=>{
   dot.classList.toggle("active",index===currentSlide);
  });
 }
+
 function goSlide(index){
  currentSlide=(index+5)%5;
  updateSlide();
  restartSlideTimer();
 }
+
 function moveSlide(direction){
  goSlide(currentSlide+direction);
 }
+
 function restartSlideTimer(){
  clearInterval(slideTimer);
  slideTimer=setInterval(()=>{
@@ -436,20 +849,22 @@ function restartSlideTimer(){
   updateSlide();
  },4000);
 }
-const slider=document.getElementById("arelocSlider");
-let touchStart=0;
-if(slider){
- slider.addEventListener("touchstart",event=>{
-  touchStart=event.touches[0].clientX;
- },{passive:true});
- slider.addEventListener("touchend",event=>{
-  const distance=event.changedTouches[0].clientX-touchStart;
-  if(Math.abs(distance)>45)moveSlide(distance<0?1:-1);
- },{passive:true});
- restartSlideTimer();
-}
 
+const headerSlider=document.getElementById("arelocSlider");
+let headerTouchStart=0;
+
+headerSlider.addEventListener("touchstart",event=>{
+ headerTouchStart=event.touches[0].clientX;
+},{passive:true});
+
+headerSlider.addEventListener("touchend",event=>{
+ const distance=event.changedTouches[0].clientX-headerTouchStart;
+ if(Math.abs(distance)>45)moveSlide(distance<0?1:-1);
+},{passive:true});
+
+restartSlideTimer();
 renderProducts();
 </script>
+
 </body>
 </html>
