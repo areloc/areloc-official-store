@@ -1,269 +1,330 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ARELOC — Official Store</title>
-
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-  color: #171717;
-  background: #fff;
-}
-
-.container {
-  width: 100%;
-  max-width: 1100px;
-  margin: auto;
-  padding: 0 18px;
-}
-
-header {
-  background: #111;
-  color: #fff;
-  padding: 20px 0;
-  border-bottom: 3px solid #800020;
-}
-
-.logo {
-  font-size: 27px;
-  font-weight: 900;
-  letter-spacing: 4px;
-  text-align: center;
-}
-
-.tagline {
-  color: #ccc;
-  font-size: 10px;
-  letter-spacing: 2px;
-  text-align: center;
-  margin-top: 7px;
-}
-
-.hero {
-  background: #111;
-  color: #fff;
-  text-align: center;
-  padding: 65px 18px;
-}
-
-.hero h1 {
-  font-size: clamp(27px, 7vw, 48px);
-  line-height: 1.15;
-  letter-spacing: 2px;
-}
-
-.hero p {
-  color: #ccc;
-  font-size: 13px;
-  line-height: 1.7;
-  margin: 16px auto 24px;
-  max-width: 480px;
-}
-
-.button {
-  display: inline-block;
-  background: #800020;
-  color: #fff;
-  text-decoration: none;
-  padding: 13px 22px;
-  font-size: 11px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  border-radius: 3px;
-}
-
-section {
-  padding: 42px 0;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 22px;
-  letter-spacing: 2px;
-  margin-bottom: 9px;
-}
-
-.section-desc {
-  text-align: center;
-  color: #777;
-  font-size: 12px;
-  margin-bottom: 27px;
-}
-
-.products {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.product {
-  min-width: 0;
-  border: 1px solid #eee;
-  padding: 15px 10px;
-  text-align: center;
-  background: #fff;
-}
-
-.product h3 {
-  font-size: 13px;
-  line-height: 1.4;
-  margin-bottom: 8px;
-}
-
-.product p {
-  font-size: 11px;
-  color: #777;
-  line-height: 1.5;
-  margin-bottom: 13px;
-}
-
-.product .button {
-  padding: 11px 10px;
-  font-size: 10px;
-  max-width: 100%;
-}
-
-.about {
-  background: #f5f5f5;
-  text-align: center;
-}
-
-.about p {
-  max-width: 540px;
-  margin: 0 auto;
-  color: #555;
-  font-size: 13px;
-  line-height: 1.8;
-}
-
-footer {
-  background: #111;
-  color: #ccc;
-  text-align: center;
-  padding: 27px 15px;
-  border-top: 3px solid #800020;
-  font-size: 11px;
-  line-height: 1.8;
-}
-
-footer strong {
-  color: #fff;
-  letter-spacing: 2px;
-}
-
-@media (max-width: 360px) {
-  .container {
-    padding: 0 12px;
-  }
-
-  .products {
-    gap: 8px;
-  }
-
-  .product {
-    padding: 12px 7px;
-  }
-
-  .product h3 {
-    font-size: 12px;
-  }
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,sans-serif;color:#171717;background:#fff;overflow-x:hidden}
+header{background:#111;color:white;text-align:center;padding:20px;border-bottom:3px solid #800020}
+.logo{font-size:29px;font-weight:900;letter-spacing:5px}
+.tagline{font-size:10px;letter-spacing:3px;color:#ccc;margin-top:5px}
+.hero{background:#111;color:white;text-align:center;padding:55px 15px}
+.hero h1{font-size:clamp(27px,7vw,44px);margin:0}
+.hero p{font-size:13px;color:#ccc;line-height:1.8}
+.btn{display:inline-block;background:#800020;color:white;text-decoration:none;padding:13px 20px;border:0;border-radius:3px;font-weight:bold;font-size:11px;letter-spacing:1px}
+section{padding:38px 15px}
+.wrap{max-width:1050px;margin:auto}
+.heading{text-align:center;font-size:21px;letter-spacing:2px;margin:0 0 8px}
+.sub{text-align:center;color:#777;font-size:12px;margin:0 0 25px}
+.product{max-width:850px;margin:auto}
+.gallery{max-width:440px;margin:0 auto 25px}
+.main-photo{display:block;width:100%;aspect-ratio:3/4;object-fit:contain;background:#f4f4f4}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}
+.thumbs button{padding:3px;border:1px solid #ddd;background:#f5f5f5;aspect-ratio:3/4}
+.thumbs button.active{border:2px solid #800020}
+.thumbs img{width:100%;height:100%;object-fit:contain}
+.info h2{text-align:center;font-size:21px;line-height:1.4}
+.price{text-align:center;color:#800020;font-size:23px;font-weight:bold;margin:12px}
+.tags{display:flex}
+.tags span{width:50%;text-align:center;padding:11px;border:1px solid #222;font-size:10px;font-weight:bold}
+.tags span:last-child{background:#111;color:#fff}
+.desc{font-size:13px;line-height:1.8;color:#555}
+hr{border:0;border-top:1px solid #eee;margin:20px 0}
+.label{font-weight:bold;font-size:13px;margin:18px 0 9px}
+.options{display:flex;flex-wrap:wrap;gap:8px}
+.options button{background:white;border:1px solid #ccc;padding:11px 14px;border-radius:3px;font-size:12px}
+.options button.active{border:2px solid #800020;font-weight:bold}
+.swatch{display:inline-block;width:17px;height:17px;border:1px solid #aaa;border-radius:50%;vertical-align:middle;margin-right:5px}
+.buyrow{display:flex;gap:9px;margin:24px 0}
+.qty{display:flex;align-items:center;border:1px solid #ddd}
+.qty button{width:34px;height:43px;background:white;border:0;font-size:20px}
+.qty span{min-width:25px;text-align:center}
+.buy{flex:1;background:#800020;color:white;border:0;font-weight:bold;border-radius:3px}
+.info-box{background:#f5f5f5;padding:15px;font-size:12px;line-height:1.8;color:#555}
+.size-guide{border:1px solid #eee;padding:18px 10px;margin-top:20px}
+.size-brand{text-align:center;color:#800020;font-size:10px;font-weight:bold;letter-spacing:2px}
+.size-guide h3{text-align:center;letter-spacing:2px}
+.specs{font-size:12px;line-height:2}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th,td{border:1px solid #ddd;padding:9px 3px;text-align:center}
+th{background:#f3f3f3}
+.note{font-size:10px;color:#777;line-height:1.7}
+.size-footer{text-align:center;border-top:2px solid #800020;padding-top:14px;margin-top:18px;font-size:10px;font-weight:bold;line-height:1.8}
+.collection{background:#fafafa}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.card{background:white;border:1px solid #eee;padding:17px 9px;text-align:center}
+.card h3{font-size:12px}
+.card p{font-size:11px;color:#777}
+.card a{display:block;padding:11px 4px;font-size:9px}
+.about{background:#f3f3f3;text-align:center}
+.about p{font-size:12px;color:#555;line-height:1.9;max-width:550px;margin:auto}
+footer{background:#111;color:#ccc;text-align:center;padding:25px 12px;border-top:3px solid #800020;font-size:10px;line-height:2}
+footer strong{color:white;letter-spacing:2px}
+@media(min-width:700px){
+.product{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
+.gallery{max-width:none}
+.info h2,.price{text-align:left}
+.cards{grid-template-columns:repeat(4,1fr)}
 }
 </style>
 </head>
-
 <body>
 
 <header>
-  <div class="container">
-    <div class="logo">ARELOC</div>
-    <div class="tagline">OFFICIAL STORE</div>
-  </div>
+ <div class="logo">ARELOC</div>
+ <div class="tagline">OFFICIAL STORE</div>
 </header>
 
 <div class="hero">
-  <h1>TRUST THE PROCESS.</h1>
-  <p>
-    GOOD THINGS TAKE TIME.<br>
-    Streetwear for people with character,
-    confidence, and self-expression.
-  </p>
-  <a href="#collection" class="button">EXPLORE COLLECTION</a>
+ <h1>TRUST THE PROCESS.</h1>
+ <p>GOOD THINGS TAKE TIME.<br>
+ Streetwear for people with character, confidence, and self-expression.</p>
+ <a class="btn" href="#master-zen">EXPLORE COLLECTION</a>
 </div>
 
-<section id="collection">
-  <div class="container">
-    <h2 class="section-title">OUR COLLECTION</h2>
-    <p class="section-desc">Discover the ARELOC collection.</p>
+<section id="master-zen">
+ <div class="wrap">
+  <h2 class="heading">FEATURED PRODUCT</h2>
+  <p class="sub">ARELOC LIMITED COLLECTION</p>
 
-    <div class="products">
+  <div class="product">
+   <div class="gallery">
+    <img class="main-photo" id="mainPhoto"
+     src="https://files.catbox.moe/oa18nr.png"
+     alt="MASTER ZEN TEE">
 
-      <div class="product">
-        <h3>ARELOC SIGNATURE</h3>
-        <p>Oversized Tee<br>Hubungi kami untuk harga.</p>
-        <a class="button" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20ARELOC%20SIGNATURE">
-          BELI VIA WHATSAPP
-        </a>
-      </div>
-
-      <div class="product">
-        <h3>ARELOC URBAN</h3>
-        <p>Washed Tee<br>Hubungi kami untuk harga.</p>
-        <a class="button" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20ARELOC%20URBAN">
-          BELI VIA WHATSAPP
-        </a>
-      </div>
-
-      <div class="product">
-        <h3>CULTURE DISTORTED</h3>
-        <p>Graphic Tee<br>Hubungi kami untuk harga.</p>
-        <a class="button" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20CULTURE%20DISTORTED">
-          BELI VIA WHATSAPP
-        </a>
-      </div>
-
-      <div class="product">
-        <h3>ARELOC LIMITED DROP 01</h3>
-        <p>Oversized Tee<br>Rp158.000</p>
-        <a class="button" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20ingin%20memesan%20LIMITED%20DROP%2001">
-          BELI VIA WHATSAPP
-        </a>
-      </div>
-
+    <div class="thumbs" id="thumbs">
+     <button class="active" data-index="0"><img src="https://files.catbox.moe/oa18nr.png" alt="Foto 1"></button>
+     <button data-index="1"><img src="https://files.catbox.moe/kvs69e.png" alt="Foto 2"></button>
+     <button data-index="2"><img src="https://files.catbox.moe/xcw2by.jpg" alt="Foto 3"></button>
+     <button data-index="3"><img src="https://files.catbox.moe/m2c54f.png" alt="Foto 4"></button>
+     <button data-index="4"><img src="https://files.catbox.moe/sgpzwg.png" alt="Foto 5"></button>
+     <button data-index="5"><img src="https://files.catbox.moe/wb4bbu.png" alt="Foto 6"></button>
     </div>
+   </div>
+
+   <div class="info">
+    <h2>MASTER ZEN TEE — Trust The Process Edition</h2>
+    <div class="price">Rp158.000</div>
+
+    <div class="tags">
+     <span>PRE ORDER</span>
+     <span>EXCLUSIVE</span>
+    </div>
+
+    <p class="desc">
+     Tampil percaya diri dengan koleksi streetwear ARELOC.
+     Desain modern dan nyaman untuk melengkapi gaya harianmu.
+     Pilih model, warna, dan ukuran sebelum melakukan pemesanan.
+    </p>
+
+    <hr>
+
+    <div class="label">Pilih Model</div>
+    <div class="options" id="models">
+     <button class="active" data-value="Oversized Tee">Oversized Tee</button>
+     <button data-value="Regular Tee">Regular Tee</button>
+    </div>
+
+    <div class="label">Warna</div>
+    <div class="options" id="colors">
+     <button class="active" data-value="Hitam"><i class="swatch" style="background:#222"></i>Hitam</button>
+     <button data-value="Putih"><i class="swatch" style="background:white"></i>Putih</button>
+    </div>
+
+    <div class="label">Ukuran</div>
+    <div class="options" id="sizes">
+     <button data-value="M">M</button>
+     <button class="active" data-value="L">L</button>
+     <button data-value="XL">XL</button>
+    </div>
+
+    <div class="buyrow">
+     <div class="qty">
+      <button type="button" id="minus">−</button>
+      <span id="quantity">1</span>
+      <button type="button" id="plus">+</button>
+     </div>
+     <button class="buy" type="button" id="buy">BELI SEKARANG</button>
+    </div>
+
+    <p id="status" style="font-size:11px;color:#800020"></p>
+
+    <div class="info-box">
+     <strong>INFO PRODUK</strong><br>
+     Produk streetwear ARELOC untuk menunjang penampilan sehari-hari.
+     Pastikan pilihan model, warna, dan ukuran sudah sesuai sebelum memesan.
+    </div>
+
+    <div class="size-guide">
+     <div class="size-brand">ARELOC — OFFICIAL STORE</div>
+     <h3>SIZE GUIDE</h3>
+     <p style="text-align:center;font-size:11px;color:#777">OVERSIZED T-SHIRT</p>
+
+     <div class="specs">
+      <strong>Fabric:</strong> 24s Cotton<br>
+      <strong>Fit:</strong> Oversized<br>
+      <strong>Print:</strong> Plastisol<br>
+      <strong>Harga:</strong> Rp158.000
+     </div>
+
+     <p style="text-align:center;font-size:11px;font-weight:bold">MEASUREMENT CHART</p>
+     <table>
+      <thead>
+       <tr><th>SIZE</th><th>LENGTH</th><th>WIDTH</th><th>SLEEVE</th></tr>
+      </thead>
+      <tbody>
+       <tr><td>M</td><td>70 cm</td><td>55 cm</td><td>25.5 cm</td></tr>
+       <tr><td>L</td><td>72 cm</td><td>57 cm</td><td>27 cm</td></tr>
+       <tr><td>XL</td><td>74 cm</td><td>59 cm</td><td>29 cm</td></tr>
+      </tbody>
+     </table>
+
+     <p class="note">Ukuran dapat berbeda sekitar ±1–2 cm. Bandingkan ukuran dengan kaus yang biasa dipakai.</p>
+     <div class="size-footer">
+      TRUST THE PROCESS.<br>
+      GOOD THINGS TAKE TIME.
+     </div>
+    </div>
+   </div>
   </div>
+ </div>
+</section>
+
+<section class="collection">
+ <div class="wrap">
+  <h2 class="heading">OUR COLLECTION</h2>
+  <p class="sub">DISCOVER THE ARELOC COLLECTION</p>
+
+  <div class="cards">
+   <div class="card">
+    <h3>ARELOC SIGNATURE</h3>
+    <p>Oversized Tee</p>
+    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20ARELOC%20SIGNATURE">TANYAKAN PRODUK</a>
+   </div>
+
+   <div class="card">
+    <h3>ARELOC URBAN</h3>
+    <p>Washed Tee</p>
+    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20ARELOC%20URBAN">TANYAKAN PRODUK</a>
+   </div>
+
+   <div class="card">
+    <h3>CULTURE DISTORTED</h3>
+    <p>Graphic Tee</p>
+    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20CULTURE%20DISTORTED">TANYAKAN PRODUK</a>
+   </div>
+
+   <div class="card">
+    <h3>VERTICAL EMBLEM</h3>
+    <p>Graphic Tee</p>
+    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20VERTICAL%20EMBLEM">TANYAKAN PRODUK</a>
+   </div>
+  </div>
+ </div>
 </section>
 
 <section class="about">
-  <div class="container">
-    <h2 class="section-title">ABOUT ARELOC</h2>
-    <p>
-      ARELOC hadir untuk mereka yang percaya pada proses,
-      berani mengekspresikan karakter, dan memiliki gaya
-      sendiri. TRUST THE PROCESS. GOOD THINGS TAKE TIME.
-    </p>
-  </div>
+ <div class="wrap">
+  <h2 class="heading">ABOUT ARELOC</h2>
+  <p>
+   ARELOC hadir untuk mereka yang percaya pada proses,
+   berani mengekspresikan karakter, dan memiliki gaya sendiri.
+   TRUST THE PROCESS. GOOD THINGS TAKE TIME.
+  </p>
+ </div>
 </section>
 
 <footer>
-  <strong>ARELOC — OFFICIAL STORE</strong>
-  <p>TRUST THE PROCESS. GOOD THINGS TAKE TIME.</p>
-  <p>© 2026 ARELOC. All Rights Reserved.</p>
+ <strong>ARELOC — OFFICIAL STORE</strong><br>
+ TRUST THE PROCESS. GOOD THINGS TAKE TIME.<br>
+ WhatsApp: 6285196674994<br>
+ © 2026 ARELOC. All Rights Reserved.
 </footer>
+
+<script>
+(function(){
+ var photos=[
+  "https://files.catbox.moe/oa18nr.png",
+  "https://files.catbox.moe/kvs69e.png",
+  "https://files.catbox.moe/xcw2by.jpg",
+  "https://files.catbox.moe/m2c54f.png",
+  "https://files.catbox.moe/sgpzwg.png",
+  "https://files.catbox.moe/wb4bbu.png"
+ ];
+
+ var main=document.getElementById("mainPhoto");
+ var thumbs=document.getElementById("thumbs");
+
+ thumbs.addEventListener("click",function(e){
+  var button=e.target.closest("button[data-index]");
+  if(!button)return;
+  var index=Number(button.dataset.index);
+  main.src=photos[index];
+  thumbs.querySelectorAll("button").forEach(function(item){
+   item.classList.toggle("active",item===button);
+  });
+ });
+
+ var model="Oversized Tee";
+ var color="Hitam";
+ var size="L";
+ var quantity=1;
+ var price=158000;
+
+ function optionGroup(id,callback){
+  var group=document.getElementById(id);
+  group.addEventListener("click",function(e){
+   var button=e.target.closest("button[data-value]");
+   if(!button)return;
+   group.querySelectorAll("button").forEach(function(item){
+    item.classList.toggle("active",item===button);
+   });
+   callback(button.dataset.value);
+  });
+ }
+
+ optionGroup("models",function(value){model=value;});
+ optionGroup("colors",function(value){color=value;});
+ optionGroup("sizes",function(value){size=value;});
+
+ var display=document.getElementById("quantity");
+
+ document.getElementById("minus").addEventListener("click",function(){
+  quantity=Math.max(1,quantity-1);
+  display.textContent=quantity;
+ });
+
+ document.getElementById("plus").addEventListener("click",function(){
+  quantity=Math.min(99,quantity+1);
+  display.textContent=quantity;
+ });
+
+ document.getElementById("buy").addEventListener("click",function(){
+  var total=price*quantity;
+  var rupiah=function(value){
+   return "Rp"+value.toLocaleString("id-ID");
+  };
+
+  var message=
+   "Halo ARELOC, saya ingin memesan:\n\n"+
+   "Produk: MASTER ZEN TEE - Trust The Process Edition\n"+
+   "Model: "+model+"\n"+
+   "Warna: "+color+"\n"+
+   "Ukuran: "+size+"\n"+
+   "Jumlah: "+quantity+"\n"+
+   "Harga satuan: "+rupiah(price)+"\n"+
+   "Total: "+rupiah(total)+"\n\n"+
+   "Mohon konfirmasi ketersediaan produk. Terima kasih.";
+
+  var url="https://wa.me/6285196674994?text="+encodeURIComponent(message);
+  window.open(url,"_blank");
+ });
+})();
+</script>
 
 </body>
 </html>
