@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -8,66 +9,53 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;font-family:Arial,sans-serif;color:#171717;background:#fff;overflow-x:hidden}
-header{background:#111;color:white;text-align:center;padding:20px;border-bottom:3px solid #800020}
-.logo{font-size:29px;font-weight:900;letter-spacing:5px}
+header{background:#111;color:white;text-align:center;padding:18px 12px;border-bottom:3px solid #800020}
+.logo{font-size:28px;font-weight:900;letter-spacing:5px}
 .tagline{font-size:10px;letter-spacing:3px;color:#ccc;margin-top:5px}
-.hero{background:#111;color:white;text-align:center;padding:55px 15px}
-.hero h1{font-size:clamp(27px,7vw,44px);margin:0}
-.hero p{font-size:13px;color:#ccc;line-height:1.8}
-.btn{display:inline-block;background:#800020;color:white;text-decoration:none;padding:13px 20px;border:0;border-radius:3px;font-weight:bold;font-size:11px;letter-spacing:1px}
-section{padding:38px 15px}
-.wrap{max-width:1050px;margin:auto}
-.heading{text-align:center;font-size:21px;letter-spacing:2px;margin:0 0 8px}
-.sub{text-align:center;color:#777;font-size:12px;margin:0 0 25px}
-.product{max-width:850px;margin:auto}
-.gallery{max-width:440px;margin:0 auto 25px}
-.main-photo{display:block;width:100%;aspect-ratio:3/4;object-fit:contain;background:#f4f4f4}
-.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}
-.thumbs button{padding:3px;border:1px solid #ddd;background:#f5f5f5;aspect-ratio:3/4}
+.hero{background:#111;color:#fff;text-align:center;padding:35px 14px}
+.hero h1{font-size:clamp(25px,7vw,40px);margin:0}
+.hero p{font-size:12px;color:#ccc;line-height:1.7}
+.wrap{max-width:1000px;margin:auto;padding:0 13px}
+section{padding:28px 0}
+.heading{text-align:center;font-size:20px;letter-spacing:2px;margin:0 0 7px}
+.sub{text-align:center;font-size:11px;color:#777;margin:0 0 20px}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.card{border:1px solid #eee;background:white;padding:7px;min-width:0}
+.card img{width:100%;aspect-ratio:3/4;object-fit:contain;background:#f5f5f5;display:block}
+.card h3{font-size:11px;line-height:1.5;margin:10px 2px 5px}
+.card .price{font-size:13px;color:#800020;font-weight:bold;margin:0 2px 9px}
+.btn{display:block;width:100%;padding:11px 5px;border:0;border-radius:2px;background:#800020;color:#fff;text-decoration:none;text-align:center;font-size:10px;font-weight:bold;letter-spacing:.5px}
+.detail{display:none;border-top:3px solid #800020;margin-top:28px;padding-top:20px}
+.detail.show{display:block}
+.detail h2{text-align:center;font-size:20px;line-height:1.4;margin:0 0 7px}
+.detail .price{text-align:center;color:#800020;font-weight:bold;font-size:22px;margin:8px 0 18px}
+.main-photo{width:100%;max-width:440px;aspect-ratio:3/4;object-fit:contain;background:#f5f5f5;display:block;margin:auto}
+.thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;max-width:440px;margin:8px auto 20px}
+.thumbs button{border:1px solid #ddd;background:#f5f5f5;padding:3px;aspect-ratio:3/4}
 .thumbs button.active{border:2px solid #800020}
 .thumbs img{width:100%;height:100%;object-fit:contain}
-.info h2{text-align:center;font-size:21px;line-height:1.4}
-.price{text-align:center;color:#800020;font-size:23px;font-weight:bold;margin:12px}
-.tags{display:flex}
-.tags span{width:50%;text-align:center;padding:11px;border:1px solid #222;font-size:10px;font-weight:bold}
-.tags span:last-child{background:#111;color:#fff}
-.desc{font-size:13px;line-height:1.8;color:#555}
-hr{border:0;border-top:1px solid #eee;margin:20px 0}
-.label{font-weight:bold;font-size:13px;margin:18px 0 9px}
-.options{display:flex;flex-wrap:wrap;gap:8px}
-.options button{background:white;border:1px solid #ccc;padding:11px 14px;border-radius:3px;font-size:12px}
+.label{font-size:12px;font-weight:bold;margin:17px 0 8px}
+.options{display:flex;gap:8px;flex-wrap:wrap}
+.options button{background:white;border:1px solid #ccc;padding:10px 16px;border-radius:2px;font-size:12px}
 .options button.active{border:2px solid #800020;font-weight:bold}
-.swatch{display:inline-block;width:17px;height:17px;border:1px solid #aaa;border-radius:50%;vertical-align:middle;margin-right:5px}
-.buyrow{display:flex;gap:9px;margin:24px 0}
+.buyrow{display:flex;gap:9px;margin:22px 0}
 .qty{display:flex;align-items:center;border:1px solid #ddd}
-.qty button{width:34px;height:43px;background:white;border:0;font-size:20px}
-.qty span{min-width:25px;text-align:center}
-.buy{flex:1;background:#800020;color:white;border:0;font-weight:bold;border-radius:3px}
-.info-box{background:#f5f5f5;padding:15px;font-size:12px;line-height:1.8;color:#555}
-.size-guide{border:1px solid #eee;padding:18px 10px;margin-top:20px}
-.size-brand{text-align:center;color:#800020;font-size:10px;font-weight:bold;letter-spacing:2px}
-.size-guide h3{text-align:center;letter-spacing:2px}
-.specs{font-size:12px;line-height:2}
-table{width:100%;border-collapse:collapse;font-size:11px}
-th,td{border:1px solid #ddd;padding:9px 3px;text-align:center}
-th{background:#f3f3f3}
-.note{font-size:10px;color:#777;line-height:1.7}
-.size-footer{text-align:center;border-top:2px solid #800020;padding-top:14px;margin-top:18px;font-size:10px;font-weight:bold;line-height:1.8}
-.collection{background:#fafafa}
-.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.card{background:white;border:1px solid #eee;padding:17px 9px;text-align:center}
-.card h3{font-size:12px}
-.card p{font-size:11px;color:#777}
-.card a{display:block;padding:11px 4px;font-size:9px}
-.about{background:#f3f3f3;text-align:center}
-.about p{font-size:12px;color:#555;line-height:1.9;max-width:550px;margin:auto}
-footer{background:#111;color:#ccc;text-align:center;padding:25px 12px;border-top:3px solid #800020;font-size:10px;line-height:2}
+.qty button{width:34px;height:43px;border:0;background:white;font-size:20px}
+.qty span{min-width:25px;text-align:center;font-size:13px}
+.buy{flex:1;background:#800020;color:white;border:0;border-radius:2px;font-weight:bold;font-size:12px}
+.note{font-size:11px;color:#777;line-height:1.7}
+.guide{background:#f5f5f5;padding:15px;margin-top:18px}
+.guide h3{text-align:center;font-size:13px;margin:0 0 12px}
+.guide table{width:100%;border-collapse:collapse;font-size:11px}
+.guide th,.guide td{border:1px solid #ddd;padding:9px 3px;text-align:center}
+.guide th{background:#eee}
+footer{background:#111;color:#ccc;text-align:center;padding:23px 12px;border-top:3px solid #800020;font-size:10px;line-height:2}
 footer strong{color:white;letter-spacing:2px}
-@media(min-width:700px){
-.product{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start}
-.gallery{max-width:none}
-.info h2,.price{text-align:left}
-.cards{grid-template-columns:repeat(4,1fr)}
+@media(min-width:650px){
+ .products{grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+ .detail-inner{display:grid;grid-template-columns:1fr 1fr;gap:25px;align-items:start}
+ .detail h2,.detail .price{text-align:left}
+ .detail .main-photo,.detail .thumbs{max-width:none}
 }
 </style>
 </head>
@@ -80,161 +68,55 @@ footer strong{color:white;letter-spacing:2px}
 
 <div class="hero">
  <h1>TRUST THE PROCESS.</h1>
- <p>GOOD THINGS TAKE TIME.<br>
- Streetwear for people with character, confidence, and self-expression.</p>
- <a class="btn" href="#master-zen">EXPLORE COLLECTION</a>
+ <p>GOOD THINGS TAKE TIME.<br>Streetwear for people with character.</p>
 </div>
 
-<section id="master-zen">
+<section>
  <div class="wrap">
-  <h2 class="heading">FEATURED PRODUCT</h2>
-  <p class="sub">ARELOC LIMITED COLLECTION</p>
-
-  <div class="product">
-   <div class="gallery">
-    <img class="main-photo" id="mainPhoto"
-     src="https://files.catbox.moe/oa18nr.png"
-     alt="MASTER ZEN TEE">
-
-    <div class="thumbs" id="thumbs">
-     <button class="active" data-index="0"><img src="https://files.catbox.moe/oa18nr.png" alt="Foto 1"></button>
-     <button data-index="1"><img src="https://files.catbox.moe/kvs69e.png" alt="Foto 2"></button>
-     <button data-index="2"><img src="https://files.catbox.moe/xcw2by.jpg" alt="Foto 3"></button>
-     <button data-index="3"><img src="https://files.catbox.moe/m2c54f.png" alt="Foto 4"></button>
-     <button data-index="4"><img src="https://files.catbox.moe/sgpzwg.png" alt="Foto 5"></button>
-     <button data-index="5"><img src="https://files.catbox.moe/wb4bbu.png" alt="Foto 6"></button>
+  <h2 class="heading">ALL PRODUCT ARELOC</h2>
+  <p class="sub">PILIH PRODUK FAVORITMU</p>
+  <div class="products" id="productList"></div>
+  <div class="detail" id="detail">
+   <h2 id="detailName"></h2>
+   <div class="price">Rp158.000</div>
+   <div class="detail-inner">
+    <div>
+     <img class="main-photo" id="mainPhoto" src="" alt="Foto produk ARELOC">
+     <div class="thumbs" id="thumbs"></div>
     </div>
-   </div>
-
-   <div class="info">
-    <h2>MASTER ZEN TEE — Trust The Process Edition</h2>
-    <div class="price">Rp158.000</div>
-
-    <div class="tags">
-     <span>PRE ORDER</span>
-     <span>EXCLUSIVE</span>
-    </div>
-
-    <p class="desc">
-     Tampil percaya diri dengan koleksi streetwear ARELOC.
-     Desain modern dan nyaman untuk melengkapi gaya harianmu.
-     Pilih model, warna, dan ukuran sebelum melakukan pemesanan.
-    </p>
-
-    <hr>
-
-    <div class="label">Pilih Model</div>
-    <div class="options" id="models">
-     <button class="active" data-value="Oversized Tee">Oversized Tee</button>
-     <button data-value="Regular Tee">Regular Tee</button>
-    </div>
-
-    <div class="label">Warna</div>
-    <div class="options" id="colors">
-     <button class="active" data-value="Hitam"><i class="swatch" style="background:#222"></i>Hitam</button>
-     <button data-value="Putih"><i class="swatch" style="background:white"></i>Putih</button>
-    </div>
-
-    <div class="label">Ukuran</div>
-    <div class="options" id="sizes">
-     <button data-value="M">M</button>
-     <button class="active" data-value="L">L</button>
-     <button data-value="XL">XL</button>
-    </div>
-
-    <div class="buyrow">
-     <div class="qty">
-      <button type="button" id="minus">−</button>
-      <span id="quantity">1</span>
-      <button type="button" id="plus">+</button>
+    <div>
+     <p class="note">Koleksi streetwear ARELOC. Pilih ukuran dan jumlah pesanan sebelum melanjutkan ke WhatsApp.</p>
+     <div class="label">PILIH UKURAN</div>
+     <div class="options" id="sizes">
+      <button data-size="M">M</button>
+      <button class="active" data-size="L">L</button>
+      <button data-size="XL">XL</button>
      </div>
-     <button class="buy" type="button" id="buy">BELI SEKARANG</button>
-    </div>
-
-    <p id="status" style="font-size:11px;color:#800020"></p>
-
-    <div class="info-box">
-     <strong>INFO PRODUK</strong><br>
-     Produk streetwear ARELOC untuk menunjang penampilan sehari-hari.
-     Pastikan pilihan model, warna, dan ukuran sudah sesuai sebelum memesan.
-    </div>
-
-    <div class="size-guide">
-     <div class="size-brand">ARELOC — OFFICIAL STORE</div>
-     <h3>SIZE GUIDE</h3>
-     <p style="text-align:center;font-size:11px;color:#777">OVERSIZED T-SHIRT</p>
-
-     <div class="specs">
-      <strong>Fabric:</strong> 24s Cotton<br>
-      <strong>Fit:</strong> Oversized<br>
-      <strong>Print:</strong> Plastisol<br>
-      <strong>Harga:</strong> Rp158.000
+     <div class="label">JUMLAH</div>
+     <div class="buyrow">
+      <div class="qty">
+       <button type="button" id="minus">−</button>
+       <span id="quantity">1</span>
+       <button type="button" id="plus">+</button>
+      </div>
+      <button class="buy" type="button" id="buy">BELI SEKARANG</button>
      </div>
-
-     <p style="text-align:center;font-size:11px;font-weight:bold">MEASUREMENT CHART</p>
-     <table>
-      <thead>
-       <tr><th>SIZE</th><th>LENGTH</th><th>WIDTH</th><th>SLEEVE</th></tr>
-      </thead>
-      <tbody>
-       <tr><td>M</td><td>70 cm</td><td>55 cm</td><td>25.5 cm</td></tr>
-       <tr><td>L</td><td>72 cm</td><td>57 cm</td><td>27 cm</td></tr>
-       <tr><td>XL</td><td>74 cm</td><td>59 cm</td><td>29 cm</td></tr>
-      </tbody>
-     </table>
-
-     <p class="note">Ukuran dapat berbeda sekitar ±1–2 cm. Bandingkan ukuran dengan kaus yang biasa dipakai.</p>
-     <div class="size-footer">
-      TRUST THE PROCESS.<br>
-      GOOD THINGS TAKE TIME.
+     <p class="note" id="status">Harga Rp158.000 per kaus.</p>
+     <div class="guide">
+      <h3>SIZE GUIDE — OVERSIZED T-SHIRT</h3>
+      <table>
+       <thead><tr><th>SIZE</th><th>PANJANG</th><th>LEBAR</th><th>LENGAN</th></tr></thead>
+       <tbody>
+        <tr><td>M</td><td>70 cm</td><td>55 cm</td><td>25.5 cm</td></tr>
+        <tr><td>L</td><td>72 cm</td><td>57 cm</td><td>27 cm</td></tr>
+        <tr><td>XL</td><td>74 cm</td><td>59 cm</td><td>29 cm</td></tr>
+       </tbody>
+      </table>
+      <p class="note">Ukuran dapat berbeda ±1–2 cm.</p>
      </div>
     </div>
    </div>
   </div>
- </div>
-</section>
-
-<section class="collection">
- <div class="wrap">
-  <h2 class="heading">OUR COLLECTION</h2>
-  <p class="sub">DISCOVER THE ARELOC COLLECTION</p>
-
-  <div class="cards">
-   <div class="card">
-    <h3>ARELOC SIGNATURE</h3>
-    <p>Oversized Tee</p>
-    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20ARELOC%20SIGNATURE">TANYAKAN PRODUK</a>
-   </div>
-
-   <div class="card">
-    <h3>ARELOC URBAN</h3>
-    <p>Washed Tee</p>
-    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20ARELOC%20URBAN">TANYAKAN PRODUK</a>
-   </div>
-
-   <div class="card">
-    <h3>CULTURE DISTORTED</h3>
-    <p>Graphic Tee</p>
-    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20CULTURE%20DISTORTED">TANYAKAN PRODUK</a>
-   </div>
-
-   <div class="card">
-    <h3>VERTICAL EMBLEM</h3>
-    <p>Graphic Tee</p>
-    <a class="btn" href="https://wa.me/6285196674994?text=Halo%20ARELOC%2C%20saya%20tertarik%20dengan%20VERTICAL%20EMBLEM">TANYAKAN PRODUK</a>
-   </div>
-  </div>
- </div>
-</section>
-
-<section class="about">
- <div class="wrap">
-  <h2 class="heading">ABOUT ARELOC</h2>
-  <p>
-   ARELOC hadir untuk mereka yang percaya pada proses,
-   berani mengekspresikan karakter, dan memiliki gaya sendiri.
-   TRUST THE PROCESS. GOOD THINGS TAKE TIME.
-  </p>
  </div>
 </section>
 
@@ -247,84 +129,172 @@ footer strong{color:white;letter-spacing:2px}
 
 <script>
 (function(){
- var photos=[
-  "https://files.catbox.moe/oa18nr.png",
-  "https://files.catbox.moe/kvs69e.png",
-  "https://files.catbox.moe/xcw2by.jpg",
-  "https://files.catbox.moe/m2c54f.png",
-  "https://files.catbox.moe/sgpzwg.png",
-  "https://files.catbox.moe/wb4bbu.png"
+ const products=[
+  {
+   name:"MASTER ZEN TEE",
+   photos:[
+    "https://files.catbox.moe/oa18nr.png",
+    "https://files.catbox.moe/kvs69e.png",
+    "https://files.catbox.moe/xcw2by.jpg",
+    "https://files.catbox.moe/m2c54f.png",
+    "https://files.catbox.moe/sgpzwg.png",
+    "https://files.catbox.moe/wb4bbu.png"
+   ]
+  },
+  {
+   name:"ARELOC ORIGINAL",
+   photos:[
+    "https://files.catbox.moe/7agje5.webp",
+    "https://files.catbox.moe/bfwogp.webp",
+    "https://files.catbox.moe/agpjfp.png",
+    "https://files.catbox.moe/z2af5u.png",
+    "https://files.catbox.moe/sgpzwg.png",
+    "https://files.catbox.moe/0g1gcr.webp"
+   ]
+  },
+  {
+   name:"ARELOC IDENTITY",
+   photos:[
+    "https://files.catbox.moe/oymgva.png",
+    "https://files.catbox.moe/i2mzln.png",
+    "https://files.catbox.moe/7bpgnz.png",
+    "https://files.catbox.moe/ks69s6.png",
+    "https://files.catbox.moe/sgpzwg.png",
+    "https://files.catbox.moe/sv9tsu.png"
+   ]
+  },
+  {
+   name:"ARELOC ARCADE",
+   photos:[
+    "https://i.postimg.cc/X7z1SWCd/Desain-tanpa-judul-20261025-202008-0000.png",
+    "https://files.catbox.moe/3o80ts.webp",
+    "https://i.postimg.cc/J42YV8kX/Meta-AI-863185546-2378171602948192-2127709932747747172-n-20261025-220841.jpg",
+    "https://i.postimg.cc/FsRCBz7J/Desain-tanpa-judul-20261025-215256-0000.png",
+    "https://files.catbox.moe/sgpzwg.png",
+    "https://files.catbox.moe/wcjj4g.jpg"
+   ]
+  }
  ];
 
- var main=document.getElementById("mainPhoto");
- var thumbs=document.getElementById("thumbs");
+ const list=document.getElementById("productList");
+ const detail=document.getElementById("detail");
+ const mainPhoto=document.getElementById("mainPhoto");
+ const thumbs=document.getElementById("thumbs");
+ const detailName=document.getElementById("detailName");
+ const quantityDisplay=document.getElementById("quantity");
+ const status=document.getElementById("status");
 
- thumbs.addEventListener("click",function(e){
-  var button=e.target.closest("button[data-index]");
+ let currentProduct=0;
+ let currentPhoto=0;
+ let selectedSize="L";
+ let quantity=1;
+ const price=158000;
+
+ products.forEach(function(product,index){
+  const card=document.createElement("article");
+  card.className="card";
+
+  const image=document.createElement("img");
+  image.src=product.photos[0];
+  image.alt=product.name;
+
+  const name=document.createElement("h3");
+  name.textContent=product.name;
+
+  const priceText=document.createElement("div");
+  priceText.className="price";
+  priceText.textContent="Rp158.000";
+
+  const button=document.createElement("button");
+  button.className="btn";
+  button.textContent="LIHAT DETAIL";
+  button.type="button";
+  button.addEventListener("click",function(){
+   showProduct(index);
+  });
+
+  card.append(image,name,priceText,button);
+  list.appendChild(card);
+ });
+
+ function showProduct(index){
+  currentProduct=index;
+  currentPhoto=0;
+  selectedSize="L";
+  quantity=1;
+  quantityDisplay.textContent="1";
+  detailName.textContent=products[index].name;
+  mainPhoto.src=products[index].photos[0];
+
+  thumbs.innerHTML="";
+  products[index].photos.forEach(function(photo,i){
+   const button=document.createElement("button");
+   if(i===0)button.classList.add("active");
+   const image=document.createElement("img");
+   image.src=photo;
+   image.alt="Foto "+(i+1);
+   button.appendChild(image);
+   button.addEventListener("click",function(){
+    currentPhoto=i;
+    mainPhoto.src=photo;
+    thumbs.querySelectorAll("button").forEach(function(item){
+     item.classList.toggle("active",item===button);
+    });
+   });
+   thumbs.appendChild(button);
+  });
+
+  document.querySelectorAll("#sizes button").forEach(function(button){
+   button.classList.toggle("active",button.dataset.size==="L");
+  });
+
+  status.textContent="Harga Rp158.000 per kaus.";
+  detail.classList.add("show");
+  detail.scrollIntoView({behavior:"smooth",block:"start"});
+ }
+
+ document.getElementById("sizes").addEventListener("click",function(e){
+  const button=e.target.closest("button[data-size]");
   if(!button)return;
-  var index=Number(button.dataset.index);
-  main.src=photos[index];
-  thumbs.querySelectorAll("button").forEach(function(item){
+  selectedSize=button.dataset.size;
+  document.querySelectorAll("#sizes button").forEach(function(item){
    item.classList.toggle("active",item===button);
   });
  });
 
- var model="Oversized Tee";
- var color="Hitam";
- var size="L";
- var quantity=1;
- var price=158000;
-
- function optionGroup(id,callback){
-  var group=document.getElementById(id);
-  group.addEventListener("click",function(e){
-   var button=e.target.closest("button[data-value]");
-   if(!button)return;
-   group.querySelectorAll("button").forEach(function(item){
-    item.classList.toggle("active",item===button);
-   });
-   callback(button.dataset.value);
-  });
- }
-
- optionGroup("models",function(value){model=value;});
- optionGroup("colors",function(value){color=value;});
- optionGroup("sizes",function(value){size=value;});
-
- var display=document.getElementById("quantity");
-
  document.getElementById("minus").addEventListener("click",function(){
   quantity=Math.max(1,quantity-1);
-  display.textContent=quantity;
+  quantityDisplay.textContent=quantity;
  });
 
  document.getElementById("plus").addEventListener("click",function(){
   quantity=Math.min(99,quantity+1);
-  display.textContent=quantity;
+  quantityDisplay.textContent=quantity;
  });
 
  document.getElementById("buy").addEventListener("click",function(){
-  var total=price*quantity;
-  var rupiah=function(value){
+  const product=products[currentProduct];
+  const total=price*quantity;
+  const rupiah=function(value){
    return "Rp"+value.toLocaleString("id-ID");
   };
 
-  var message=
-   "Halo ARELOC, saya ingin memesan:\n\n"+
-   "Produk: MASTER ZEN TEE - Trust The Process Edition\n"+
-   "Model: "+model+"\n"+
-   "Warna: "+color+"\n"+
-   "Ukuran: "+size+"\n"+
-   "Jumlah: "+quantity+"\n"+
-   "Harga satuan: "+rupiah(price)+"\n"+
-   "Total: "+rupiah(total)+"\n\n"+
-   "Mohon konfirmasi ketersediaan produk. Terima kasih.";
+  const message=[
+   "Halo ARELOC, saya ingin memesan:",
+   "",
+   "Produk: "+product.name,
+   "Ukuran: "+selectedSize,
+   "Jumlah: "+quantity,
+   "Harga satuan: "+rupiah(price),
+   "Total: "+rupiah(total),
+   "",
+   "Mohon konfirmasi ketersediaan produk. Terima kasih."
+  ].join("\n");
 
-  var url="https://wa.me/6285196674994?text="+encodeURIComponent(message);
+  const url="https://wa.me/6285196674994?text="+encodeURIComponent(message);
   window.open(url,"_blank");
  });
 })();
 </script>
-
 </body>
 </html>
