@@ -16,7 +16,6 @@ a{text-decoration:none;color:inherit}
 #app{width:100%;max-width:1500px;margin:auto;overflow:hidden}
 img{display:block;max-width:100%}
 
-/* HEADER */
 .topbar{
  height:68px;padding:0 5%;display:flex;align-items:center;
  justify-content:space-between;background:#050505;color:#fff;
@@ -40,7 +39,7 @@ img{display:block;max-width:100%}
 .page{display:none}
 .page.active{display:block}
 
-/* HERO SLIDER */
+/* HEADER SLIDER — FOTO LAMA DIPERTAHANKAN */
 .areloc-slider{
  height:clamp(390px,58vw,650px);max-height:650px;
  position:relative;overflow:hidden;background:#050505;color:#fff;
@@ -83,12 +82,9 @@ img{display:block;max-width:100%}
 .slider-dot{width:8px;height:8px;border:0;border-radius:20px;background:#888;padding:0}
 .slider-dot.active{width:23px;background:#fff}
 
-/* HOME SECTION */
+/* HOME */
 .home-section{position:relative;overflow:hidden}
-.section-image{width:100%;height:100%;object-fit:cover}
-.section-kicker{
- font-size:10px;font-weight:bold;letter-spacing:2px;margin-bottom:15px
-}
+.section-kicker{font-size:10px;font-weight:bold;letter-spacing:2px;margin-bottom:15px}
 .section-title{
  font-size:clamp(28px,5vw,54px);font-weight:900;
  line-height:1.02;letter-spacing:-1px;margin:0 0 12px
@@ -99,67 +95,67 @@ img{display:block;max-width:100%}
  padding:14px 20px;font-size:11px;font-weight:bold;letter-spacing:1px
 }
 
-/* BRAND INTRO */
-.intro-section{
- min-height:300px;display:grid;grid-template-columns:1fr 1fr;
- background:#f3f3f3
+/* FOTO HOME: TAMPIL UTUH, TIDAK DIPOTONG */
+.home-photo{
+ width:100%;
+ height:auto;
+ object-fit:contain;
+ object-position:center;
+ background:#eee;
 }
-.intro-copy{
- padding:45px 7%;display:flex;flex-direction:column;
- justify-content:center;align-items:flex-start
-}
-.intro-image{min-height:300px}
-.intro-image img{width:100%;height:100%;object-fit:cover;object-position:center}
 
-/* BRAND STATEMENT */
+/* INTRODUCTION */
+.intro-section{
+ display:grid;grid-template-columns:1fr 1fr;
+ background:#f3f3f3;align-items:center
+}
+.intro-copy{padding:45px 7%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.intro-image{width:100%;display:flex;align-items:center;justify-content:center;background:#eee}
+.intro-image img{width:100%;height:auto;object-fit:contain}
+
+/* STATEMENT */
 .brand-statement{
  display:grid;grid-template-columns:1fr 1fr;
- min-height:250px;background:#050505;color:#fff
+ background:#050505;color:#fff;align-items:center
 }
-.statement-image{min-height:250px}
-.statement-image img{width:100%;height:100%;object-fit:cover}
-.statement-copy{
- padding:35px 8%;display:flex;flex-direction:column;
- justify-content:center
-}
+.statement-image{width:100%;background:#111}
+.statement-image img{width:100%;height:auto;object-fit:contain}
+.statement-copy{padding:35px 8%;display:flex;flex-direction:column;justify-content:center}
 .statement-copy h2{
  font-size:clamp(27px,4vw,48px);font-weight:900;
  line-height:1.1;margin:12px 0
 }
 .statement-copy p{font-size:12px;letter-spacing:4px;line-height:1.8}
 
-/* EXPLORE COLLECTION */
+/* COLLECTION */
 .explore-section{
- min-height:290px;display:grid;grid-template-columns:1fr 1.15fr;
- background:#f4f4f4
+ display:grid;grid-template-columns:1fr 1.15fr;
+ background:#f4f4f4;align-items:center
 }
-.explore-copy{
- padding:40px 7%;display:flex;flex-direction:column;
- justify-content:center;align-items:flex-start
-}
-.explore-image{min-height:290px}
-.explore-image img{width:100%;height:100%;object-fit:cover}
+.explore-copy{padding:40px 7%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.explore-image{width:100%;background:#eee}
+.explore-image img{width:100%;height:auto;object-fit:contain}
 
 /* WHY ARELOC */
 .why-section{
- min-height:230px;display:grid;grid-template-columns:1fr 1fr;
- background:#f1f1f1
+ display:grid;grid-template-columns:1fr 1fr;
+ background:#f1f1f1;align-items:center
 }
 .why-copy{padding:30px 7%;display:flex;flex-direction:column;justify-content:center}
-.why-image{min-height:230px}
-.why-image img{width:100%;height:100%;object-fit:cover}
+.why-image{width:100%;background:#eee}
+.why-image img{width:100%;height:auto;object-fit:contain}
 .why-values{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px}
 .why-value{text-align:center;padding:8px 5px;border-right:1px solid #999}
 .why-value:last-child{border:0}
 .why-symbol{font-size:25px;font-weight:bold}
 .why-value strong{display:block;font-size:10px;letter-spacing:1px;margin-top:8px}
 
-/* HOME END */
+/* PENUTUP HOME */
+.home-end-photo{width:100%;height:auto;display:block;object-fit:contain;background:#111}
 .home-end{
  min-height:220px;background:#050505;color:#fff;
  display:flex;align-items:center;justify-content:center;
- text-align:center;padding:45px 20px;
- position:relative;overflow:hidden
+ text-align:center;padding:45px 20px;position:relative;overflow:hidden
 }
 .home-end:before{
  content:"ARELOC";position:absolute;left:0;right:0;top:50%;
@@ -167,14 +163,11 @@ img{display:block;max-width:100%}
  font-weight:900;letter-spacing:8px;color:#ffffff09;white-space:nowrap
 }
 .home-end-content{position:relative;z-index:1}
-.home-end h2{
- font-size:clamp(28px,5vw,48px);font-style:italic;
- font-weight:900;margin:0 0 8px
-}
+.home-end h2{font-size:clamp(28px,5vw,48px);font-style:italic;font-weight:900;margin:0 0 8px}
 .home-end p{font-size:13px;letter-spacing:3px;margin:10px 0 18px}
 .home-end .white-btn{margin-top:5px}
 
-/* CATALOG */
+/* KATALOG */
 .catalog-top{padding:45px 5% 20px;text-align:center}
 .eyebrow{font-size:9px;letter-spacing:4px;color:#777}
 .catalog-top h1{font-size:30px;letter-spacing:3px;margin:8px 0}
@@ -195,12 +188,9 @@ img{display:block;max-width:100%}
  color:white;border:0;padding:12px 5px;font-size:9px;letter-spacing:1.5px
 }
 
-/* DETAIL */
+/* DETAIL PRODUK */
 .detail-wrap{padding:35px 5% 65px;max-width:1100px;margin:auto}
-.back-button{
- border:0;background:none;padding:10px 0;margin-bottom:20px;
- font-size:11px;letter-spacing:1px
-}
+.back-button{border:0;background:none;padding:10px 0;margin-bottom:20px;font-size:11px;letter-spacing:1px}
 .detail-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px}
 .product-gallery{width:100%;overflow:hidden}
 .product-slider{
@@ -232,10 +222,8 @@ img{display:block;max-width:100%}
 }
 .buy-note{font-size:10px;color:#888;line-height:1.7;margin-top:12px}
 
-/* ABOUT & CONTACT */
-.about-content,.contact-content{
- max-width:800px;margin:auto;text-align:center;padding:65px 7% 85px
-}
+/* TENTANG & KONTAK */
+.about-content,.contact-content{max-width:800px;margin:auto;text-align:center;padding:65px 7% 85px}
 .about-content h1,.contact-content h1{font-size:32px;letter-spacing:3px}
 .about-content p,.contact-content p{font-size:13px;line-height:2;color:#666}
 .about-values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:35px}
@@ -243,10 +231,7 @@ img{display:block;max-width:100%}
 .value-box strong{font-size:11px;letter-spacing:1px}
 .value-box p{font-size:10px}
 .contact-card{background:#f5f5f5;padding:30px 15px;margin:25px auto;max-width:430px}
-.whatsapp-button{
- display:inline-block;background:#050505;color:white;
- padding:16px 25px;font-size:11px;letter-spacing:2px
-}
+.whatsapp-button{display:inline-block;background:#050505;color:white;padding:16px 25px;font-size:11px;letter-spacing:2px}
 
 /* FOOTER */
 footer{background:#050505;color:#fff;padding:40px 5% 25px}
@@ -255,13 +240,8 @@ footer{background:#050505;color:#fff;padding:40px 5% 25px}
 footer p{font-size:11px;color:#aaa;line-height:1.9}
 footer h3{font-size:10px;letter-spacing:2px}
 .footer-links{display:flex;flex-direction:column;gap:12px}
-.footer-links button{
- padding:0;text-align:left;border:0;background:none;color:#aaa;font-size:11px
-}
-.copyright{
- text-align:center;border-top:1px solid #333;margin-top:30px;
- padding-top:20px;color:#888;font-size:9px;letter-spacing:1px
-}
+.footer-links button{padding:0;text-align:left;border:0;background:none;color:#aaa;font-size:11px}
+.copyright{text-align:center;border-top:1px solid #333;margin-top:30px;padding-top:20px;color:#888;font-size:9px;letter-spacing:1px}
 
 /* RESPONSIVE */
 @media(max-width:850px){
@@ -276,39 +256,32 @@ footer h3{font-size:10px;letter-spacing:2px}
  .menu-button{padding:9px 12px}
  .areloc-slider{height:470px;max-height:76vh}
  .areloc-slide img{object-position:center}
- .areloc-slide:after{
-  background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.72))
- }
- .areloc-hero-text{
-  left:9%;right:9%;top:auto;bottom:65px;
-  transform:none;width:auto;text-align:center
- }
+ .areloc-slide:after{background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.72))}
+ .areloc-hero-text{left:9%;right:9%;top:auto;bottom:65px;transform:none;width:auto;text-align:center}
  .areloc-hero-text h1{font-size:48px;letter-spacing:3px}
  .areloc-hero-text p{font-size:9px;letter-spacing:1.5px}
  .areloc-hero-text small{font-size:9px;letter-spacing:3px}
  .slider-arrow{width:34px;height:34px;font-size:21px}
- .intro-section,.brand-statement,.explore-section,.why-section{
-  grid-template-columns:1fr
- }
- .intro-copy{padding:38px 7%}
- .intro-image{height:270px;min-height:0}
- .statement-image{height:220px;min-height:0}
+
+ .intro-section,.brand-statement,.explore-section,.why-section{grid-template-columns:1fr}
+ .intro-copy{padding:35px 7%}
+ .intro-image{width:100%}
+ .intro-image img{width:100%;height:auto}
+ .statement-image{width:100%}
  .statement-copy{padding:32px 7%;text-align:center}
  .statement-copy h2{font-size:32px}
- .explore-copy{padding:38px 7%}
- .explore-image{height:240px;min-height:0}
+ .explore-copy{padding:35px 7%}
+ .explore-image{width:100%}
  .why-copy{padding:30px 6%}
- .why-image{height:190px;min-height:0}
+ .why-image{width:100%}
  .why-values{margin-top:15px}
  .why-symbol{font-size:22px}
  .home-end{min-height:210px}
  .home-end h2{font-size:29px}
  .home-end p{font-size:10px;letter-spacing:2px}
+
  .catalog-top{padding:35px 5% 18px}
- .product-grid{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:22px 12px;padding:10px 4% 50px
- }
+ .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px;padding:10px 4% 50px}
  .product-name{font-size:10px}
  .product-price{font-size:11px}
  .view-details{font-size:8px;padding:12px 3px}
@@ -350,133 +323,99 @@ footer h3{font-size:10px;letter-spacing:2px}
 <!-- HOME -->
 <section class="page active" id="home">
 
- <!-- 1. HERO BANNER -->
- <div class="areloc-slider" id="arelocSlider">
-  <div class="areloc-slides" id="arelocSlides">
-   <div class="areloc-slide">
-    <img src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Banner 1">
-   </div>
-   <div class="areloc-slide">
-    <img src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Banner 2">
-   </div>
-   <div class="areloc-slide">
-    <img src="https://files.catbox.moe/uaw67i.jpg" alt="ARELOC Banner 3">
-   </div>
-   <div class="areloc-slide">
-    <img src="https://files.catbox.moe/0x44q5.jpg" alt="ARELOC Banner 4">
-   </div>
-   <div class="areloc-slide">
-    <img src="https://files.catbox.moe/ypo2yc.jpg" alt="ARELOC Banner 5">
-   </div>
-  </div>
-
-  <div class="areloc-hero-text">
-   <small>ARELOC — OFFICIAL STORE</small>
-   <h1>TRUST<br>THE PROCESS.</h1>
-   <p>GOOD THINGS TAKE TIME.</p>
-   <a href="#" class="white-btn" onclick="showPage('katalog');return false">
-    SHOP NOW →
-   </a>
-  </div>
-
-  <button class="slider-arrow slider-prev" onclick="moveSlide(-1)">‹</button>
-  <button class="slider-arrow slider-next" onclick="moveSlide(1)">›</button>
-
-  <div class="slider-dots" id="sliderDots">
-   <button class="slider-dot active" onclick="goSlide(0)"></button>
-   <button class="slider-dot" onclick="goSlide(1)"></button>
-   <button class="slider-dot" onclick="goSlide(2)"></button>
-   <button class="slider-dot" onclick="goSlide(3)"></button>
-   <button class="slider-dot" onclick="goSlide(4)"></button>
-  </div>
+<!-- HEADER SLIDER: TETAP SAMA -->
+<div class="areloc-slider" id="arelocSlider">
+ <div class="areloc-slides" id="arelocSlides">
+  <div class="areloc-slide"><img src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Banner 1"></div>
+  <div class="areloc-slide"><img src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Banner 2"></div>
+  <div class="areloc-slide"><img src="https://files.catbox.moe/uaw67i.jpg" alt="ARELOC Banner 3"></div>
+  <div class="areloc-slide"><img src="https://files.catbox.moe/0x44q5.jpg" alt="ARELOC Banner 4"></div>
+  <div class="areloc-slide"><img src="https://files.catbox.moe/ypo2yc.jpg" alt="ARELOC Banner 5"></div>
  </div>
 
- <!-- 2. BRAND INTRODUCTION -->
- <section class="home-section intro-section">
-  <div class="intro-copy">
-   <div class="section-kicker">01 — BRAND INTRODUCTION</div>
-   <h2 class="section-title">MORE THAN<br>JUST A T-SHIRT</h2>
-   <p class="section-copy">
-    Streetwear is an expression of identity.
-   </p>
-   <a href="#" class="dark-button" onclick="showPage('tentang');return false">
-    LEARN MORE →
-   </a>
-  </div>
-  <div class="intro-image">
-   <img src="https://files.catbox.moe/7agje5.webp"
-        alt="ARELOC Brand Introduction" loading="lazy">
-  </div>
- </section>
+ <div class="areloc-hero-text">
+  <small>ARELOC — OFFICIAL STORE</small>
+  <h1>TRUST<br>THE PROCESS.</h1>
+  <p>GOOD THINGS TAKE TIME.</p>
+  <a href="#" class="white-btn" onclick="showPage('katalog');return false">SHOP NOW →</a>
+ </div>
 
- <!-- 3. BRAND STATEMENT -->
- <section class="home-section brand-statement">
-  <div class="statement-image">
-   <img src="https://files.catbox.moe/oa18nr.png"
-        alt="ARELOC Streetwear Identity" loading="lazy">
-  </div>
-  <div class="statement-copy">
-   <div class="section-kicker">02 — BRAND STATEMENT</div>
-   <h2>TRUST THE PROCESS.</h2>
-   <p>GOOD THINGS TAKE TIME.</p>
-  </div>
- </section>
+ <button class="slider-arrow slider-prev" onclick="moveSlide(-1)">‹</button>
+ <button class="slider-arrow slider-next" onclick="moveSlide(1)">›</button>
 
- <!-- 4. EXPLORE COLLECTION -->
- <section class="home-section explore-section">
-  <div class="explore-copy">
-   <div class="section-kicker">03 — EXPLORE COLLECTION</div>
-   <h2 class="section-title">FIND YOUR STYLE</h2>
-   <p class="section-copy">
-    Discover your identity with ARELOC.
-   </p>
-   <a href="#" class="dark-button" onclick="showPage('katalog');return false">
-    VIEW ALL COLLECTION →
-   </a>
-  </div>
-  <div class="explore-image">
-   <img src="https://files.catbox.moe/oymgva.png"
-        alt="Explore ARELOC Collection" loading="lazy">
-  </div>
- </section>
+ <div class="slider-dots" id="sliderDots">
+  <button class="slider-dot active" onclick="goSlide(0)"></button>
+  <button class="slider-dot" onclick="goSlide(1)"></button>
+  <button class="slider-dot" onclick="goSlide(2)"></button>
+  <button class="slider-dot" onclick="goSlide(3)"></button>
+  <button class="slider-dot" onclick="goSlide(4)"></button>
+ </div>
+</div>
 
- <!-- 5. WHY ARELOC -->
- <section class="home-section why-section">
-  <div class="why-copy">
-   <div class="section-kicker">04 — WHY ARELOC</div>
-   <h2 class="section-title" style="font-size:30px">BUILT WITH CHARACTER</h2>
+<!-- 01 BRAND INTRODUCTION -->
+<section class="home-section intro-section">
+ <div class="intro-copy">
+  <div class="section-kicker">01 — BRAND INTRODUCTION</div>
+  <h2 class="section-title">MORE THAN<br>JUST A T-SHIRT</h2>
+  <p class="section-copy">Streetwear is an expression of identity.</p>
+  <a href="#" class="dark-button" onclick="showPage('tentang');return false">LEARN MORE →</a>
+ </div>
+ <div class="intro-image">
+  <img class="home-photo" src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Brand Introduction" loading="lazy">
+ </div>
+</section>
 
-   <div class="why-values">
-    <div class="why-value">
-     <div class="why-symbol">◇</div>
-     <strong>IDENTITY</strong>
-    </div>
-    <div class="why-value">
-     <div class="why-symbol">✧</div>
-     <strong>QUALITY</strong>
-    </div>
-    <div class="why-value">
-     <div class="why-symbol">◎</div>
-     <strong>CULTURE</strong>
-    </div>
-   </div>
-  </div>
-  <div class="why-image">
-   <img src="https://files.catbox.moe/sgpzwg.png"
-        alt="ARELOC Product Detail" loading="lazy">
-  </div>
- </section>
+<!-- 02 BRAND STATEMENT -->
+<section class="home-section brand-statement">
+ <div class="statement-image">
+  <img class="home-photo" src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Streetwear Identity" loading="lazy">
+ </div>
+ <div class="statement-copy">
+  <div class="section-kicker">02 — BRAND STATEMENT</div>
+  <h2>TRUST THE PROCESS.</h2>
+  <p>GOOD THINGS TAKE TIME.</p>
+ </div>
+</section>
 
- <!-- 6. HOME CLOSING -->
- <section class="home-end">
-  <div class="home-end-content">
-   <h2>WELCOME TO ARELOC</h2>
-   <p>Your style. Your identity.</p>
-   <a href="#" class="white-btn" onclick="showPage('katalog');return false">
-    SHOP ARELOC →
-   </a>
+<!-- 03 EXPLORE COLLECTION -->
+<section class="home-section explore-section">
+ <div class="explore-copy">
+  <div class="section-kicker">03 — EXPLORE COLLECTION</div>
+  <h2 class="section-title">FIND YOUR STYLE</h2>
+  <p class="section-copy">Discover your identity with ARELOC.</p>
+  <a href="#" class="dark-button" onclick="showPage('katalog');return false">VIEW ALL COLLECTION →</a>
+ </div>
+ <div class="explore-image">
+  <img class="home-photo" src="https://files.catbox.moe/uaw67i.jpg" alt="Explore ARELOC Collection" loading="lazy">
+ </div>
+</section>
+
+<!-- 04 WHY ARELOC -->
+<section class="home-section why-section">
+ <div class="why-copy">
+  <div class="section-kicker">04 — WHY ARELOC</div>
+  <h2 class="section-title" style="font-size:30px">BUILT WITH CHARACTER</h2>
+  <div class="why-values">
+   <div class="why-value"><div class="why-symbol">◇</div><strong>IDENTITY</strong></div>
+   <div class="why-value"><div class="why-symbol">✧</div><strong>QUALITY</strong></div>
+   <div class="why-value"><div class="why-symbol">◎</div><strong>CULTURE</strong></div>
   </div>
- </section>
+ </div>
+ <div class="why-image">
+  <img class="home-photo" src="https://files.catbox.moe/0x44q5.jpg" alt="ARELOC Quality and Detail" loading="lazy">
+ </div>
+</section>
+
+<!-- 05 WELCOME TO ARELOC -->
+<img class="home-end-photo" src="https://files.catbox.moe/ypo2yc.jpg" alt="Welcome to ARELOC" loading="lazy">
+
+<section class="home-end">
+ <div class="home-end-content">
+  <h2>WELCOME TO ARELOC</h2>
+  <p>Your style. Your identity.</p>
+  <a href="#" class="white-btn" onclick="showPage('katalog');return false">SHOP ARELOC →</a>
+ </div>
+</section>
 
 </section>
 
@@ -493,10 +432,7 @@ footer h3{font-size:10px;letter-spacing:2px}
 <!-- DETAIL PRODUK -->
 <section class="page" id="detail">
  <div class="detail-wrap">
-  <button class="back-button" onclick="showPage('katalog')">
-   ← KEMBALI KE KATALOG
-  </button>
-
+  <button class="back-button" onclick="showPage('katalog')">← KEMBALI KE KATALOG</button>
   <div class="detail-grid">
    <div class="product-gallery">
     <div class="product-slider" id="productSlider">
@@ -509,7 +445,6 @@ footer h3{font-size:10px;letter-spacing:2px}
     <div class="detail-tag">ARELOC — OFFICIAL STORE</div>
     <h1 id="detailName"></h1>
     <div class="detail-price" id="detailPrice"></div>
-
     <p class="detail-description">
      Dirancang untuk mengekspresikan karakter dan identitas.
      Pilih ukuran yang sesuai, lalu pesan langsung melalui
@@ -530,10 +465,7 @@ footer h3{font-size:10px;letter-spacing:2px}
      <button onclick="changeQty(1)">+</button>
     </div>
 
-    <button class="buy-button" onclick="orderWhatsApp()">
-     BELI SEKARANG — WHATSAPP
-    </button>
-
+    <button class="buy-button" onclick="orderWhatsApp()">BELI SEKARANG — WHATSAPP</button>
     <p class="buy-note">
      Pesanan akan diteruskan ke WhatsApp ARELOC.
      Silakan konfirmasi stok, ukuran, dan detail pengiriman melalui chat.
@@ -548,36 +480,21 @@ footer h3{font-size:10px;letter-spacing:2px}
  <div class="about-content">
   <div class="eyebrow">GET TO KNOW US</div>
   <h1>ABOUT ARELOC</h1>
-
   <p>
    ARELOC adalah brand streetwear yang hadir untuk mereka
    yang percaya bahwa gaya adalah bagian dari identitas.
    Kami mengangkat desain yang berkarakter, ekspresif,
    dan dekat dengan semangat anak muda.
   </p>
-
   <p>
    Setiap koleksi membawa pesan tentang proses,
    kepercayaan diri, dan keberanian untuk menjadi diri sendiri.
   </p>
-
-  <div class="statement">
-   TRUST THE PROCESS. GOOD THINGS TAKE TIME.
-  </div>
-
+  <div class="statement">TRUST THE PROCESS. GOOD THINGS TAKE TIME.</div>
   <div class="about-values">
-   <div class="value-box">
-    <strong>IDENTITY</strong>
-    <p>Ekspresikan karakter diri.</p>
-   </div>
-   <div class="value-box">
-    <strong>CONFIDENCE</strong>
-    <p>Percaya pada pilihanmu.</p>
-   </div>
-   <div class="value-box">
-    <strong>PROCESS</strong>
-    <p>Hargai setiap perjalanan.</p>
-   </div>
+   <div class="value-box"><strong>IDENTITY</strong><p>Ekspresikan karakter diri.</p></div>
+   <div class="value-box"><strong>CONFIDENCE</strong><p>Percaya pada pilihanmu.</p></div>
+   <div class="value-box"><strong>PROCESS</strong><p>Hargai setiap perjalanan.</p></div>
   </div>
  </div>
 </section>
@@ -587,38 +504,27 @@ footer h3{font-size:10px;letter-spacing:2px}
  <div class="contact-content">
   <div class="eyebrow">WE ARE HERE TO HELP</div>
   <h1>CONTACT ARELOC</h1>
-
   <p>
    Untuk pertanyaan produk, ketersediaan ukuran,
    pemesanan, dan informasi lainnya, silakan hubungi
    kami melalui WhatsApp.
   </p>
-
   <div class="contact-card">
    <h3>ARELOC CUSTOMER SERVICE</h3>
    <p>Hubungi kami melalui WhatsApp untuk informasi dan pemesanan.</p>
-   <a class="whatsapp-button"
-      href="https://wa.me/6285196674994"
-      target="_blank" rel="noopener">
-    CHAT VIA WHATSAPP
-   </a>
+   <a class="whatsapp-button" href="https://wa.me/6285196674994" target="_blank" rel="noopener">CHAT VIA WHATSAPP</a>
   </div>
  </div>
 </section>
 
 </main>
 
-<!-- FOOTER -->
 <footer>
  <div class="footer-grid">
   <div>
    <div class="footer-brand">ARELOC</div>
-   <p>
-    OFFICIAL STORE<br>
-    TRUST THE PROCESS. GOOD THINGS TAKE TIME.
-   </p>
+   <p>OFFICIAL STORE<br>TRUST THE PROCESS. GOOD THINGS TAKE TIME.</p>
   </div>
-
   <div>
    <h3>EXPLORE</h3>
    <div class="footer-links">
@@ -627,20 +533,15 @@ footer h3{font-size:10px;letter-spacing:2px}
     <button onclick="showPage('tentang')">Tentang Kami</button>
    </div>
   </div>
-
   <div>
    <h3>HELP</h3>
    <div class="footer-links">
     <button onclick="showPage('kontak')">Hubungi Kami</button>
-    <a href="https://wa.me/6285196674994"
-       target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://wa.me/6285196674994" target="_blank" rel="noopener">WhatsApp</a>
    </div>
   </div>
  </div>
-
- <div class="copyright">
-  © 2026 ARELOC OFFICIAL STORE. ALL RIGHTS RESERVED.
- </div>
+ <div class="copyright">© 2026 ARELOC OFFICIAL STORE. ALL RIGHTS RESERVED.</div>
 </footer>
 
 </div>
@@ -672,18 +573,10 @@ const products=[
 {name:"ARELOC ON GAME",images:["https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_872250258_2485232432001403_1163174335895665898_n_20261030_215009.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_877609723_1082413618112906_8457328235178106399_n_20261030_215015.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_876551603_1060239416992560_7788849580095933902_n_20261030_215146.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_881687910_1006723919114251_5241633869512828322_n_20261030_215022.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_858618607_887375927720596_2208322653680019690_n_20261030_215029.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376172/Meta_AI_872250239_1109807298606255_5802110478454215812_n_20261030_215310.webp.jpg"]}
 ];
 
-let currentProduct=0;
-let currentSize="M";
-let quantity=1;
-let currentSlide=0;
-let slideTimer=null;
-let productPhotoIndex=0;
-let productTouchStart=0;
+let currentProduct=0,currentSize="M",quantity=1,currentSlide=0,slideTimer=null,productPhotoIndex=0,productTouchStart=0;
 
 function rupiah(value){
- return new Intl.NumberFormat("id-ID",{
-  style:"currency",currency:"IDR",maximumFractionDigits:0
- }).format(value);
+ return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
 }
 
 function toggleMenu(){
@@ -691,81 +584,55 @@ function toggleMenu(){
 }
 
 function showPage(id){
- document.querySelectorAll(".page").forEach(page=>{
-  page.classList.remove("active");
- });
-
+ document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
  const target=document.getElementById(id);
  if(target)target.classList.add("active");
-
  document.getElementById("mobileNav").classList.remove("open");
  window.scrollTo({top:0,behavior:"smooth"});
-
- if(id!=="detail"){
-  history.replaceState({page:id},"","#"+id);
- }
+ if(id!=="detail")history.replaceState({page:id},"","#"+id);
 }
 
 function renderProducts(){
  const grid=document.getElementById("productGrid");
-
  grid.innerHTML=products.map((product,index)=>`
   <article class="product-card" onclick="openProduct(${index})">
    <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
    <div class="product-info">
     <div class="product-name">${product.name}</div>
     <div class="product-price">${rupiah(PRICE)}</div>
-    <button class="view-details" type="button"
-     onclick="event.stopPropagation();openProduct(${index})">
-     VIEW DETAILS
-    </button>
+    <button class="view-details" type="button" onclick="event.stopPropagation();openProduct(${index})">VIEW DETAILS</button>
    </div>
   </article>
  `).join("");
 }
 
 function openProduct(index){
- currentProduct=index;
- currentSize="M";
- quantity=1;
-
+ currentProduct=index;currentSize="M";quantity=1;
  document.getElementById("detailName").textContent=products[index].name;
  document.getElementById("detailPrice").textContent=rupiah(PRICE);
  document.getElementById("quantity").textContent=quantity;
-
  document.querySelectorAll(".size-options button").forEach(button=>{
   button.classList.toggle("selected",button.textContent===currentSize);
  });
-
  renderGallery();
  showPage("detail");
  history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
 }
 
-/* GALERI FOTO PRODUK */
 function renderGallery(){
  const product=products[currentProduct];
  productPhotoIndex=0;
-
- const slides=document.getElementById("productSlides");
- const dots=document.getElementById("productDots");
-
- slides.innerHTML=product.images.map((url,index)=>
+ document.getElementById("productSlides").innerHTML=product.images.map((url,index)=>
   `<img src="${url}" alt="${product.name} foto ${index+1}" draggable="false">`
  ).join("");
-
- dots.innerHTML=product.images.map((url,index)=>
-  `<button type="button" class="product-dot ${index===0?"active":""}"
-   onclick="goProductPhoto(${index})" aria-label="Foto ${index+1}"></button>`
+ document.getElementById("productDots").innerHTML=product.images.map((url,index)=>
+  `<button type="button" class="product-dot ${index===0?"active":""}" onclick="goProductPhoto(${index})" aria-label="Foto ${index+1}"></button>`
  ).join("");
-
  updateProductGallery();
 }
 
 function updateProductGallery(){
- const slides=document.getElementById("productSlides");
- slides.style.transform="translateX(-"+(productPhotoIndex*100)+"%)";
-
+ document.getElementById("productSlides").style.transform="translateX(-"+(productPhotoIndex*100)+"%)";
  document.querySelectorAll(".product-dot").forEach((dot,index)=>{
   dot.classList.toggle("active",index===productPhotoIndex);
  });
@@ -792,7 +659,6 @@ function changeQty(amount){
 function orderWhatsApp(){
  const product=products[currentProduct];
  const total=PRICE*quantity;
-
  const message=
  `Halo ARELOC, saya ingin memesan produk:\n\n`+
  `Produk: ${product.name}\n`+
@@ -801,32 +667,22 @@ function orderWhatsApp(){
  `Jumlah: ${quantity}\n`+
  `Total: ${rupiah(total)}\n\n`+
  `Mohon informasi stok dan cara pengiriman. Terima kasih.`;
-
- window.open(
-  "https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),
-  "_blank"
- );
+ window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),"_blank");
 }
 
-/* GESER GALERI PRODUK DI HP */
+/* GESER GALERI PRODUK */
 const productSlider=document.getElementById("productSlider");
-
 productSlider.addEventListener("touchstart",event=>{
  productTouchStart=event.touches[0].clientX;
 },{passive:true});
-
 productSlider.addEventListener("touchend",event=>{
  const distance=event.changedTouches[0].clientX-productTouchStart;
- if(Math.abs(distance)>40){
-  goProductPhoto(productPhotoIndex+(distance<0?1:-1));
- }
+ if(Math.abs(distance)>40)goProductPhoto(productPhotoIndex+(distance<0?1:-1));
 },{passive:true});
 
 /* SLIDER HEADER */
 function updateSlide(){
- const slides=document.getElementById("arelocSlides");
- slides.style.transform="translateX(-"+(currentSlide*100)+"%)";
-
+ document.getElementById("arelocSlides").style.transform="translateX(-"+(currentSlide*100)+"%)";
  document.querySelectorAll(".slider-dot").forEach((dot,index)=>{
   dot.classList.toggle("active",index===currentSlide);
  });
@@ -838,9 +694,7 @@ function goSlide(index){
  restartSlideTimer();
 }
 
-function moveSlide(direction){
- goSlide(currentSlide+direction);
-}
+function moveSlide(direction){goSlide(currentSlide+direction)}
 
 function restartSlideTimer(){
  clearInterval(slideTimer);
@@ -852,11 +706,9 @@ function restartSlideTimer(){
 
 const headerSlider=document.getElementById("arelocSlider");
 let headerTouchStart=0;
-
 headerSlider.addEventListener("touchstart",event=>{
  headerTouchStart=event.touches[0].clientX;
 },{passive:true});
-
 headerSlider.addEventListener("touchend",event=>{
  const distance=event.changedTouches[0].clientX-headerTouchStart;
  if(Math.abs(distance)>45)moveSlide(distance<0?1:-1);
