@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -39,7 +40,7 @@ img{display:block;max-width:100%}
 .page{display:none}
 .page.active{display:block}
 
-/* HEADER SLIDER — FOTO LAMA DIPERTAHANKAN */
+/* HEADER SLIDER */
 .areloc-slider{
  height:clamp(390px,58vw,650px);max-height:650px;
  position:relative;overflow:hidden;background:#050505;color:#fff;
@@ -94,17 +95,10 @@ img{display:block;max-width:100%}
  display:inline-block;background:#050505;color:#fff;
  padding:14px 20px;font-size:11px;font-weight:bold;letter-spacing:1px
 }
-
-/* FOTO HOME: TAMPIL UTUH, TIDAK DIPOTONG */
 .home-photo{
- width:100%;
- height:auto;
- object-fit:contain;
- object-position:center;
- background:#eee;
+ width:100%;height:auto;object-fit:contain;
+ object-position:center;background:#eee
 }
-
-/* INTRODUCTION */
 .intro-section{
  display:grid;grid-template-columns:1fr 1fr;
  background:#f3f3f3;align-items:center
@@ -112,8 +106,6 @@ img{display:block;max-width:100%}
 .intro-copy{padding:45px 7%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
 .intro-image{width:100%;display:flex;align-items:center;justify-content:center;background:#eee}
 .intro-image img{width:100%;height:auto;object-fit:contain}
-
-/* STATEMENT */
 .brand-statement{
  display:grid;grid-template-columns:1fr 1fr;
  background:#050505;color:#fff;align-items:center
@@ -126,8 +118,6 @@ img{display:block;max-width:100%}
  line-height:1.1;margin:12px 0
 }
 .statement-copy p{font-size:12px;letter-spacing:4px;line-height:1.8}
-
-/* COLLECTION */
 .explore-section{
  display:grid;grid-template-columns:1fr 1.15fr;
  background:#f4f4f4;align-items:center
@@ -135,8 +125,6 @@ img{display:block;max-width:100%}
 .explore-copy{padding:40px 7%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
 .explore-image{width:100%;background:#eee}
 .explore-image img{width:100%;height:auto;object-fit:contain}
-
-/* WHY ARELOC */
 .why-section{
  display:grid;grid-template-columns:1fr 1fr;
  background:#f1f1f1;align-items:center
@@ -149,8 +137,6 @@ img{display:block;max-width:100%}
 .why-value:last-child{border:0}
 .why-symbol{font-size:25px;font-weight:bold}
 .why-value strong{display:block;font-size:10px;letter-spacing:1px;margin-top:8px}
-
-/* PENUTUP HOME */
 .home-end-photo{width:100%;height:auto;display:block;object-fit:contain;background:#111}
 .home-end{
  min-height:220px;background:#050505;color:#fff;
@@ -210,6 +196,18 @@ img{display:block;max-width:100%}
 .detail-price{font-size:20px;font-weight:bold;margin:16px 0}
 .detail-description{font-size:12px;line-height:1.9;color:#666}
 .field-label{display:block;font-size:10px;font-weight:bold;letter-spacing:1.5px;margin:22px 0 10px}
+
+/* PILIHAN WARNA */
+.color-options{display:flex;gap:10px;flex-wrap:wrap}
+.color-options button{
+ min-width:90px;padding:12px 20px;background:#fff;color:#111;
+ border:1px solid #ccc;font-size:11px;font-weight:bold;letter-spacing:1px
+}
+.color-options button.selected{
+ background:#000;color:#fff;border-color:#000
+}
+
+/* PILIHAN UKURAN */
 .size-options{display:flex;gap:9px}
 .size-options button{width:48px;height:42px;background:white;border:1px solid #ddd;font-size:12px}
 .size-options button.selected{background:#000;color:white;border-color:#000}
@@ -262,7 +260,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  .areloc-hero-text p{font-size:9px;letter-spacing:1.5px}
  .areloc-hero-text small{font-size:9px;letter-spacing:3px}
  .slider-arrow{width:34px;height:34px;font-size:21px}
-
  .intro-section,.brand-statement,.explore-section,.why-section{grid-template-columns:1fr}
  .intro-copy{padding:35px 7%}
  .intro-image{width:100%}
@@ -279,7 +276,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  .home-end{min-height:210px}
  .home-end h2{font-size:29px}
  .home-end p{font-size:10px;letter-spacing:2px}
-
  .catalog-top{padding:35px 5% 18px}
  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px;padding:10px 4% 50px}
  .product-name{font-size:10px}
@@ -323,7 +319,6 @@ footer h3{font-size:10px;letter-spacing:2px}
 <!-- HOME -->
 <section class="page active" id="home">
 
-<!-- HEADER SLIDER: TETAP SAMA -->
 <div class="areloc-slider" id="arelocSlider">
  <div class="areloc-slides" id="arelocSlides">
   <div class="areloc-slide"><img src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Banner 1"></div>
@@ -352,7 +347,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  </div>
 </div>
 
-<!-- 01 BRAND INTRODUCTION -->
 <section class="home-section intro-section">
  <div class="intro-copy">
   <div class="section-kicker">01 — BRAND INTRODUCTION</div>
@@ -365,7 +359,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  </div>
 </section>
 
-<!-- 02 BRAND STATEMENT -->
 <section class="home-section brand-statement">
  <div class="statement-image">
   <img class="home-photo" src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Streetwear Identity" loading="lazy">
@@ -377,7 +370,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  </div>
 </section>
 
-<!-- 03 EXPLORE COLLECTION -->
 <section class="home-section explore-section">
  <div class="explore-copy">
   <div class="section-kicker">03 — EXPLORE COLLECTION</div>
@@ -390,7 +382,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  </div>
 </section>
 
-<!-- 04 WHY ARELOC -->
 <section class="home-section why-section">
  <div class="why-copy">
   <div class="section-kicker">04 — WHY ARELOC</div>
@@ -406,7 +397,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  </div>
 </section>
 
-<!-- 05 WELCOME TO ARELOC -->
 <img class="home-end-photo" src="https://files.catbox.moe/ypo2yc.jpg" alt="Welcome to ARELOC" loading="lazy">
 
 <section class="home-end">
@@ -447,15 +437,21 @@ footer h3{font-size:10px;letter-spacing:2px}
     <div class="detail-price" id="detailPrice"></div>
     <p class="detail-description">
      Dirancang untuk mengekspresikan karakter dan identitas.
-     Pilih ukuran yang sesuai, lalu pesan langsung melalui
+     Pilih warna dan ukuran yang sesuai, lalu pesan langsung melalui
      WhatsApp ARELOC Official Store.
     </p>
 
+    <span class="field-label">PILIH WARNA</span>
+    <div class="color-options">
+     <button type="button" onclick="chooseColor('Hitam')" class="selected">HITAM</button>
+     <button type="button" onclick="chooseColor('Putih')">PUTIH</button>
+    </div>
+
     <span class="field-label">PILIH UKURAN</span>
     <div class="size-options">
-     <button onclick="chooseSize('M')" class="selected">M</button>
-     <button onclick="chooseSize('L')">L</button>
-     <button onclick="chooseSize('XL')">XL</button>
+     <button type="button" onclick="chooseSize('M')" class="selected">M</button>
+     <button type="button" onclick="chooseSize('L')">L</button>
+     <button type="button" onclick="chooseSize('XL')">XL</button>
     </div>
 
     <span class="field-label">JUMLAH</span>
@@ -573,7 +569,7 @@ const products=[
 {name:"ARELOC ON GAME",images:["https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_872250258_2485232432001403_1163174335895665898_n_20261030_215009.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_877609723_1082413618112906_8457328235178106399_n_20261030_215015.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_876551603_1060239416992560_7788849580095933902_n_20261030_215146.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_881687910_1006723919114251_5241633869512828322_n_20261030_215022.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_858618607_887375927720596_2208322653680019690_n_20261030_215029.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376172/Meta_AI_872250239_1109807298606255_5802110478454215812_n_20261030_215310.webp.jpg"]}
 ];
 
-let currentProduct=0,currentSize="M",quantity=1,currentSlide=0,slideTimer=null,productPhotoIndex=0,productTouchStart=0;
+let currentProduct=0,currentSize="M",currentColor="Hitam",quantity=1,currentSlide=0,slideTimer=null,productPhotoIndex=0,productTouchStart=0;
 
 function rupiah(value){
  return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
@@ -607,13 +603,23 @@ function renderProducts(){
 }
 
 function openProduct(index){
- currentProduct=index;currentSize="M";quantity=1;
+ currentProduct=index;
+ currentSize="M";
+ currentColor="Hitam";
+ quantity=1;
+
  document.getElementById("detailName").textContent=products[index].name;
  document.getElementById("detailPrice").textContent=rupiah(PRICE);
  document.getElementById("quantity").textContent=quantity;
+
  document.querySelectorAll(".size-options button").forEach(button=>{
   button.classList.toggle("selected",button.textContent===currentSize);
  });
+
+ document.querySelectorAll(".color-options button").forEach(button=>{
+  button.classList.toggle("selected",button.textContent.trim().toLowerCase()===currentColor.toLowerCase());
+ });
+
  renderGallery();
  showPage("detail");
  history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
@@ -644,6 +650,16 @@ function goProductPhoto(index){
  updateProductGallery();
 }
 
+function chooseColor(color){
+ currentColor=color;
+ document.querySelectorAll(".color-options button").forEach(button=>{
+  button.classList.toggle(
+   "selected",
+   button.textContent.trim().toLowerCase()===color.toLowerCase()
+  );
+ });
+}
+
 function chooseSize(size){
  currentSize=size;
  document.querySelectorAll(".size-options button").forEach(button=>{
@@ -663,10 +679,12 @@ function orderWhatsApp(){
  `Halo ARELOC, saya ingin memesan produk:\n\n`+
  `Produk: ${product.name}\n`+
  `Harga: ${rupiah(PRICE)}\n`+
+ `Warna: ${currentColor}\n`+
  `Ukuran: ${currentSize}\n`+
  `Jumlah: ${quantity}\n`+
  `Total: ${rupiah(total)}\n\n`+
  `Mohon informasi stok dan cara pengiriman. Terima kasih.`;
+
  window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),"_blank");
 }
 
