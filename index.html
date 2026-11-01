@@ -17,20 +17,16 @@ button{font:inherit;cursor:pointer}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 #app{width:100%;max-width:1500px;margin:auto;overflow:hidden}
-
-/* HEADER */
-.topbar{min-height:68px;padding:0 5%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:#050505;color:#fff;position:relative;z-index:20}
-.brand{grid-column:2;font-family:'Michroma',Arial,sans-serif;font-size:23px;letter-spacing:2px;white-space:nowrap}
-.header-actions{grid-column:3;justify-self:end;display:flex;gap:9px}
-.header-icon,.menu-button{width:39px;height:39px;display:flex;align-items:center;justify-content:center;border:1px solid #555;background:transparent;color:#fff;position:relative}
+.topbar{min-height:64px;padding:0 4%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:#050505;color:#fff;position:relative;z-index:20}
+.brand{grid-column:2;font-family:Michroma,Arial,sans-serif;font-size:21px;letter-spacing:2px;white-space:nowrap}
+.header-actions{grid-column:3;justify-self:end;display:flex;gap:8px}
+.header-icon,.menu-button{width:38px;height:38px;display:flex;align-items:center;justify-content:center;border:1px solid #555;background:transparent;color:#fff;position:relative}
 .header-icon svg,.menu-button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7}
 .cart-count{position:absolute;top:-7px;right:-7px;background:#fff;color:#000;border-radius:50%;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold}
 .mobile-nav{display:none;background:#080808;padding:10px 5%;flex-direction:column}
 .mobile-nav.open{display:flex}
 .mobile-nav button{background:none;border:0;color:white;text-align:left;padding:14px 5px;border-bottom:1px solid #292929;font-size:11px;letter-spacing:1px}
 .page{display:none}.page.active{display:block}
-
-/* HOME SLIDER */
 .areloc-slider{height:clamp(390px,58vw,650px);max-height:650px;position:relative;overflow:hidden;background:#050505;color:#fff;touch-action:pan-y}
 .areloc-slides{display:flex;height:100%;transition:transform .55s ease}
 .areloc-slide{flex:0 0 100%;height:100%;min-width:100%;position:relative}
@@ -46,22 +42,18 @@ img{display:block;max-width:100%}
 .slider-dots{position:absolute;z-index:5;bottom:18px;left:0;right:0;display:flex;justify-content:center;gap:9px}
 .slider-dot{width:8px;height:8px;border:0;border-radius:20px;background:#888;padding:0}
 .slider-dot.active{width:22px;background:#fff}
-
-/* HOME SECTIONS */
 .home-section{display:grid;grid-template-columns:1fr 1fr;align-items:center}
 .home-section.dark{background:#050505;color:#fff}
 .home-copy{padding:45px 8%}
 .kicker{font-size:10px;font-weight:bold;letter-spacing:2px;margin-bottom:15px}
 .home-copy h2{font-size:clamp(28px,5vw,52px);line-height:1.05;margin:0 0 15px}
-.home-copy p{font-size:13px;line-height:1.9;color:inherit}
+.home-copy p{font-size:13px;line-height:1.9}
 .home-photo{width:100%;height:auto;object-fit:contain;background:#eee}
 .dark-button{display:inline-block;background:#050505;color:#fff;padding:14px 20px;font-size:10px;font-weight:bold;letter-spacing:1px;margin-top:10px}
 .dark .dark-button{background:#fff;color:#000}
 .home-end{background:#050505;color:#fff;text-align:center;padding:55px 15px}
 .home-end h2{font-size:clamp(27px,5vw,46px);margin:0 0 10px}
 .home-end p{font-size:11px;letter-spacing:3px}
-
-/* CATALOG */
 .catalog-top{text-align:center;padding:40px 5% 18px}
 .eyebrow{font-size:9px;letter-spacing:4px;color:#777}
 .catalog-top h1{font-size:29px;letter-spacing:2px;margin:9px 0}
@@ -82,8 +74,6 @@ img{display:block;max-width:100%}
 #arelocPagination button.active{background:#000;color:#fff}
 #arelocPagination button:disabled{opacity:.3}
 .page-info{text-align:center;font-size:10px;color:#777;letter-spacing:1px;padding:0 10px 35px}
-
-/* PRODUCT DETAIL */
 .detail-wrap{padding:30px 5% 60px;max-width:1100px;margin:auto}
 .back-button{border:0;background:none;padding:10px 0;margin-bottom:18px;font-size:11px;letter-spacing:1px}
 .detail-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:38px}
@@ -110,8 +100,6 @@ img{display:block;max-width:100%}
 .add-cart-button{background:#fff;border:1px solid #111;color:#000}
 .buy-button{background:#050505;border:0;color:#fff}
 .buy-note{font-size:10px;color:#888;line-height:1.7}
-
-/* CART */
 .cart-wrap{max-width:1000px;margin:auto;padding:35px 5% 65px}
 .cart-heading{text-align:center;margin-bottom:25px}
 .cart-heading h1{font-size:28px;letter-spacing:2px}
@@ -135,8 +123,6 @@ img{display:block;max-width:100%}
 .summary-total{border-top:1px solid #ccc;padding-top:15px;font-size:15px;font-weight:bold}
 .checkout-button{width:100%;background:#050505;color:#fff;border:0;padding:16px;margin-top:12px;font-size:10px;font-weight:bold;letter-spacing:1px}
 .clear-cart-button{display:block;margin:17px 0 0 auto;border:0;background:none;color:#777;text-decoration:underline;font-size:10px}
-
-/* ABOUT / CONTACT / FOOTER */
 .about-content,.contact-content{max-width:800px;margin:auto;text-align:center;padding:60px 7% 80px}
 .about-content h1,.contact-content h1{font-size:30px;letter-spacing:2px}
 .about-content p,.contact-content p{font-size:13px;line-height:2;color:#666}
@@ -148,17 +134,13 @@ img{display:block;max-width:100%}
 .whatsapp-button{display:inline-block;background:#050505;color:#fff;padding:15px 22px;font-size:10px;letter-spacing:1px}
 footer{background:#050505;color:#fff;padding:38px 5% 22px}
 .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}
-.footer-brand{font-family:'Michroma',Arial,sans-serif;font-size:21px;letter-spacing:2px}
+.footer-brand{font-family:Michroma,Arial,sans-serif;font-size:21px;letter-spacing:2px}
 footer p{font-size:11px;color:#aaa;line-height:1.9}
 footer h3{font-size:10px;letter-spacing:2px}
 .footer-links{display:flex;flex-direction:column;gap:12px}
 .footer-links button,.footer-links a{padding:0;text-align:left;border:0;background:none;color:#aaa;font-size:11px}
 .copyright{text-align:center;border-top:1px solid #333;margin-top:25px;padding-top:18px;color:#888;font-size:9px;letter-spacing:1px}
-
-/* MOBILE */
-@media(max-width:850px){
- .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-}
+@media(max-width:850px){.product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:600px){
  .topbar{min-height:64px;padding:0 12px}
  .brand{font-size:18px;letter-spacing:1px}
@@ -200,18 +182,17 @@ footer h3{font-size:10px;letter-spacing:2px}
 
 <body>
 <div id="app">
-
 <header class="topbar">
- <button class="header-icon" onclick="showPage('katalog')" aria-label="Search products">
+ <button class="header-icon" onclick="showPage('katalog')" aria-label="Cari produk">
   <svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
  </button>
  <a class="brand" href="#" onclick="showPage('home');return false">ARELOC</a>
  <div class="header-actions">
-  <button class="header-icon" onclick="showPage('cart')" aria-label="Shopping cart">
+  <button class="header-icon" onclick="showPage('cart')" aria-label="Keranjang">
    <svg viewBox="0 0 24 24"><path d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.5L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
    <span class="cart-count" id="cartCount">0</span>
   </button>
-  <button class="menu-button" onclick="toggleMenu()" aria-label="Open menu">
+  <button class="menu-button" onclick="toggleMenu()" aria-label="Menu">
    <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
   </button>
  </div>
@@ -219,10 +200,10 @@ footer h3{font-size:10px;letter-spacing:2px}
 
 <nav class="mobile-nav" id="mobileNav">
  <button onclick="showPage('home')">HOME</button>
- <button onclick="showPage('katalog')">CATALOG</button>
- <button onclick="showPage('cart')">SHOPPING CART</button>
- <button onclick="showPage('tentang')">ABOUT US</button>
- <button onclick="showPage('kontak')">CONTACT</button>
+ <button onclick="showPage('katalog')">KATALOG</button>
+ <button onclick="showPage('cart')">KERANJANG</button>
+ <button onclick="showPage('tentang')">TENTANG KAMI</button>
+ <button onclick="showPage('kontak')">KONTAK</button>
 </nav>
 
 <main>
@@ -261,7 +242,6 @@ footer h3{font-size:10px;letter-spacing:2px}
   </div>
   <img class="home-photo" src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Brand Introduction" loading="lazy">
  </section>
-
  <section class="home-section dark">
   <img class="home-photo" src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Streetwear" loading="lazy">
   <div class="home-copy">
@@ -270,7 +250,6 @@ footer h3{font-size:10px;letter-spacing:2px}
    <p>GOOD THINGS TAKE TIME.</p>
   </div>
  </section>
-
  <section class="home-section">
   <div class="home-copy">
    <div class="kicker">03 — EXPLORE COLLECTION</div>
@@ -280,7 +259,6 @@ footer h3{font-size:10px;letter-spacing:2px}
   </div>
   <img class="home-photo" src="https://files.catbox.moe/uaw67i.jpg" alt="ARELOC Collection" loading="lazy">
  </section>
-
  <section class="home-end">
   <h2>WELCOME TO ARELOC</h2>
   <p>YOUR STYLE. YOUR IDENTITY.</p>
@@ -288,14 +266,12 @@ footer h3{font-size:10px;letter-spacing:2px}
  </section>
 </section>
 
-<!-- CATALOG -->
 <section class="page" id="katalog">
  <div class="catalog-top">
   <div class="eyebrow">ARELOC — OFFICIAL STORE</div>
   <h1 id="catalogTitle">ALL COLLECTION</h1>
   <p>Explore the collection. Find your identity.</p>
  </div>
-
  <div class="category-filter" id="categoryFilter">
   <button type="button" class="active" data-category="ALL">ALL COLLECTION</button>
   <button type="button" data-category="T-SHIRT">T-SHIRT</button>
@@ -304,16 +280,14 @@ footer h3{font-size:10px;letter-spacing:2px}
   <button type="button" data-category="PANTS">PANTS</button>
   <button type="button" data-category="BAGS">BAGS</button>
  </div>
-
  <div class="product-grid" id="productGrid"></div>
  <div id="arelocPagination"></div>
  <div class="page-info" id="pageInfo"></div>
 </section>
 
-<!-- PRODUCT DETAIL -->
 <section class="page" id="detail">
  <div class="detail-wrap">
-  <button class="back-button" onclick="showPage('katalog')">← BACK TO CATALOG</button>
+  <button class="back-button" onclick="showPage('katalog')">← KEMBALI KE KATALOG</button>
   <div class="detail-grid">
    <div>
     <div class="product-slider" id="productSlider"><div class="product-slides" id="productSlides"></div></div>
@@ -323,55 +297,49 @@ footer h3{font-size:10px;letter-spacing:2px}
     <div class="detail-tag">ARELOC — OFFICIAL STORE</div>
     <h1 id="detailName"></h1>
     <div class="detail-price" id="detailPrice"></div>
-    <p class="detail-description">Designed to express your character and identity. Choose your preferred color and size, then add your item to the shopping cart.</p>
-
-    <span class="field-label">SELECT COLOR</span>
+    <p class="detail-description">Dirancang untuk mengekspresikan karakter dan identitas Anda. Pilih warna dan ukuran, lalu masukkan produk ke keranjang belanja.</p>
+    <span class="field-label">PILIH WARNA</span>
     <div class="color-options">
      <button type="button" onclick="chooseColor('Hitam')" class="selected">BLACK</button>
      <button type="button" onclick="chooseColor('Putih')">WHITE</button>
     </div>
-
-    <span class="field-label">SELECT SIZE</span>
+    <span class="field-label">PILIH UKURAN</span>
     <div class="size-options">
      <button type="button" onclick="chooseSize('M')" class="selected">M</button>
      <button type="button" onclick="chooseSize('L')">L</button>
      <button type="button" onclick="chooseSize('XL')">XL</button>
     </div>
-
-    <span class="field-label">QUANTITY</span>
+    <span class="field-label">JUMLAH</span>
     <div class="qty-control">
      <button onclick="changeQty(-1)">−</button>
      <span id="quantity">1</span>
      <button onclick="changeQty(1)">+</button>
     </div>
-
-    <button class="add-cart-button" onclick="addToCart()">＋ ADD TO CART</button>
-    <button class="buy-button" onclick="buyNow()">BUY NOW — WHATSAPP</button>
-    <p class="buy-note">Add multiple products to your cart, then checkout through WhatsApp. Shipping costs will be confirmed by our team.</p>
+    <button class="add-cart-button" onclick="addToCart()">＋ TAMBAH KE KERANJANG</button>
+    <button class="buy-button" onclick="buyNow()">BELI SEKARANG — WHATSAPP</button>
+    <p class="buy-note">Tambahkan beberapa produk ke keranjang, lalu checkout melalui WhatsApp. Ongkir dihitung berdasarkan wilayah tujuan.</p>
    </div>
   </div>
  </div>
 </section>
 
-<!-- CART -->
 <section class="page" id="cart">
  <div class="cart-wrap">
   <div class="cart-heading">
    <div class="eyebrow">ARELOC — OFFICIAL STORE</div>
-   <h1>SHOPPING CART</h1>
-   <p>Review your items before checkout.</p>
+   <h1>KERANJANG BELANJA</h1>
+   <p>Periksa pesanan sebelum checkout.</p>
   </div>
   <div id="cartContent"></div>
  </div>
 </section>
 
-<!-- ABOUT -->
 <section class="page" id="tentang">
  <div class="about-content">
   <div class="eyebrow">GET TO KNOW US</div>
-  <h1>ABOUT ARELOC</h1>
-  <p>ARELOC is a streetwear brand for those who believe that style is part of identity. We create designs with character, expression, and the spirit of youth culture.</p>
-  <p>Every collection carries a message about the process, confidence, and the courage to be yourself.</p>
+  <h1>TENTANG ARELOC</h1>
+  <p>ARELOC adalah brand streetwear untuk mereka yang percaya bahwa gaya merupakan bagian dari identitas. Kami menghadirkan desain dengan karakter, ekspresi, dan semangat budaya anak muda.</p>
+  <p>Setiap koleksi membawa pesan tentang proses, kepercayaan diri, dan keberanian untuk menjadi diri sendiri.</p>
   <h3>TRUST THE PROCESS. GOOD THINGS TAKE TIME.</h3>
   <div class="about-values">
    <div class="value-box"><strong>IDENTITY</strong><p>Express your character.</p></div>
@@ -381,15 +349,14 @@ footer h3{font-size:10px;letter-spacing:2px}
  </div>
 </section>
 
-<!-- CONTACT -->
 <section class="page" id="kontak">
  <div class="contact-content">
   <div class="eyebrow">WE ARE HERE TO HELP</div>
-  <h1>CONTACT ARELOC</h1>
-  <p>For product questions, size availability, orders, and other information, please contact us through WhatsApp.</p>
+  <h1>HUBUNGI ARELOC</h1>
+  <p>Untuk pertanyaan produk, ukuran, ketersediaan, pesanan, dan informasi lainnya, silakan hubungi kami melalui WhatsApp.</p>
   <div class="contact-card">
    <h3>ARELOC CUSTOMER SERVICE</h3>
-   <p>Contact us on WhatsApp for product information and orders.</p>
+   <p>Hubungi kami melalui WhatsApp untuk informasi produk dan pemesanan.</p>
    <a class="whatsapp-button" href="https://wa.me/6285196674994" target="_blank" rel="noopener">CHAT VIA WHATSAPP</a>
   </div>
  </div>
@@ -403,18 +370,18 @@ footer h3{font-size:10px;letter-spacing:2px}
    <p>OFFICIAL STORE<br>TRUST THE PROCESS. GOOD THINGS TAKE TIME.</p>
   </div>
   <div>
-   <h3>EXPLORE</h3>
+   <h3>JELAJAHI</h3>
    <div class="footer-links">
     <button onclick="showPage('home')">Home</button>
-    <button onclick="showPage('katalog')">Catalog</button>
-    <button onclick="showPage('tentang')">About Us</button>
+    <button onclick="showPage('katalog')">Katalog</button>
+    <button onclick="showPage('tentang')">Tentang Kami</button>
    </div>
   </div>
   <div>
-   <h3>HELP</h3>
+   <h3>BANTUAN</h3>
    <div class="footer-links">
-    <button onclick="showPage('kontak')">Contact Us</button>
-    <button onclick="showPage('cart')">Shopping Cart</button>
+    <button onclick="showPage('kontak')">Kontak</button>
+    <button onclick="showPage('cart')">Keranjang</button>
     <a href="https://wa.me/6285196674994" target="_blank" rel="noopener">WhatsApp</a>
    </div>
   </div>
@@ -475,39 +442,31 @@ function loadCart(){
   return Array.isArray(saved)?saved:[];
  }catch(error){return []}
 }
-
 function saveCart(){
  try{localStorage.setItem("arelocShoppingCart",JSON.stringify(cart))}
- catch(error){console.log("Cart storage unavailable")}
+ catch(error){console.log("Penyimpanan keranjang tidak tersedia")}
 }
-
 function cartItemCount(){
  return cart.reduce((sum,item)=>sum+(Number(item.qty)||0),0);
 }
-
 function updateCartCount(){
  document.getElementById("cartCount").textContent=cartItemCount();
 }
-
 function productsPerPage(){
  return window.innerWidth<=600?PRODUCTS_PER_MOBILE:PRODUCTS_PER_DESKTOP;
 }
-
 function getFilteredProducts(){
- return products.map((product,index)=>({
-  product,index,category:product.category||"T-SHIRT"
- })).filter(item=>activeCategory==="ALL"||item.category===activeCategory);
+ return products.map((product,index)=>({product,index,category:product.category||"T-SHIRT"}))
+ .filter(item=>activeCategory==="ALL"||item.category===activeCategory);
 }
-
 function totalPages(){
  return Math.max(1,Math.ceil(getFilteredProducts().length/productsPerPage()));
 }
 
-/* NAVIGATION */
+/* NAVIGASI */
 function toggleMenu(){
  document.getElementById("mobileNav").classList.toggle("open");
 }
-
 function showPage(id){
  document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
  const target=document.getElementById(id);
@@ -518,49 +477,33 @@ function showPage(id){
  if(id!=="detail")history.replaceState({page:id},"","#"+id);
 }
 
-/* CATEGORY */
+/* KATEGORI */
 function changeCategory(category){
  activeCategory=category;
  currentCatalogPage=1;
-
  document.querySelectorAll("#categoryFilter button").forEach(button=>{
   button.classList.toggle("active",button.dataset.category===category);
  });
-
- const names={
-  ALL:"ALL COLLECTION",
-  "T-SHIRT":"T-SHIRT COLLECTION",
-  HOODIE:"HOODIE COLLECTION",
-  JACKET:"JACKET COLLECTION",
-  PANTS:"PANTS COLLECTION",
-  BAGS:"BAGS COLLECTION"
- };
-
+ const names={ALL:"ALL COLLECTION","T-SHIRT":"T-SHIRT COLLECTION",HOODIE:"HOODIE COLLECTION",JACKET:"JACKET COLLECTION",PANTS:"PANTS COLLECTION",BAGS:"BAGS COLLECTION"};
  document.getElementById("catalogTitle").textContent=names[category]||"ALL COLLECTION";
  renderProducts();
 }
-
 document.getElementById("categoryFilter").addEventListener("click",function(event){
  const button=event.target.closest("button[data-category]");
  if(button)changeCategory(button.dataset.category);
 });
 
-/* PAGINATION */
+/* NOMOR HALAMAN */
 function renderPagination(){
  const pagination=document.getElementById("arelocPagination");
  const info=document.getElementById("pageInfo");
- const filtered=getFilteredProducts();
- const totalItems=filtered.length;
+ const totalItems=getFilteredProducts().length;
  const total=totalPages();
-
  currentCatalogPage=Math.min(currentCatalogPage,total);
-
  let html='<button type="button" data-page="prev" '+(currentCatalogPage===1?'disabled':'')+'>‹</button>';
  let pages=[];
-
- if(total<=7){
-  for(let i=1;i<=total;i++)pages.push(i);
- }else{
+ if(total<=7){for(let i=1;i<=total;i++)pages.push(i)}
+ else{
   pages.push(1);
   let start=Math.max(2,currentCatalogPage-1);
   let end=Math.min(total-1,currentCatalogPage+1);
@@ -571,46 +514,39 @@ function renderPagination(){
   if(end<total-1)pages.push("...");
   pages.push(total);
  }
-
  pages.forEach(page=>{
   if(page==="...")html+='<span style="padding:0 4px">…</span>';
   else html+='<button type="button" data-page="'+page+'" class="'+(page===currentCatalogPage?'active':'')+'">'+page+'</button>';
  });
-
  html+='<button type="button" data-page="next" '+(currentCatalogPage===total?'disabled':'')+'>›</button>';
  pagination.innerHTML=html;
-
  const first=totalItems===0?0:(currentCatalogPage-1)*productsPerPage()+1;
  const last=Math.min(currentCatalogPage*productsPerPage(),totalItems);
  info.textContent="SHOWING "+first+"–"+last+" OF "+totalItems+" PRODUCTS";
 }
-
 function changeCatalogPage(page){
  const total=totalPages();
  if(page==="prev")page=currentCatalogPage-1;
  else if(page==="next")page=currentCatalogPage+1;
  else page=Number(page);
  if(!Number.isFinite(page))return;
-
  currentCatalogPage=Math.max(1,Math.min(total,page));
  renderProducts();
  window.scrollTo({top:document.getElementById("katalog").offsetTop,behavior:"smooth"});
 }
-
 document.getElementById("arelocPagination").addEventListener("click",function(event){
  const button=event.target.closest("button[data-page]");
  if(!button||button.disabled)return;
  changeCatalogPage(button.dataset.page);
 });
 
-/* CATALOG */
+/* KATALOG PRODUK */
 function renderProducts(){
  const grid=document.getElementById("productGrid");
  const perPage=productsPerPage();
  const filtered=getFilteredProducts();
  const start=(currentCatalogPage-1)*perPage;
  const visible=filtered.slice(start,start+perPage);
-
  if(filtered.length===0){
   grid.innerHTML='<div class="empty-category"><strong>COMING SOON</strong><br>Produk untuk kategori ini belum tersedia.<br>Nantikan koleksi terbaru ARELOC.</div>';
  }else{
@@ -620,7 +556,7 @@ function renderProducts(){
     <div class="product-info">
      <div class="product-name">${item.product.name}</div>
      <div class="product-price">${rupiah(PRICE)}</div>
-     <button class="view-details" type="button" onclick="event.stopPropagation();openProduct(${item.index})">VIEW DETAILS</button>
+     <button class="view-details" type="button" onclick="event.stopPropagation();openProduct(${item.index})">LIHAT DETAIL</button>
     </div>
    </article>
   `).join("");
@@ -628,7 +564,7 @@ function renderProducts(){
  renderPagination();
 }
 
-/* PRODUCT DETAIL */
+/* DETAIL PRODUK */
 function openProduct(index){
  if(!products[index])return;
  currentProduct=index;
@@ -638,13 +574,11 @@ function openProduct(index){
  document.getElementById("detailName").textContent=products[index].name;
  document.getElementById("detailPrice").textContent=rupiah(PRICE);
  document.getElementById("quantity").textContent=quantity;
-
  updateSelection();
  renderGallery();
  showPage("detail");
  history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
 }
-
 function updateSelection(){
  document.querySelectorAll(".size-options button").forEach(button=>{
   button.classList.toggle("selected",button.textContent===currentSize);
@@ -654,91 +588,65 @@ function updateSelection(){
   button.classList.toggle("selected",color===currentColor);
  });
 }
-
 function renderGallery(){
  const product=products[currentProduct];
  productPhotoIndex=0;
  document.getElementById("productSlides").innerHTML=product.images.map((url,index)=>
-  `<img src="${url}" alt="${product.name} photo ${index+1}" draggable="false">`
+  `<img src="${url}" alt="${product.name} foto ${index+1}" draggable="false">`
  ).join("");
  document.getElementById("productDots").innerHTML=product.images.map((url,index)=>
-  `<button type="button" class="product-dot ${index===0?"active":""}" onclick="goProductPhoto(${index})" aria-label="Photo ${index+1}"></button>`
+  `<button type="button" class="product-dot ${index===0?"active":""}" onclick="goProductPhoto(${index})" aria-label="Foto ${index+1}"></button>`
  ).join("");
  updateProductGallery();
 }
-
 function updateProductGallery(){
  document.getElementById("productSlides").style.transform="translateX(-"+(productPhotoIndex*100)+"%)";
  document.querySelectorAll(".product-dot").forEach((dot,index)=>{
   dot.classList.toggle("active",index===productPhotoIndex);
  });
 }
-
 function goProductPhoto(index){
  const total=products[currentProduct].images.length;
  productPhotoIndex=(index+total)%total;
  updateProductGallery();
 }
-
-function chooseColor(color){
- currentColor=color;
- updateSelection();
-}
-
-function chooseSize(size){
- currentSize=size;
- updateSelection();
-}
-
+function chooseColor(color){currentColor=color;updateSelection()}
+function chooseSize(size){currentSize=size;updateSelection()}
 function changeQty(amount){
  quantity=Math.max(1,Math.min(20,quantity+amount));
  document.getElementById("quantity").textContent=quantity;
 }
 
-/* ADD TO CART */
+/* KERANJANG */
 function addToCart(){
  const product=products[currentProduct];
  if(!product)return;
-
- const existing=cart.find(item=>
-  item.productIndex===currentProduct&&item.size===currentSize&&item.color===currentColor
- );
-
- if(existing)existing.qty=Math.min(99,existing.qty+quantity);
- else cart.push({
-  productIndex:currentProduct,
-  name:product.name,
-  image:product.images[0],
-  price:PRICE,
-  size:currentSize,
-  color:currentColor,
-  qty:quantity
- });
-
+ const existing=cart.find(item=>item.productIndex===currentProduct&&item.size===currentSize&&item.color===currentColor);
+ if(existing)existing.qty=Math.min(99,Number(existing.qty)+quantity);
+ else cart.push({productIndex:currentProduct,name:product.name,image:product.images[0],price:PRICE,size:currentSize,color:currentColor,qty:quantity});
  saveCart();
  updateCartCount();
-
  const button=document.querySelector(".add-cart-button");
- button.textContent="✓ ADDED TO CART";
- setTimeout(()=>button.textContent="＋ ADD TO CART",1400);
+ button.textContent="✓ BERHASIL DITAMBAHKAN";
+ setTimeout(()=>button.textContent="＋ TAMBAH KE KERANJANG",1400);
 }
-
-
-/* BUY NOW */
 function buyNow(){
  addToCart();
- showPage('cart');
+ showPage("cart");
 }
 
-/* CART + ONGKIR ARELOC */
-const ONGKIR_API = "https://areloc-ongkir.areloc-id.workers.dev/";
-let shippingRates = [];
-let selectedShipping = null;
-let selectedDestinationArea = null;
+/* ONGKIR */
+const ONGKIR_API="https://areloc-ongkir.areloc-id.workers.dev/";
+let shippingRates=[];
+let selectedShipping=null;
+let selectedDestinationArea=null;
+window.arelocAreaSearchResults=[];
 
+function cartSubtotal(){
+ return cart.reduce((sum,item)=>sum+(Number(item.price)||PRICE)*(Number(item.qty)||0),0);
+}
 function renderCart(){
  const container=document.getElementById("cartContent");
-
  if(cart.length===0){
   selectedShipping=null;
   shippingRates=[];
@@ -746,20 +654,20 @@ function renderCart(){
   container.innerHTML=`
    <div class="cart-empty">
     <div style="font-size:42px">🛒</div>
-    <h2>YOUR CART IS EMPTY</h2>
-    <p>You haven't added any products yet.<br>Explore our collection and find your style.</p>
-    <button class="continue-button" onclick="showPage('katalog')">CONTINUE SHOPPING →</button>
+    <h2>KERANJANG MASIH KOSONG</h2>
+    <p>Belum ada produk yang ditambahkan.<br>Silakan lihat koleksi ARELOC.</p>
+    <button class="continue-button" onclick="showPage('katalog')">MULAI BELANJA →</button>
    </div>`;
   return;
  }
-
- const subtotal=cart.reduce((sum,item)=>sum+(item.price*item.qty),0);
+ const subtotal=cartSubtotal();
+ const shipping=selectedShipping?Number(selectedShipping.price)||0:0;
  const itemsHTML=cart.map((item,index)=>`
   <div class="cart-item">
    <img src="${item.image}" alt="${item.name}">
    <div>
     <div class="cart-item-name">${item.name}</div>
-    <div class="cart-item-meta">Color: ${item.color==="Hitam"?"Black":"White"}<br>Size: ${item.size}</div>
+    <div class="cart-item-meta">Warna: ${item.color==="Hitam"?"Black":"White"}<br>Ukuran: ${item.size}</div>
     <div class="cart-item-price">${rupiah(item.price)}</div>
     <div class="cart-item-actions">
      <button onclick="changeCartQty(${index},-1)">−</button>
@@ -771,123 +679,68 @@ function renderCart(){
    <div class="cart-line-total">${rupiah(item.price*item.qty)}</div>
   </div>
  `).join("");
-
- const shipping=selectedShipping ? Number(selectedShipping.price)||0 : 0;
- const total=subtotal+shipping;
-
  container.innerHTML=`
   <div>${itemsHTML}</div>
-
   <div class="cart-summary">
    <h3 style="font-size:13px;letter-spacing:1px">PENGIRIMAN</h3>
-
-   <label style="display:block;font-size:11px;margin:12px 0 6px">
-    KOTA / KABUPATEN TUJUAN
-   </label>
-
-   <input id="destinationCity" type="text" autocomplete="off"
-    placeholder="Contoh: Surabaya"
-    style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
-
-   <button id="searchAreaButton" onclick="searchDestinationAreas()"
-    style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">
-    CARI KOTA / KECAMATAN
-   </button>
-
+   <label style="display:block;font-size:11px;margin:12px 0 6px">KOTA / KABUPATEN TUJUAN</label>
+   <input id="destinationCity" type="text" autocomplete="off" placeholder="Contoh: Surabaya" style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
+   <button id="searchAreaButton" onclick="searchDestinationAreas()" style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">CARI KOTA / KECAMATAN</button>
    <div id="areaResults" style="margin-top:10px;font-size:12px"></div>
    <div id="shippingResult" style="margin-top:12px;font-size:12px"></div>
-
-   <div class="summary-row" style="margin-top:22px">
-    <span>Items</span><strong>${cartItemCount()} pcs</strong>
-   </div>
-   <div class="summary-row">
-    <span>Subtotal produk</span><strong>${rupiah(subtotal)}</strong>
-   </div>
-   <div class="summary-row">
-    <span>Ongkir</span>
-    <strong id="shippingCost">${selectedShipping?rupiah(shipping):"Belum dipilih"}</strong>
-   </div>
-   <div class="summary-row summary-total">
-    <span>TOTAL</span><span id="grandTotal">${rupiah(total)}</span>
-   </div>
-
-   <button class="checkout-button" onclick="checkoutWhatsApp()">
-    CHECKOUT VIA WHATSAPP
-   </button>
+   <div class="summary-row" style="margin-top:22px"><span>Jumlah produk</span><strong>${cartItemCount()} pcs</strong></div>
+   <div class="summary-row"><span>Subtotal produk</span><strong>${rupiah(subtotal)}</strong></div>
+   <div class="summary-row"><span>Ongkir</span><strong id="shippingCost">${selectedShipping?rupiah(shipping):"Belum dipilih"}</strong></div>
+   <div class="summary-row summary-total"><span>TOTAL</span><span id="grandTotal">${rupiah(subtotal+shipping)}</span></div>
+   <button class="checkout-button" onclick="checkoutWhatsApp()">CHECKOUT VIA WHATSAPP</button>
    <p class="buy-note">Pilih wilayah dan layanan pengiriman sebelum checkout.</p>
   </div>
-
-  <button class="clear-cart-button" onclick="clearCart()">CLEAR SHOPPING CART</button>
-  <button class="continue-button" onclick="showPage('katalog')">← CONTINUE SHOPPING</button>
+  <button class="clear-cart-button" onclick="clearCart()">KOSONGKAN KERANJANG</button>
+  <button class="continue-button" onclick="showPage('katalog')">← LANJUT BELANJA</button>
  `;
 }
 
-/* CARI KOTA DAN KECAMATAN */
+/* CARI WILAYAH TUJUAN */
 async function searchDestinationAreas(){
  const input=document.getElementById("destinationCity");
  const resultsBox=document.getElementById("areaResults");
  const button=document.getElementById("searchAreaButton");
- const keyword=input ? input.value.trim() : "";
-
+ const keyword=input?input.value.trim():"";
  if(keyword.length<3){
   alert("Ketik minimal 3 huruf nama kota atau kecamatan.");
-  input?.focus();
+  if(input)input.focus();
   return;
  }
-
  selectedDestinationArea=null;
  selectedShipping=null;
  shippingRates=[];
-
  document.getElementById("shippingCost").textContent="Belum dipilih";
- document.getElementById("grandTotal").textContent=rupiah(
-  cart.reduce((sum,item)=>sum+item.price*item.qty,0)
- );
+ document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
  document.getElementById("shippingResult").innerHTML="";
-
  button.disabled=true;
  button.textContent="MENCARI WILAYAH...";
  resultsBox.textContent="Sedang mencari kota dan kecamatan...";
-
  try{
   const response=await fetch(ONGKIR_API,{
    method:"POST",
    headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({
-    action:"search_areas",
-    keyword:keyword
-   })
+   body:JSON.stringify({action:"search_areas",keyword:keyword})
   });
-
   const data=await response.json();
-
-  if(!response.ok || !data.success){
-   throw new Error(data.message || "Wilayah tidak ditemukan.");
-  }
-
+  if(!response.ok||!data.success)throw new Error(data.message||"Wilayah tidak ditemukan.");
   const areas=Array.isArray(data.areas)?data.areas:[];
-
-  if(!areas.length){
-   throw new Error("Wilayah tidak ditemukan. Coba nama kota atau kecamatan lain.");
-  }
-
+  if(!areas.length)throw new Error("Wilayah tidak ditemukan. Coba nama kota atau kecamatan lain.");
   window.arelocAreaSearchResults=areas;
-
-  resultsBox.innerHTML=
-   '<p style="font-weight:bold;margin:8px 0">PILIH KECAMATAN / WILAYAH TUJUAN</p>'+
+  resultsBox.innerHTML='<p style="font-weight:bold;margin:8px 0">PILIH KECAMATAN / WILAYAH TUJUAN</p>'+
    areas.map((area,index)=>{
-    const label=area.name || [
+    const label=area.name||[
      area.administrative_division_level_3_name,
      area.administrative_division_level_2_name,
      area.administrative_division_level_1_name,
      area.postal_code
     ].filter(Boolean).join(", ");
-
-    return '<button type="button" onclick="chooseDestinationArea('+index+')" '+
-     'style="display:block;width:100%;text-align:left;padding:12px;margin:5px 0;border:1px solid #ddd;background:#fff;color:#111">'+
-     label+'</button>';
+    return '<button type="button" onclick="chooseDestinationArea('+index+')" style="display:block;width:100%;text-align:left;padding:12px;margin:5px 0;border:1px solid #ddd;background:#fff;color:#111">'+label+'</button>';
    }).join("");
-
  }catch(error){
   resultsBox.textContent="Gagal mencari wilayah: "+error.message;
  }finally{
@@ -898,66 +751,46 @@ async function searchDestinationAreas(){
 
 /* PILIH WILAYAH */
 function chooseDestinationArea(index){
- const areas=window.arelocAreaSearchResults||[];
- const area=areas[index];
-
- if(!area || !area.id){
+ const area=(window.arelocAreaSearchResults||[])[index];
+ if(!area||!area.id){
   alert("Wilayah tidak valid. Silakan cari kembali.");
   return;
  }
-
  selectedDestinationArea=area;
  selectedShipping=null;
  shippingRates=[];
-
- const label=area.name || [
+ const label=area.name||[
   area.administrative_division_level_3_name,
   area.administrative_division_level_2_name,
   area.administrative_division_level_1_name
  ].filter(Boolean).join(", ");
-
  document.getElementById("areaResults").innerHTML=
-  '<div style="padding:11px;background:#eee;color:#111">'+
-  '<strong>WILAYAH DIPILIH:</strong><br>'+label+
-  '<button type="button" onclick="searchDestinationAreas()" '+
-  'style="display:block;margin-top:8px;padding:7px 10px;border:1px solid #aaa;background:white">'+
-  'GANTI WILAYAH</button></div>';
-
+  '<div style="padding:11px;background:#eee;color:#111"><strong>WILAYAH DIPILIH:</strong><br>'+label+
+  '<button type="button" onclick="searchDestinationAreas()" style="display:block;margin-top:8px;padding:7px 10px;border:1px solid #aaa;background:white">GANTI WILAYAH</button></div>';
  document.getElementById("shippingResult").innerHTML=
-  '<button id="checkShippingButton" onclick="checkShippingRates()" '+
-  'style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">'+
-  'CEK ONGKIR</button>';
+  '<button id="checkShippingButton" onclick="checkShippingRates()" style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">CEK ONGKIR</button>';
 }
 
 /* HITUNG ONGKIR */
 async function checkShippingRates(){
  const resultBox=document.getElementById("shippingResult");
  const button=document.getElementById("checkShippingButton");
-
- if(!selectedDestinationArea || !selectedDestinationArea.id){
+ if(!selectedDestinationArea||!selectedDestinationArea.id){
   alert("Pilih kecamatan tujuan terlebih dahulu.");
   return;
  }
-
  const quantityTotal=cart.reduce((sum,item)=>sum+Number(item.qty||0),0);
-
- if(quantityTotal<1 || quantityTotal>50){
+ if(quantityTotal<1||quantityTotal>50){
   alert("Jumlah kaos harus antara 1 sampai 50.");
   return;
  }
-
  selectedShipping=null;
  shippingRates=[];
-
  document.getElementById("shippingCost").textContent="Belum dipilih";
- document.getElementById("grandTotal").textContent=rupiah(
-  cart.reduce((sum,item)=>sum+item.price*item.qty,0)
- );
-
+ document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
  button.disabled=true;
  button.textContent="SEDANG MENGECEK...";
  resultBox.textContent="Mengambil tarif pengiriman...";
-
  try{
   const response=await fetch(ONGKIR_API,{
    method:"POST",
@@ -968,42 +801,28 @@ async function checkShippingRates(){
     quantity:quantityTotal
    })
   });
-
   const data=await response.json();
-
-  if(!response.ok || !data.success){
-   throw new Error(data.message || data.error || "Tarif ongkir tidak tersedia.");
-  }
-
+  if(!response.ok||!data.success)throw new Error(data.message||data.error||"Tarif ongkir tidak tersedia.");
   const ratesData=data.rates||{};
-
-  shippingRates=
-   ratesData.pricing||
-   ratesData.rates||
-   ratesData.data||[];
-
-  if(!Array.isArray(shippingRates)||shippingRates.length===0){
-   throw new Error("Tarif belum ditemukan untuk wilayah tersebut.");
-  }
-
-  resultBox.innerHTML=
-   '<strong>PILIH LAYANAN PENGIRIMAN</strong>'+
+  shippingRates=Array.isArray(ratesData)?ratesData:(ratesData.pricing||ratesData.rates||ratesData.data||[]);
+  if(!Array.isArray(shippingRates)||shippingRates.length===0)throw new Error("Tarif belum ditemukan untuk wilayah tersebut.");
+  resultBox.innerHTML='<strong>PILIH LAYANAN PENGIRIMAN</strong>'+
    shippingRates.map((rate,index)=>{
     const courier=rate.courier_name||rate.courier_code||"Kurir";
     const service=rate.courier_service_name||rate.service||rate.service_code||"Reguler";
     const price=Number(rate.price);
-
-    return \`
+    if(!Number.isFinite(price))return "";
+    return `
      <label style="display:flex;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #ddd">
-      <input type="radio" name="shippingRate" value="\${index}" onchange="selectShippingRate(\${index})">
+      <input type="radio" name="shippingRate" value="${index}" onchange="selectShippingRate(${index})">
       <span style="flex:1">
-       <strong>\${courier} — \${service}</strong><br>
-       <small>\${rate.duration||rate.shipment_duration_range||""}</small>
+       <strong>${courier} — ${service}</strong><br>
+       <small>${rate.duration||rate.shipment_duration_range||""}</small>
       </span>
-      <strong>\${rupiah(price)}</strong>
-     </label>\`;
+      <strong>${rupiah(price)}</strong>
+     </label>`;
    }).join("");
-
+  if(!resultBox.querySelector('input[name="shippingRate"]'))throw new Error("Tarif yang diterima tidak memiliki harga yang valid.");
  }catch(error){
   resultBox.textContent="Gagal cek ongkir: "+error.message;
  }finally{
@@ -1016,52 +835,38 @@ async function checkShippingRates(){
 function selectShippingRate(index){
  const rate=shippingRates[index];
  if(!rate)return;
-
  selectedShipping=rate;
-
  const shipping=Number(rate.price)||0;
- const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
-
  document.getElementById("shippingCost").textContent=rupiah(shipping);
- document.getElementById("grandTotal").textContent=rupiah(subtotal+shipping);
+ document.getElementById("grandTotal").textContent=rupiah(cartSubtotal()+shipping);
 }
 
-/* UBAH JUMLAH PRODUK */
+/* UBAH JUMLAH / HAPUS ITEM */
 function changeCartQty(index,amount){
  if(!cart[index])return;
-
- cart[index].qty=Math.max(1,Math.min(99,cart[index].qty+amount));
+ cart[index].qty=Math.max(1,Math.min(99,Number(cart[index].qty)+amount));
  selectedShipping=null;
  shippingRates=[];
-
  saveCart();
  updateCartCount();
  renderCart();
 }
-
-/* HAPUS PRODUK */
 function removeCartItem(index){
  if(!cart[index])return;
-
  cart.splice(index,1);
  selectedShipping=null;
  shippingRates=[];
-
  saveCart();
  updateCartCount();
  renderCart();
 }
-
-/* KOSONGKAN KERANJANG */
 function clearCart(){
  if(!cart.length)return;
-
- if(confirm("Are you sure you want to clear your shopping cart?")){
+ if(confirm("Yakin ingin mengosongkan keranjang?")){
   cart=[];
   selectedShipping=null;
   shippingRates=[];
   selectedDestinationArea=null;
-
   saveCart();
   updateCartCount();
   renderCart();
@@ -1070,49 +875,45 @@ function clearCart(){
 
 /* CHECKOUT WHATSAPP */
 function checkoutWhatsApp(){
- if(cart.length===0)return;
-
+ if(cart.length===0){
+  alert("Keranjang masih kosong.");
+  return;
+ }
  if(!selectedDestinationArea){
   alert("Silakan pilih kota/kecamatan tujuan terlebih dahulu.");
   return;
  }
-
  if(!selectedShipping){
   alert("Silakan pilih layanan ongkir terlebih dahulu.");
   return;
  }
-
- const destinationLabel=selectedDestinationArea.name || [
+ const destinationLabel=selectedDestinationArea.name||[
   selectedDestinationArea.administrative_division_level_3_name,
   selectedDestinationArea.administrative_division_level_2_name,
   selectedDestinationArea.administrative_division_level_1_name
  ].filter(Boolean).join(", ");
-
- const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
+ const subtotal=cartSubtotal();
  const shipping=Number(selectedShipping.price)||0;
  const total=subtotal+shipping;
-
  let message="HALO ARELOC, SAYA INGIN MEMESAN:\n\n";
-
  cart.forEach((item,index)=>{
-  message+=\`${index+1}. ${item.name}\n\`;
-  message+=\`Warna: ${item.color}\nUkuran: ${item.size}\n\`;
-  message+=\`Jumlah: ${item.qty}\n\`;
-  message+=\`Subtotal: ${rupiah(item.price*item.qty)}\n\n\`;
+  message+=`${index+1}. ${item.name}\n`;
+  message+=`Warna: ${item.color}\nUkuran: ${item.size}\n`;
+  message+=`Jumlah: ${item.qty}\n`;
+  message+=`Subtotal: ${rupiah(item.price*item.qty)}\n\n`;
  });
-
- message+=\`Wilayah tujuan: ${destinationLabel}\n\`;
- message+=\`Kurir: ${selectedShipping.courier_name||selectedShipping.courier_code||"-"}\n\`;
- message+=\`Layanan: ${selectedShipping.courier_service_name||selectedShipping.service||"-"}\n\`;
- message+=\`Subtotal produk: ${rupiah(subtotal)}\n\`;
- message+=\`Ongkir: ${rupiah(shipping)}\n\`;
- message+=\`TOTAL PEMBAYARAN: ${rupiah(total)}\n\n\`;
+ message+=`Wilayah tujuan: ${destinationLabel}\n`;
+ message+=`Kurir: ${selectedShipping.courier_name||selectedShipping.courier_code||"-"}\n`;
+ message+=`Layanan: ${selectedShipping.courier_service_name||selectedShipping.service||"-"}\n`;
+ message+=`Subtotal produk: ${rupiah(subtotal)}\n`;
+ message+=`Ongkir: ${rupiah(shipping)}\n`;
+ message+=`TOTAL PEMBAYARAN: ${rupiah(total)}\n\n`;
  message+="Mohon konfirmasi pesanan dan pembayaran. Terima kasih.";
-
- window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+ const url="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message);
+ window.open(url,"_blank");
 }
 
-/* GALLERY SWIPE */
+/* GESER FOTO PRODUK */
 const productSlider=document.getElementById("productSlider");
 productSlider.addEventListener("touchstart",event=>{
  productTouchStart=event.touches[0].clientX;
@@ -1122,24 +923,19 @@ productSlider.addEventListener("touchend",event=>{
  if(Math.abs(distance)>40)goProductPhoto(productPhotoIndex+(distance<0?1:-1));
 },{passive:true});
 
-/* HOME SLIDER */
+/* SLIDER BERANDA */
 function updateSlide(){
  document.getElementById("arelocSlides").style.transform="translateX(-"+(currentSlide*100)+"%)";
  document.querySelectorAll(".slider-dot").forEach((dot,index)=>{
   dot.classList.toggle("active",index===currentSlide);
  });
 }
-
 function goSlide(index){
  currentSlide=(index+5)%5;
  updateSlide();
  restartSlideTimer();
 }
-
-function moveSlide(direction){
- goSlide(currentSlide+direction);
-}
-
+function moveSlide(direction){goSlide(currentSlide+direction)}
 function restartSlideTimer(){
  clearInterval(slideTimer);
  slideTimer=setInterval(()=>{
@@ -1147,7 +943,6 @@ function restartSlideTimer(){
   updateSlide();
  },4000);
 }
-
 const headerSlider=document.getElementById("arelocSlider");
 headerSlider.addEventListener("touchstart",event=>{
  headerTouchStart=event.touches[0].clientX;
@@ -1157,7 +952,7 @@ headerSlider.addEventListener("touchend",event=>{
  if(Math.abs(distance)>45)moveSlide(distance<0?1:-1);
 },{passive:true});
 
-/* RESPONSIVE PAGINATION */
+/* RESPONSIVE */
 lastPerPage=productsPerPage();
 window.addEventListener("resize",()=>{
  const newPerPage=productsPerPage();
@@ -1168,7 +963,7 @@ window.addEventListener("resize",()=>{
  }
 });
 
-/* PHONE BACK BUTTON */
+/* TOMBOL KEMBALI HP */
 window.addEventListener("popstate",event=>{
  const state=event.state;
  if(state&&state.page==="detail"&&Number.isInteger(state.product)){
@@ -1179,7 +974,6 @@ window.addEventListener("popstate",event=>{
   showPage(page);
  }
 });
-
 function openProductFromHistory(index){
  if(!products[index])return;
  currentProduct=index;
@@ -1191,13 +985,12 @@ function openProductFromHistory(index){
  document.getElementById("quantity").textContent=quantity;
  updateSelection();
  renderGallery();
-
  document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
  document.getElementById("detail").classList.add("active");
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-/* START */
+/* MULAI TOKO */
 updateCartCount();
 restartSlideTimer();
 renderProducts();
