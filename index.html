@@ -963,7 +963,17 @@ function clearCart(){
   renderCart();
  }
 }
+function copyBankAccount(){
+ const rekening="001101131218503";
 
+ if(navigator.clipboard && window.isSecureContext){
+  navigator.clipboard.writeText(rekening)
+   .then(()=>alert("Nomor rekening BRI berhasil disalin."))
+   .catch(()=>prompt("Salin nomor rekening BRI:",rekening));
+ }else{
+  prompt("Salin nomor rekening BRI:",rekening);
+ }
+}
 /* CHECKOUT WHATSAPP */
 function checkoutWhatsApp(){
  if(!cart.length){
@@ -1016,7 +1026,11 @@ function checkoutWhatsApp(){
  message+="Subtotal produk: "+rupiah(subtotal)+"\n";
  message+="Ongkir: "+rupiah(shipping)+"\n";
  message+="TOTAL PEMBAYARAN: "+rupiah(total)+"\n\n";
- message+="Mohon konfirmasi pesanan dan pembayaran. Terima kasih.";
+message+="INFORMASI PEMBAYARAN\n";
+message+="Bank: BRI\n";
+message+="No. Rekening: 001101131218503\n";
+message+="Atas Nama: Much. Ayom\n\n";
+message+="Mohon konfirmasi pesanan dan pembayaran. Terima kasih.";
  const url="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message);
  const opened=window.open(url,"_blank");
  if(!opened)window.location.href=url;
