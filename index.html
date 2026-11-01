@@ -723,28 +723,18 @@ function addToCart(){
  setTimeout(()=>button.textContent="＋ ADD TO CART",1400);
 }
 
+
 /* BUY NOW */
 function buyNow(){
- const product=products[currentProduct];
- if(!product)return;
-
- const message=
- `Hello ARELOC, I would like to order:\n\n`+
- `Product: ${product.name}\n`+
- `Price: ${rupiah(PRICE)}\n`+
- `Color: ${currentColor==="Hitam"?"Black":"White"}\n`+
- `Size: ${currentSize}\n`+
- `Quantity: ${quantity}\n`+
- `Total: ${rupiah(PRICE*quantity)}\n\n`+
- `Please confirm stock availability and shipping details. Thank you.`;
-
- window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),"_blank");
+ addToCart();
+ showPage('cart');
 }
 
-/* CART + CEK ONGKIR ARELOC */
+/* CART + ONGKIR ARELOC */
 const ONGKIR_API = "https://areloc-ongkir.areloc-id.workers.dev/";
 let shippingRates = [];
 let selectedShipping = null;
+let selectedDestinationArea = null;
 
 function renderCart(){
  const container=document.getElementById("cartContent");
@@ -752,6 +742,7 @@ function renderCart(){
  if(cart.length===0){
   selectedShipping=null;
   shippingRates=[];
+  selectedDestinationArea=null;
   container.innerHTML=`
    <div class="cart-empty">
     <div style="font-size:42px">🛒</div>
@@ -763,7 +754,6 @@ function renderCart(){
  }
 
  const subtotal=cart.reduce((sum,item)=>sum+(item.price*item.qty),0);
-
  const itemsHTML=cart.map((item,index)=>`
   <div class="cart-item">
    <img src="${item.image}" alt="${item.name}">
@@ -791,16 +781,20 @@ function renderCart(){
   <div class="cart-summary">
    <h3 style="font-size:13px;letter-spacing:1px">PENGIRIMAN</h3>
 
-   <label style="display:block;font-size:11px;margin:12px 0 6px">KODE POS TUJUAN</label>
-   <input id="destinationPostalCode" type="text" inputmode="numeric" maxlength="5"
-    placeholder="Masukkan 5 digit kode pos"
+   <label style="display:block;font-size:11px;margin:12px 0 6px">
+    KOTA / KABUPATEN TUJUAN
+   </label>
+
+   <input id="destinationCity" type="text" autocomplete="off"
+    placeholder="Contoh: Surabaya"
     style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
 
-   <button id="checkShippingButton" onclick="checkShippingRates()"
+   <button id="searchAreaButton" onclick="searchDestinationAreas()"
     style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">
-    CEK ONGKIR
+    CARI KOTA / KECAMATAN
    </button>
 
+   <div id="areaResults" style="margin-top:10px;font-size:12px"></div>
    <div id="shippingResult" style="margin-top:12px;font-size:12px"></div>
 
    <div class="summary-row" style="margin-top:22px">
@@ -820,7 +814,7 @@ function renderCart(){
    <button class="checkout-button" onclick="checkoutWhatsApp()">
     CHECKOUT VIA WHATSAPP
    </button>
-   <p class="buy-note">Pilih layanan pengiriman sebelum checkout.</p>
+   <p class="buy-note">Pilih wilayah dan layanan pengiriman sebelum checkout.</p>
   </div>
 
   <button class="clear-cart-button" onclick="clearCart()">CLEAR SHOPPING CART</button>
@@ -828,19 +822,125 @@ function renderCart(){
  `;
 }
 
+/* CARI KOTA DAN KECAMATAN */
+async function searchDestinationAreas(){
+ const input=document.getElementById("destinationCity");
+ const resultsBox=document.getElementById("areaResults");
+ const button=document.getElementById("searchAreaButton");
+ const keyword=input ? input.value.trim() : "";
+
+ if(keyword.length<3){
+  alert("Ketik minimal 3 huruf nama kota atau kecamatan.");
+  input?.focus();
+  return;
+ }
+
+ selectedDestinationArea=null;
+ selectedShipping=null;
+ shippingRates=[];
+
+ document.getElementById("shippingCost").textContent="Belum dipilih";
+ document.getElementById("grandTotal").textContent=rupiah(
+  cart.reduce((sum,item)=>sum+item.price*item.qty,0)
+ );
+ document.getElementById("shippingResult").innerHTML="";
+
+ button.disabled=true;
+ button.textContent="MENCARI WILAYAH...";
+ resultsBox.textContent="Sedang mencari kota dan kecamatan...";
+
+ try{
+  const response=await fetch(ONGKIR_API,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+    action:"search_areas",
+    keyword:keyword
+   })
+  });
+
+  const data=await response.json();
+
+  if(!response.ok || !data.success){
+   throw new Error(data.message || "Wilayah tidak ditemukan.");
+  }
+
+  const areas=Array.isArray(data.areas)?data.areas:[];
+
+  if(!areas.length){
+   throw new Error("Wilayah tidak ditemukan. Coba nama kota atau kecamatan lain.");
+  }
+
+  window.arelocAreaSearchResults=areas;
+
+  resultsBox.innerHTML=
+   '<p style="font-weight:bold;margin:8px 0">PILIH KECAMATAN / WILAYAH TUJUAN</p>'+
+   areas.map((area,index)=>{
+    const label=area.name || [
+     area.administrative_division_level_3_name,
+     area.administrative_division_level_2_name,
+     area.administrative_division_level_1_name,
+     area.postal_code
+    ].filter(Boolean).join(", ");
+
+    return '<button type="button" onclick="chooseDestinationArea('+index+')" '+
+     'style="display:block;width:100%;text-align:left;padding:12px;margin:5px 0;border:1px solid #ddd;background:#fff;color:#111">'+
+     label+'</button>';
+   }).join("");
+
+ }catch(error){
+  resultsBox.textContent="Gagal mencari wilayah: "+error.message;
+ }finally{
+  button.disabled=false;
+  button.textContent="CARI KOTA / KECAMATAN";
+ }
+}
+
+/* PILIH WILAYAH */
+function chooseDestinationArea(index){
+ const areas=window.arelocAreaSearchResults||[];
+ const area=areas[index];
+
+ if(!area || !area.id){
+  alert("Wilayah tidak valid. Silakan cari kembali.");
+  return;
+ }
+
+ selectedDestinationArea=area;
+ selectedShipping=null;
+ shippingRates=[];
+
+ const label=area.name || [
+  area.administrative_division_level_3_name,
+  area.administrative_division_level_2_name,
+  area.administrative_division_level_1_name
+ ].filter(Boolean).join(", ");
+
+ document.getElementById("areaResults").innerHTML=
+  '<div style="padding:11px;background:#eee;color:#111">'+
+  '<strong>WILAYAH DIPILIH:</strong><br>'+label+
+  '<button type="button" onclick="searchDestinationAreas()" '+
+  'style="display:block;margin-top:8px;padding:7px 10px;border:1px solid #aaa;background:white">'+
+  'GANTI WILAYAH</button></div>';
+
+ document.getElementById("shippingResult").innerHTML=
+  '<button id="checkShippingButton" onclick="checkShippingRates()" '+
+  'style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">'+
+  'CEK ONGKIR</button>';
+}
+
+/* HITUNG ONGKIR */
 async function checkShippingRates(){
- const postalInput=document.getElementById("destinationPostalCode");
  const resultBox=document.getElementById("shippingResult");
  const button=document.getElementById("checkShippingButton");
 
- const postalCode=postalInput ? postalInput.value.trim() : "";
- if(!/^\d{5}$/.test(postalCode)){
-  alert("Masukkan kode pos tujuan sebanyak 5 digit.");
-  postalInput?.focus();
+ if(!selectedDestinationArea || !selectedDestinationArea.id){
+  alert("Pilih kecamatan tujuan terlebih dahulu.");
   return;
  }
 
  const quantityTotal=cart.reduce((sum,item)=>sum+Number(item.qty||0),0);
+
  if(quantityTotal<1 || quantityTotal>50){
   alert("Jumlah kaos harus antara 1 sampai 50.");
   return;
@@ -848,6 +948,7 @@ async function checkShippingRates(){
 
  selectedShipping=null;
  shippingRates=[];
+
  document.getElementById("shippingCost").textContent="Belum dipilih";
  document.getElementById("grandTotal").textContent=rupiah(
   cart.reduce((sum,item)=>sum+item.price*item.qty,0)
@@ -862,7 +963,8 @@ async function checkShippingRates(){
    method:"POST",
    headers:{"Content-Type":"application/json"},
    body:JSON.stringify({
-    destination_postal_code:postalCode,
+    action:"calculate_rates",
+    destination_area_id:selectedDestinationArea.id,
     quantity:quantityTotal
    })
   });
@@ -873,37 +975,34 @@ async function checkShippingRates(){
    throw new Error(data.message || data.error || "Tarif ongkir tidak tersedia.");
   }
 
-  const ratesData=data.rates || {};
-  shippingRates=
-   ratesData.pricing ||
-   ratesData.rates ||
-   ratesData.data ||
-   [];
+  const ratesData=data.rates||{};
 
-  if(!Array.isArray(shippingRates) || shippingRates.length===0){
-   throw new Error("Tarif belum ditemukan untuk kode pos tersebut.");
+  shippingRates=
+   ratesData.pricing||
+   ratesData.rates||
+   ratesData.data||[];
+
+  if(!Array.isArray(shippingRates)||shippingRates.length===0){
+   throw new Error("Tarif belum ditemukan untuk wilayah tersebut.");
   }
 
-  const options=shippingRates.map((rate,index)=>{
-   const courier=rate.courier_name || rate.courier_code || "Kurir";
-   const service=rate.courier_service_name || rate.service || rate.service_code || "Reguler";
-   const price=Number(rate.price);
+  resultBox.innerHTML=
+   '<strong>PILIH LAYANAN PENGIRIMAN</strong>'+
+   shippingRates.map((rate,index)=>{
+    const courier=rate.courier_name||rate.courier_code||"Kurir";
+    const service=rate.courier_service_name||rate.service||rate.service_code||"Reguler";
+    const price=Number(rate.price);
 
-   return `
-    <label style="display:flex;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #ddd">
-     <input type="radio" name="shippingRate" value="${index}" onchange="selectShippingRate(${index})">
-     <span style="flex:1">
-      <strong>${courier} — ${service}</strong><br>
-      <small>${rate.duration || rate.shipment_duration_range || ""}</small>
-     </span>
-     <strong>${rupiah(price)}</strong>
-    </label>`;
-  }).join("");
-
-  resultBox.innerHTML=`
-   <strong>PILIH LAYANAN PENGIRIMAN</strong>
-   ${options}
-  `;
+    return \`
+     <label style="display:flex;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #ddd">
+      <input type="radio" name="shippingRate" value="\${index}" onchange="selectShippingRate(\${index})">
+      <span style="flex:1">
+       <strong>\${courier} — \${service}</strong><br>
+       <small>\${rate.duration||rate.shipment_duration_range||""}</small>
+      </span>
+      <strong>\${rupiah(price)}</strong>
+     </label>\`;
+   }).join("");
 
  }catch(error){
   resultBox.textContent="Gagal cek ongkir: "+error.message;
@@ -913,6 +1012,7 @@ async function checkShippingRates(){
  }
 }
 
+/* PILIH KURIR */
 function selectShippingRate(index){
  const rate=shippingRates[index];
  if(!rate)return;
@@ -926,47 +1026,68 @@ function selectShippingRate(index){
  document.getElementById("grandTotal").textContent=rupiah(subtotal+shipping);
 }
 
+/* UBAH JUMLAH PRODUK */
 function changeCartQty(index,amount){
  if(!cart[index])return;
+
  cart[index].qty=Math.max(1,Math.min(99,cart[index].qty+amount));
  selectedShipping=null;
  shippingRates=[];
+
  saveCart();
  updateCartCount();
  renderCart();
 }
 
+/* HAPUS PRODUK */
 function removeCartItem(index){
  if(!cart[index])return;
+
  cart.splice(index,1);
  selectedShipping=null;
  shippingRates=[];
+
  saveCart();
  updateCartCount();
  renderCart();
 }
 
+/* KOSONGKAN KERANJANG */
 function clearCart(){
  if(!cart.length)return;
+
  if(confirm("Are you sure you want to clear your shopping cart?")){
   cart=[];
   selectedShipping=null;
   shippingRates=[];
+  selectedDestinationArea=null;
+
   saveCart();
   updateCartCount();
   renderCart();
  }
 }
 
+/* CHECKOUT WHATSAPP */
 function checkoutWhatsApp(){
  if(cart.length===0)return;
 
- if(!selectedShipping){
-  alert("Silakan masukkan kode pos dan pilih layanan ongkir terlebih dahulu.");
+ if(!selectedDestinationArea){
+  alert("Silakan pilih kota/kecamatan tujuan terlebih dahulu.");
   return;
  }
 
- const postalCode=document.getElementById("destinationPostalCode")?.value.trim() || "";
+ if(!selectedShipping){
+  alert("Silakan pilih layanan ongkir terlebih dahulu.");
+  return;
+ }
+
+ const destinationLabel=selectedDestinationArea.name || [
+  selectedDestinationArea.administrative_division_level_3_name,
+  selectedDestinationArea.administrative_division_level_2_name,
+  selectedDestinationArea.administrative_division_level_1_name
+ ].filter(Boolean).join(", ");
+
  const subtotal=cart.reduce((sum,item)=>sum+item.price*item.qty,0);
  const shipping=Number(selectedShipping.price)||0;
  const total=subtotal+shipping;
@@ -974,18 +1095,18 @@ function checkoutWhatsApp(){
  let message="HALO ARELOC, SAYA INGIN MEMESAN:\n\n";
 
  cart.forEach((item,index)=>{
-  message+=`${index+1}. ${item.name}\n`;
-  message+=`Warna: ${item.color}\nUkuran: ${item.size}\n`;
-  message+=`Jumlah: ${item.qty}\n`;
-  message+=`Subtotal: ${rupiah(item.price*item.qty)}\n\n`;
+  message+=\`${index+1}. ${item.name}\n\`;
+  message+=\`Warna: ${item.color}\nUkuran: ${item.size}\n\`;
+  message+=\`Jumlah: ${item.qty}\n\`;
+  message+=\`Subtotal: ${rupiah(item.price*item.qty)}\n\n\`;
  });
 
- message+=`Kode pos tujuan: ${postalCode}\n`;
- message+=`Kurir: ${selectedShipping.courier_name || selectedShipping.courier_code || "-"}\n`;
- message+=`Layanan: ${selectedShipping.courier_service_name || selectedShipping.service || "-"}\n`;
- message+=`Subtotal produk: ${rupiah(subtotal)}\n`;
- message+=`Ongkir: ${rupiah(shipping)}\n`;
- message+=`TOTAL PEMBAYARAN: ${rupiah(total)}\n\n`;
+ message+=\`Wilayah tujuan: ${destinationLabel}\n\`;
+ message+=\`Kurir: ${selectedShipping.courier_name||selectedShipping.courier_code||"-"}\n\`;
+ message+=\`Layanan: ${selectedShipping.courier_service_name||selectedShipping.service||"-"}\n\`;
+ message+=\`Subtotal produk: ${rupiah(subtotal)}\n\`;
+ message+=\`Ongkir: ${rupiah(shipping)}\n\`;
+ message+=\`TOTAL PEMBAYARAN: ${rupiah(total)}\n\n\`;
  message+="Mohon konfirmasi pesanan dan pembayaran. Terima kasih.";
 
  window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),"_blank");
