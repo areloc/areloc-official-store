@@ -802,12 +802,8 @@ async function checkShippingRates(){
    })
   });
   const data=await response.json();
-  if(!response.ok||!data.success){
-  throw new Error(
-    (data.message || "Tarif ongkir gagal") +
-    " | DETAIL: " +
-    JSON.stringify(data.detail || data.penyebab || data)
-  };
+  if(!response.ok||!data.success)throw new Error(data.message||data.error||"Tarif ongkir tidak tersedia.");
+  const ratesData=data.rates||{};
   shippingRates=Array.isArray(ratesData)?ratesData:(ratesData.pricing||ratesData.rates||ratesData.data||[]);
   if(!Array.isArray(shippingRates)||shippingRates.length===0)throw new Error("Tarif belum ditemukan untuk wilayah tersebut.");
   resultBox.innerHTML='<strong>PILIH LAYANAN PENGIRIMAN</strong>'+
