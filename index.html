@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -14,220 +15,185 @@ html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif}
 button{font:inherit;cursor:pointer}
 a{text-decoration:none;color:inherit}
-#app{width:100%;max-width:1500px;margin:auto;overflow:hidden}
 img{display:block;max-width:100%}
+#app{width:100%;max-width:1500px;margin:auto;overflow:hidden}
 
 /* HEADER */
-.topbar{min-height:76px;padding:0 5%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:#050505;color:#fff;position:relative;z-index:20;gap:12px}
-.brand{grid-column:2;grid-row:1;font-family:'Michroma',Arial,sans-serif;font-size:25px;font-weight:400;letter-spacing:2px;color:#fff;text-align:center;white-space:nowrap}
-.nav{display:flex;gap:25px;align-items:center}
-.nav button,.mobile-nav button{background:none;border:0;color:#fff;font-size:10px;letter-spacing:1.5px}
-.header-actions{grid-column:3;grid-row:1;justify-self:end;display:flex;align-items:center;gap:12px}
-.header-icon{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid #555;background:transparent;color:#fff;padding:9px;position:relative}
-.header-icon svg,.menu-button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
-.cart-count{position:absolute;top:-7px;right:-7px;background:#fff;color:#000;border-radius:50%;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;padding:2px}
-.menu-button{border:1px solid #555;background:transparent;color:#fff;width:40px;height:40px;display:flex;align-items:center;justify-content:center;padding:9px}
-.mobile-nav{display:none;background:#080808;padding:12px 5%;flex-direction:column}
-.mobile-nav button{padding:14px 5px;text-align:left;border-bottom:1px solid #292929}
+.topbar{min-height:68px;padding:0 5%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;background:#050505;color:#fff;position:relative;z-index:20}
+.brand{grid-column:2;font-family:'Michroma',Arial,sans-serif;font-size:23px;letter-spacing:2px;white-space:nowrap}
+.header-actions{grid-column:3;justify-self:end;display:flex;gap:9px}
+.header-icon,.menu-button{width:39px;height:39px;display:flex;align-items:center;justify-content:center;border:1px solid #555;background:transparent;color:#fff;position:relative}
+.header-icon svg,.menu-button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7}
+.cart-count{position:absolute;top:-7px;right:-7px;background:#fff;color:#000;border-radius:50%;min-width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold}
+.mobile-nav{display:none;background:#080808;padding:10px 5%;flex-direction:column}
 .mobile-nav.open{display:flex}
-.page{display:none}
-.page.active{display:block}
+.mobile-nav button{background:none;border:0;color:white;text-align:left;padding:14px 5px;border-bottom:1px solid #292929;font-size:11px;letter-spacing:1px}
+.page{display:none}.page.active{display:block}
 
 /* HOME SLIDER */
 .areloc-slider{height:clamp(390px,58vw,650px);max-height:650px;position:relative;overflow:hidden;background:#050505;color:#fff;touch-action:pan-y}
-.areloc-slides{display:flex;height:100%;transition:transform .65s ease}
+.areloc-slides{display:flex;height:100%;transition:transform .55s ease}
 .areloc-slide{flex:0 0 100%;height:100%;min-width:100%;position:relative}
-.areloc-slide img{width:100%;height:100%;object-fit:cover;object-position:center}
-.areloc-slide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.05),rgba(0,0,0,.65))}
+.areloc-slide img{width:100%;height:100%;object-fit:cover}
+.areloc-slide:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0001,#0009)}
 .areloc-hero-text{position:absolute;z-index:2;right:8%;top:50%;transform:translateY(-50%);width:48%;text-align:left}
-.areloc-hero-text small{font-size:11px;letter-spacing:5px}
-.areloc-hero-text h1{font-size:clamp(42px,7vw,92px);font-weight:900;letter-spacing:2px;line-height:.95;margin:18px 0}
-.areloc-hero-text p{font-size:11px;letter-spacing:3px;line-height:1.8}
-.white-btn{display:inline-block;background:white;color:#000;padding:15px 25px;margin-top:18px;font-size:11px;letter-spacing:1.5px;font-weight:bold}
-.slider-arrow{position:absolute;z-index:4;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:1px solid #ffffff99;background:#0007;color:white;font-size:25px}
-.slider-prev{left:15px}.slider-next{right:15px}
-.slider-dots{position:absolute;z-index:5;bottom:20px;left:0;right:0;display:flex;justify-content:center;gap:10px}
+.areloc-hero-text small{font-size:10px;letter-spacing:4px}
+.areloc-hero-text h1{font-size:clamp(42px,7vw,90px);line-height:.98;margin:18px 0;letter-spacing:2px}
+.areloc-hero-text p{font-size:11px;letter-spacing:3px}
+.white-btn{display:inline-block;background:#fff;color:#000;padding:14px 22px;margin-top:15px;font-size:10px;font-weight:bold;letter-spacing:1px}
+.slider-arrow{position:absolute;z-index:4;top:50%;transform:translateY(-50%);width:40px;height:40px;border-radius:50%;border:1px solid #ffffff99;background:#0007;color:#fff;font-size:24px}
+.slider-prev{left:14px}.slider-next{right:14px}
+.slider-dots{position:absolute;z-index:5;bottom:18px;left:0;right:0;display:flex;justify-content:center;gap:9px}
 .slider-dot{width:8px;height:8px;border:0;border-radius:20px;background:#888;padding:0}
-.slider-dot.active{width:23px;background:#fff}
+.slider-dot.active{width:22px;background:#fff}
 
 /* HOME SECTIONS */
-.home-section{position:relative;overflow:hidden}
-.section-kicker{font-size:10px;font-weight:bold;letter-spacing:2px;margin-bottom:15px}
-.section-title{font-size:clamp(28px,5vw,54px);font-weight:900;line-height:1.02;letter-spacing:-1px;margin:0 0 12px}
-.section-copy{font-size:14px;line-height:1.8;margin:0 0 20px}
-.dark-button{display:inline-block;background:#050505;color:#fff;padding:14px 20px;font-size:11px;font-weight:bold;letter-spacing:1px}
-.home-photo{width:100%;height:auto;object-fit:contain;object-position:center;background:#eee}
-.intro-section,.brand-statement,.explore-section,.why-section{display:grid;grid-template-columns:1fr 1fr;align-items:center}
-.intro-section,.explore-section{background:#f3f3f3}
-.intro-copy,.explore-copy{padding:45px 7%;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
-.intro-image,.statement-image,.explore-image,.why-image{width:100%;background:#eee}
-.intro-image img,.statement-image img,.explore-image img,.why-image img{width:100%;height:auto;object-fit:contain}
-.brand-statement{background:#050505;color:#fff}
-.statement-copy{padding:35px 8%;display:flex;flex-direction:column;justify-content:center}
-.statement-copy h2{font-size:clamp(27px,4vw,48px);font-weight:900;line-height:1.1;margin:12px 0}
-.statement-copy p{font-size:12px;letter-spacing:4px;line-height:1.8}
-.why-section{background:#f1f1f1}
-.why-copy{padding:30px 7%;display:flex;flex-direction:column;justify-content:center}
-.why-values{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px}
-.why-value{text-align:center;padding:8px 5px;border-right:1px solid #999}
-.why-value:last-child{border:0}
-.why-symbol{font-size:25px;font-weight:bold}
-.why-value strong{display:block;font-size:10px;letter-spacing:1px;margin-top:8px}
-.home-end-photo{width:100%;height:auto;display:block;object-fit:contain;background:#111}
-.home-end{min-height:220px;background:#050505;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;padding:45px 20px;position:relative;overflow:hidden}
-.home-end:before{content:"ARELOC";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);font-size:clamp(80px,18vw,220px);font-weight:900;letter-spacing:8px;color:#ffffff09;white-space:nowrap}
-.home-end-content{position:relative;z-index:1}
-.home-end h2{font-size:clamp(28px,5vw,48px);font-style:italic;font-weight:900;margin:0 0 8px}
-.home-end p{font-size:13px;letter-spacing:3px;margin:10px 0 18px}
-.home-end .white-btn{margin-top:5px}
+.home-section{display:grid;grid-template-columns:1fr 1fr;align-items:center}
+.home-section.dark{background:#050505;color:#fff}
+.home-copy{padding:45px 8%}
+.kicker{font-size:10px;font-weight:bold;letter-spacing:2px;margin-bottom:15px}
+.home-copy h2{font-size:clamp(28px,5vw,52px);line-height:1.05;margin:0 0 15px}
+.home-copy p{font-size:13px;line-height:1.9;color:inherit}
+.home-photo{width:100%;height:auto;object-fit:contain;background:#eee}
+.dark-button{display:inline-block;background:#050505;color:#fff;padding:14px 20px;font-size:10px;font-weight:bold;letter-spacing:1px;margin-top:10px}
+.dark .dark-button{background:#fff;color:#000}
+.home-end{background:#050505;color:#fff;text-align:center;padding:55px 15px}
+.home-end h2{font-size:clamp(27px,5vw,46px);margin:0 0 10px}
+.home-end p{font-size:11px;letter-spacing:3px}
 
 /* CATALOG */
-.catalog-top{padding:45px 5% 20px;text-align:center}
+.catalog-top{text-align:center;padding:40px 5% 18px}
 .eyebrow{font-size:9px;letter-spacing:4px;color:#777}
-.catalog-top h1{font-size:30px;letter-spacing:3px;margin:8px 0}
-.catalog-top p{font-size:12px;color:#777;line-height:1.8}
-.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:28px 18px;padding:15px 5% 35px}
+.catalog-top h1{font-size:29px;letter-spacing:2px;margin:9px 0}
+.catalog-top p{font-size:12px;color:#777}
+.category-filter{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:10px 5% 20px}
+.category-filter button{background:#fff;color:#111;border:1px solid #ccc;padding:11px 15px;font-size:9px;font-weight:bold;letter-spacing:1px;white-space:nowrap}
+.category-filter button.active{background:#000;color:#fff;border-color:#000}
+.product-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:26px 17px;padding:12px 5% 30px}
 .product-card{min-width:0;cursor:pointer}
-.product-card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#f3f3f3}
-.product-info{padding:12px 0}
+.product-card img{width:100%;aspect-ratio:3/4;object-fit:cover;background:#f2f2f2}
+.product-info{padding:11px 0}
 .product-name{font-size:11px;font-weight:800;letter-spacing:1px;line-height:1.5}
 .product-price{font-size:12px;margin-top:7px}
-.view-details{display:block;margin-top:12px;width:100%;background:#050505;color:white;border:0;padding:12px 5px;font-size:9px;letter-spacing:1.5px}
-#arelocPagination{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:7px;padding:10px 12px 50px}
-#arelocPagination button{min-width:36px;height:36px;padding:0 10px;border:1px solid #ccc;background:#fff;color:#111;font-size:12px}
-#arelocPagination button.active{background:#000;color:#fff;border-color:#000}
-#arelocPagination button:disabled{opacity:.3;cursor:not-allowed}
-.page-info{text-align:center;font-size:10px;color:#777;letter-spacing:1px;padding:0 10px 15px}
+.view-details{display:block;width:100%;margin-top:11px;padding:12px 5px;background:#050505;color:#fff;border:0;font-size:9px;letter-spacing:1px}
+.empty-category{grid-column:1/-1;text-align:center;padding:55px 15px;color:#777;font-size:12px;line-height:1.9}
+#arelocPagination{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;padding:10px 12px 30px}
+#arelocPagination button{min-width:36px;height:36px;padding:0 10px;border:1px solid #ccc;background:#fff;color:#111}
+#arelocPagination button.active{background:#000;color:#fff}
+#arelocPagination button:disabled{opacity:.3}
+.page-info{text-align:center;font-size:10px;color:#777;letter-spacing:1px;padding:0 10px 35px}
 
 /* PRODUCT DETAIL */
-.detail-wrap{padding:35px 5% 65px;max-width:1100px;margin:auto}
-.back-button{border:0;background:none;padding:10px 0;margin-bottom:20px;font-size:11px;letter-spacing:1px}
-.detail-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px}
-.product-gallery{width:100%;overflow:hidden}
+.detail-wrap{padding:30px 5% 60px;max-width:1100px;margin:auto}
+.back-button{border:0;background:none;padding:10px 0;margin-bottom:18px;font-size:11px;letter-spacing:1px}
+.detail-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:38px}
 .product-slider{width:100%;aspect-ratio:3/4;overflow:hidden;background:#f5f5f5;touch-action:pan-y}
-.product-slides{display:flex;width:100%;height:100%;transition:transform .35s ease}
-.product-slides img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;background:#f5f5f5;user-select:none;-webkit-user-drag:none}
-.product-dots{display:flex;justify-content:center;align-items:center;gap:8px;padding:15px 0 5px}
+.product-slides{display:flex;width:100%;height:100%;transition:transform .3s}
+.product-slides img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;background:#f5f5f5}
+.product-dots{display:flex;justify-content:center;gap:8px;padding:14px 0}
 .product-dot{width:7px;height:7px;border:0;border-radius:50%;padding:0;background:#ccc}
 .product-dot.active{width:20px;border-radius:10px;background:#000}
 .detail-info{padding-top:10px}
 .detail-tag{font-size:9px;letter-spacing:3px;color:#777}
-.detail-info h1{font-size:27px;letter-spacing:1px;line-height:1.25;margin:12px 0}
-.detail-price{font-size:20px;font-weight:bold;margin:16px 0}
+.detail-info h1{font-size:26px;letter-spacing:1px;margin:12px 0}
+.detail-price{font-size:20px;font-weight:bold;margin:15px 0}
 .detail-description{font-size:12px;line-height:1.9;color:#666}
-.field-label{display:block;font-size:10px;font-weight:bold;letter-spacing:1.5px;margin:22px 0 10px}
-.color-options{display:flex;gap:10px;flex-wrap:wrap}
-.color-options button{min-width:90px;padding:12px 20px;background:#fff;color:#111;border:1px solid #ccc;font-size:11px;font-weight:bold;letter-spacing:1px}
-.color-options button.selected{background:#000;color:#fff;border-color:#000}
-.size-options{display:flex;gap:9px}
-.size-options button{width:48px;height:42px;background:white;border:1px solid #ddd;font-size:12px}
-.size-options button.selected{background:#000;color:white;border-color:#000}
-.qty-control{display:flex;align-items:center;gap:15px}
-.qty-control button{width:36px;height:36px;border:1px solid #ddd;background:white}
+.field-label{display:block;font-size:10px;font-weight:bold;letter-spacing:1px;margin:20px 0 9px}
+.color-options,.size-options{display:flex;gap:9px;flex-wrap:wrap}
+.color-options button{min-width:85px;padding:11px 17px;background:#fff;border:1px solid #ccc;font-size:10px}
+.size-options button{width:46px;height:40px;background:#fff;border:1px solid #ddd}
+.color-options button.selected,.size-options button.selected{background:#000;color:#fff;border-color:#000}
+.qty-control{display:flex;align-items:center;gap:14px}
+.qty-control button{width:35px;height:35px;border:1px solid #ddd;background:#fff}
 .qty-control span{min-width:20px;text-align:center}
-.add-cart-button{width:100%;margin-top:20px;padding:17px;background:#fff;color:#000;border:1px solid #111;font-size:11px;letter-spacing:2px;font-weight:bold}
-.buy-button{width:100%;margin-top:10px;padding:17px;background:#050505;color:#fff;border:0;font-size:11px;letter-spacing:2px;font-weight:bold}
-.buy-note{font-size:10px;color:#888;line-height:1.7;margin-top:12px}
+.add-cart-button,.buy-button{width:100%;margin-top:15px;padding:16px;font-size:10px;letter-spacing:1.5px;font-weight:bold}
+.add-cart-button{background:#fff;border:1px solid #111;color:#000}
+.buy-button{background:#050505;border:0;color:#fff}
+.buy-note{font-size:10px;color:#888;line-height:1.7}
 
 /* CART */
-.cart-wrap{max-width:1000px;margin:auto;padding:40px 5% 70px}
-.cart-heading{text-align:center;margin-bottom:30px}
-.cart-heading .eyebrow{margin-bottom:10px}
-.cart-heading h1{font-size:30px;letter-spacing:3px;margin:0 0 10px}
+.cart-wrap{max-width:1000px;margin:auto;padding:35px 5% 65px}
+.cart-heading{text-align:center;margin-bottom:25px}
+.cart-heading h1{font-size:28px;letter-spacing:2px}
 .cart-heading p{font-size:12px;color:#777}
-.cart-empty{text-align:center;padding:65px 20px;background:#f7f7f7}
-.cart-empty-icon{font-size:45px;margin-bottom:15px}
-.cart-empty h2{font-size:18px;letter-spacing:2px}
+.cart-empty{text-align:center;padding:55px 15px;background:#f7f7f7}
+.cart-empty h2{font-size:17px;letter-spacing:2px}
 .cart-empty p{font-size:12px;color:#777;line-height:1.8}
-.continue-button{display:inline-block;margin-top:15px;background:#050505;color:#fff;border:0;padding:15px 22px;font-size:10px;letter-spacing:1.5px}
-.cart-list{display:flex;flex-direction:column}
-.cart-item{display:grid;grid-template-columns:105px 1fr auto;gap:18px;padding:20px 0;border-bottom:1px solid #e5e5e5;align-items:center}
-.cart-item img{width:105px;aspect-ratio:3/4;object-fit:cover;background:#f3f3f3}
-.cart-item-name{font-size:12px;font-weight:800;letter-spacing:1px;line-height:1.5}
-.cart-item-meta{font-size:10px;color:#777;line-height:1.8;margin-top:6px}
-.cart-item-price{font-size:12px;font-weight:bold;margin-top:8px}
-.cart-item-actions{display:flex;align-items:center;gap:9px;margin-top:12px}
-.cart-item-actions button{width:30px;height:30px;border:1px solid #ddd;background:#fff}
-.cart-item-actions span{min-width:18px;text-align:center;font-size:12px}
-.remove-item{border:0!important;color:#777;font-size:17px}
-.cart-line-total{font-size:12px;font-weight:bold;white-space:nowrap;text-align:right}
-.cart-summary{max-width:430px;margin:30px 0 0 auto;background:#f5f5f5;padding:22px}
-.summary-row{display:flex;justify-content:space-between;gap:15px;font-size:12px;margin:10px 0}
-.summary-total{border-top:1px solid #ccc;padding-top:16px;margin-top:16px;font-size:15px;font-weight:bold}
-.checkout-button{width:100%;background:#050505;color:#fff;border:0;padding:17px 10px;margin-top:15px;font-size:11px;letter-spacing:1.5px;font-weight:bold}
-.clear-cart-button{display:block;margin:18px 0 0 auto;border:0;background:none;color:#777;font-size:10px;text-decoration:underline}
-.cart-note{font-size:10px;color:#888;line-height:1.7;margin-top:12px}
+.continue-button{display:inline-block;margin-top:15px;background:#050505;color:#fff;border:0;padding:14px 20px;font-size:10px;letter-spacing:1px}
+.cart-item{display:grid;grid-template-columns:90px 1fr auto;gap:14px;padding:17px 0;border-bottom:1px solid #e5e5e5;align-items:center}
+.cart-item img{width:90px;aspect-ratio:3/4;object-fit:cover}
+.cart-item-name{font-size:11px;font-weight:bold;letter-spacing:1px}
+.cart-item-meta{font-size:10px;color:#777;line-height:1.8;margin-top:5px}
+.cart-item-price{font-size:11px;font-weight:bold;margin-top:7px}
+.cart-item-actions{display:flex;align-items:center;gap:8px;margin-top:10px}
+.cart-item-actions button{width:29px;height:29px;border:1px solid #ddd;background:#fff}
+.cart-item-actions span{font-size:11px}
+.remove-item{color:#777}
+.cart-line-total{font-size:11px;font-weight:bold;white-space:nowrap}
+.cart-summary{max-width:430px;margin:28px 0 0 auto;background:#f5f5f5;padding:20px}
+.summary-row{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin:11px 0}
+.summary-total{border-top:1px solid #ccc;padding-top:15px;font-size:15px;font-weight:bold}
+.checkout-button{width:100%;background:#050505;color:#fff;border:0;padding:16px;margin-top:12px;font-size:10px;font-weight:bold;letter-spacing:1px}
+.clear-cart-button{display:block;margin:17px 0 0 auto;border:0;background:none;color:#777;text-decoration:underline;font-size:10px}
 
-/* ABOUT & CONTACT */
-.about-content,.contact-content{max-width:800px;margin:auto;text-align:center;padding:65px 7% 85px}
-.about-content h1,.contact-content h1{font-size:32px;letter-spacing:3px}
+/* ABOUT / CONTACT / FOOTER */
+.about-content,.contact-content{max-width:800px;margin:auto;text-align:center;padding:60px 7% 80px}
+.about-content h1,.contact-content h1{font-size:30px;letter-spacing:2px}
 .about-content p,.contact-content p{font-size:13px;line-height:2;color:#666}
-.about-values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:35px}
-.value-box{background:#f5f5f5;padding:25px 10px}
+.about-values{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:30px}
+.value-box,.contact-card{background:#f5f5f5;padding:24px 12px}
 .value-box strong{font-size:11px;letter-spacing:1px}
 .value-box p{font-size:10px}
-.contact-card{background:#f5f5f5;padding:30px 15px;margin:25px auto;max-width:430px}
-.whatsapp-button{display:inline-block;background:#050505;color:white;padding:16px 25px;font-size:11px;letter-spacing:2px}
-
-/* FOOTER */
-footer{background:#050505;color:#fff;padding:40px 5% 25px}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
-.footer-brand{font-family:'Michroma',Arial,sans-serif;font-size:22px;letter-spacing:2px}
+.contact-card{max-width:430px;margin:25px auto}
+.whatsapp-button{display:inline-block;background:#050505;color:#fff;padding:15px 22px;font-size:10px;letter-spacing:1px}
+footer{background:#050505;color:#fff;padding:38px 5% 22px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}
+.footer-brand{font-family:'Michroma',Arial,sans-serif;font-size:21px;letter-spacing:2px}
 footer p{font-size:11px;color:#aaa;line-height:1.9}
 footer h3{font-size:10px;letter-spacing:2px}
 .footer-links{display:flex;flex-direction:column;gap:12px}
-.footer-links button{padding:0;text-align:left;border:0;background:none;color:#aaa;font-size:11px}
-.footer-links a{color:#aaa;font-size:11px}
-.copyright{text-align:center;border-top:1px solid #333;margin-top:30px;padding-top:20px;color:#888;font-size:9px;letter-spacing:1px}
+.footer-links button,.footer-links a{padding:0;text-align:left;border:0;background:none;color:#aaa;font-size:11px}
+.copyright{text-align:center;border-top:1px solid #333;margin-top:25px;padding-top:18px;color:#888;font-size:9px;letter-spacing:1px}
 
 /* MOBILE */
 @media(max-width:850px){
- .nav{display:none}
  .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:600px){
- .topbar{min-height:66px;padding:0 13px;grid-template-columns:1fr auto 1fr}
- .brand{font-size:19px;letter-spacing:1px}
- .header-actions{gap:7px}
- .header-icon,.menu-button{width:36px;height:36px}
- .areloc-slider{height:470px;max-height:76vh}
- .areloc-slide img{object-position:center}
- .areloc-slide:after{background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.72))}
- .areloc-hero-text{left:9%;right:9%;top:auto;bottom:65px;transform:none;width:auto;text-align:center}
- .areloc-hero-text h1{font-size:48px;letter-spacing:3px}
- .areloc-hero-text p{font-size:9px;letter-spacing:1.5px}
- .areloc-hero-text small{font-size:9px;letter-spacing:3px}
- .slider-arrow{width:34px;height:34px;font-size:21px}
- .intro-section,.brand-statement,.explore-section,.why-section{grid-template-columns:1fr}
- .intro-copy,.explore-copy{padding:35px 7%}
- .statement-copy{padding:32px 7%;text-align:center}
- .statement-copy h2{font-size:32px}
- .why-copy{padding:30px 6%}
- .why-values{margin-top:15px}
- .why-symbol{font-size:22px}
- .home-end{min-height:210px}
- .home-end h2{font-size:29px}
- .home-end p{font-size:10px;letter-spacing:2px}
- .catalog-top{padding:35px 5% 18px}
- .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px;padding:10px 4% 25px}
+ .topbar{min-height:64px;padding:0 12px}
+ .brand{font-size:18px;letter-spacing:1px}
+ .header-actions{gap:6px}
+ .header-icon,.menu-button{width:35px;height:35px}
+ .areloc-slider{height:460px;max-height:76vh}
+ .areloc-slide:after{background:linear-gradient(180deg,#0001,#000b)}
+ .areloc-hero-text{left:8%;right:8%;top:auto;bottom:60px;transform:none;width:auto;text-align:center}
+ .areloc-hero-text h1{font-size:46px}
+ .areloc-hero-text small{font-size:9px}
+ .areloc-hero-text p{font-size:9px;letter-spacing:2px}
+ .slider-arrow{width:33px;height:33px}
+ .home-section{grid-template-columns:1fr}
+ .home-copy{padding:32px 7%}
+ .home-copy h2{font-size:32px}
+ .category-filter{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;padding:8px 4% 17px;scrollbar-width:none}
+ .category-filter::-webkit-scrollbar{display:none}
+ .category-filter button{flex:0 0 auto;padding:11px 13px;font-size:8px}
+ .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 11px;padding:10px 4% 25px}
  .product-name{font-size:10px}
  .product-price{font-size:11px}
- .view-details{font-size:8px;padding:12px 3px}
- .detail-wrap{padding:20px 4% 50px}
- .detail-grid{grid-template-columns:1fr;gap:22px}
- .detail-info h1{font-size:24px}
+ .view-details{font-size:8px}
+ .detail-wrap{padding:18px 4% 45px}
+ .detail-grid{grid-template-columns:1fr;gap:20px}
+ .detail-info h1{font-size:23px}
  .about-values{grid-template-columns:1fr}
  .footer-grid{grid-template-columns:1fr 1fr}
  .footer-grid>div:first-child{grid-column:1/-1}
- .cart-wrap{padding:30px 4% 55px}
- .cart-heading h1{font-size:25px}
- .cart-item{grid-template-columns:76px 1fr auto;gap:10px;padding:15px 0}
- .cart-item img{width:76px}
+ .cart-wrap{padding:28px 4% 50px}
+ .cart-item{grid-template-columns:70px 1fr auto;gap:9px}
+ .cart-item img{width:70px}
  .cart-item-name{font-size:10px}
  .cart-item-meta{font-size:9px}
- .cart-item-price{font-size:11px}
- .cart-line-total{font-size:10px}
- .cart-summary{padding:18px 14px}
+ .cart-line-total{font-size:9px}
+ .cart-summary{padding:17px 13px}
 }
 </style>
 </head>
@@ -241,7 +207,7 @@ footer h3{font-size:10px;letter-spacing:2px}
  </button>
  <a class="brand" href="#" onclick="showPage('home');return false">ARELOC</a>
  <div class="header-actions">
-  <button class="header-icon cart-header" onclick="showPage('cart')" aria-label="Shopping cart">
+  <button class="header-icon" onclick="showPage('cart')" aria-label="Shopping cart">
    <svg viewBox="0 0 24 24"><path d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 1.9-1.5L22 8H6"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg>
    <span class="cart-count" id="cartCount">0</span>
   </button>
@@ -260,8 +226,6 @@ footer h3{font-size:10px;letter-spacing:2px}
 </nav>
 
 <main>
-
-<!-- HOME -->
 <section class="page active" id="home">
  <div class="areloc-slider" id="arelocSlider">
   <div class="areloc-slides" id="arelocSlides">
@@ -288,55 +252,39 @@ footer h3{font-size:10px;letter-spacing:2px}
   </div>
  </div>
 
- <section class="home-section intro-section">
-  <div class="intro-copy">
-   <div class="section-kicker">01 — BRAND INTRODUCTION</div>
-   <h2 class="section-title">MORE THAN<br>JUST A T-SHIRT</h2>
-   <p class="section-copy">Streetwear is an expression of identity.</p>
+ <section class="home-section">
+  <div class="home-copy">
+   <div class="kicker">01 — BRAND INTRODUCTION</div>
+   <h2>MORE THAN<br>JUST A T-SHIRT</h2>
+   <p>Streetwear is an expression of identity.</p>
    <a href="#" class="dark-button" onclick="showPage('tentang');return false">LEARN MORE →</a>
   </div>
-  <div class="intro-image"><img class="home-photo" src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Brand Introduction" loading="lazy"></div>
+  <img class="home-photo" src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Brand Introduction" loading="lazy">
  </section>
 
- <section class="home-section brand-statement">
-  <div class="statement-image"><img class="home-photo" src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Streetwear Identity" loading="lazy"></div>
-  <div class="statement-copy">
-   <div class="section-kicker">02 — BRAND STATEMENT</div>
+ <section class="home-section dark">
+  <img class="home-photo" src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Streetwear" loading="lazy">
+  <div class="home-copy">
+   <div class="kicker">02 — BRAND STATEMENT</div>
    <h2>TRUST THE PROCESS.</h2>
    <p>GOOD THINGS TAKE TIME.</p>
   </div>
  </section>
 
- <section class="home-section explore-section">
-  <div class="explore-copy">
-   <div class="section-kicker">03 — EXPLORE COLLECTION</div>
-   <h2 class="section-title">FIND YOUR STYLE</h2>
-   <p class="section-copy">Discover your identity with ARELOC.</p>
-   <a href="#" class="dark-button" onclick="showPage('katalog');return false">VIEW ALL COLLECTION →</a>
+ <section class="home-section">
+  <div class="home-copy">
+   <div class="kicker">03 — EXPLORE COLLECTION</div>
+   <h2>FIND YOUR STYLE</h2>
+   <p>Discover your identity with ARELOC.</p>
+   <a href="#" class="dark-button" onclick="showPage('katalog');return false">VIEW COLLECTION →</a>
   </div>
-  <div class="explore-image"><img class="home-photo" src="https://files.catbox.moe/uaw67i.jpg" alt="Explore ARELOC Collection" loading="lazy"></div>
+  <img class="home-photo" src="https://files.catbox.moe/uaw67i.jpg" alt="ARELOC Collection" loading="lazy">
  </section>
 
- <section class="home-section why-section">
-  <div class="why-copy">
-   <div class="section-kicker">04 — WHY ARELOC</div>
-   <h2 class="section-title" style="font-size:30px">BUILT WITH CHARACTER</h2>
-   <div class="why-values">
-    <div class="why-value"><div class="why-symbol">◇</div><strong>IDENTITY</strong></div>
-    <div class="why-value"><div class="why-symbol">✧</div><strong>QUALITY</strong></div>
-    <div class="why-value"><div class="why-symbol">◎</div><strong>CULTURE</strong></div>
-   </div>
-  </div>
-  <div class="why-image"><img class="home-photo" src="https://files.catbox.moe/0x44q5.jpg" alt="ARELOC Quality and Detail" loading="lazy"></div>
- </section>
-
- <img class="home-end-photo" src="https://files.catbox.moe/ypo2yc.jpg" alt="Welcome to ARELOC" loading="lazy">
  <section class="home-end">
-  <div class="home-end-content">
-   <h2>WELCOME TO ARELOC</h2>
-   <p>Your style. Your identity.</p>
-   <a href="#" class="white-btn" onclick="showPage('katalog');return false">SHOP ARELOC →</a>
-  </div>
+  <h2>WELCOME TO ARELOC</h2>
+  <p>YOUR STYLE. YOUR IDENTITY.</p>
+  <a href="#" class="white-btn" onclick="showPage('katalog');return false">SHOP ARELOC →</a>
  </section>
 </section>
 
@@ -344,9 +292,19 @@ footer h3{font-size:10px;letter-spacing:2px}
 <section class="page" id="katalog">
  <div class="catalog-top">
   <div class="eyebrow">ARELOC — OFFICIAL STORE</div>
-  <h1>ALL COLLECTION</h1>
+  <h1 id="catalogTitle">ALL COLLECTION</h1>
   <p>Explore the collection. Find your identity.</p>
  </div>
+
+ <div class="category-filter" id="categoryFilter">
+  <button type="button" class="active" data-category="ALL">ALL COLLECTION</button>
+  <button type="button" data-category="T-SHIRT">T-SHIRT</button>
+  <button type="button" data-category="HOODIE">HOODIE</button>
+  <button type="button" data-category="JACKET">JACKET</button>
+  <button type="button" data-category="PANTS">PANTS</button>
+  <button type="button" data-category="BAGS">BAGS</button>
+ </div>
+
  <div class="product-grid" id="productGrid"></div>
  <div id="arelocPagination"></div>
  <div class="page-info" id="pageInfo"></div>
@@ -357,7 +315,7 @@ footer h3{font-size:10px;letter-spacing:2px}
  <div class="detail-wrap">
   <button class="back-button" onclick="showPage('katalog')">← BACK TO CATALOG</button>
   <div class="detail-grid">
-   <div class="product-gallery">
+   <div>
     <div class="product-slider" id="productSlider"><div class="product-slides" id="productSlides"></div></div>
     <div class="product-dots" id="productDots"></div>
    </div>
@@ -389,7 +347,7 @@ footer h3{font-size:10px;letter-spacing:2px}
 
     <button class="add-cart-button" onclick="addToCart()">＋ ADD TO CART</button>
     <button class="buy-button" onclick="buyNow()">BUY NOW — WHATSAPP</button>
-    <p class="buy-note">Add multiple products to your cart, then checkout all items through WhatsApp. Shipping costs will be confirmed by our team.</p>
+    <p class="buy-note">Add multiple products to your cart, then checkout through WhatsApp. Shipping costs will be confirmed by our team.</p>
    </div>
   </div>
  </div>
@@ -414,7 +372,7 @@ footer h3{font-size:10px;letter-spacing:2px}
   <h1>ABOUT ARELOC</h1>
   <p>ARELOC is a streetwear brand for those who believe that style is part of identity. We create designs with character, expression, and the spirit of youth culture.</p>
   <p>Every collection carries a message about the process, confidence, and the courage to be yourself.</p>
-  <div class="statement">TRUST THE PROCESS. GOOD THINGS TAKE TIME.</div>
+  <h3>TRUST THE PROCESS. GOOD THINGS TAKE TIME.</h3>
   <div class="about-values">
    <div class="value-box"><strong>IDENTITY</strong><p>Express your character.</p></div>
    <div class="value-box"><strong>CONFIDENCE</strong><p>Believe in your choices.</p></div>
@@ -436,7 +394,6 @@ footer h3{font-size:10px;letter-spacing:2px}
   </div>
  </div>
 </section>
-
 </main>
 
 <footer>
@@ -464,7 +421,6 @@ footer h3{font-size:10px;letter-spacing:2px}
  </div>
  <div class="copyright">© 2026 ARELOC OFFICIAL STORE. ALL RIGHTS RESERVED.</div>
 </footer>
-
 </div>
 
 <script>
@@ -496,14 +452,13 @@ const products=[
 {name:"ARELOC WINGED RIDE",images:["https://files.catbox.moe/3zhm6v.jpg","https://files.catbox.moe/9bc4p7.jpg","https://files.catbox.moe/bevds0.webp"]},
 {name:"GAMER RETRO",images:["https://files.catbox.moe/ohjz1t.webp","https://files.catbox.moe/5lawaa.webp","https://files.catbox.moe/aoa8t0.webp","https://files.catbox.moe/egn52o.webp","https://files.catbox.moe/re7llx.webp","https://files.catbox.moe/se35fg.webp"]},
 {name:"ARELOC ON GAME",images:["https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_872250258_2485232432001403_1163174335895665898_n_20261030_215009.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_877609723_1082413618112906_8457328235178106399_n_20261030_215015.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_876551603_1060239416992560_7788849580095933902_n_20261030_215146.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_881687910_1006723919114251_5241633869512828322_n_20261030_215022.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376171/Meta_AI_858618607_887375927720596_2208322653680019690_n_20261030_215029.webp.jpg","https://res.cloudinary.com/pyegyn0b/image/upload/v1793376172/Meta_AI_872250239_1109807298606255_5802110478454215812_n_20261030_215310.webp.jpg"]},
-
-/* 4 PRODUK BARU */
 {name:"PS RETRO",images:["https://files.catbox.moe/6b9dzs.jpg","https://files.catbox.moe/wax7tt.jpg","https://files.catbox.moe/f5ovxw.jpg","https://files.catbox.moe/q92jfi.jpg"]},
 {name:"DISTRUB",images:["https://files.catbox.moe/0n6506.jpg","https://files.catbox.moe/7fw1rq.jpg","https://files.catbox.moe/7bsgp6.jpg","https://files.catbox.moe/ci2odg.jpg"]},
 {name:"ONE MORE",images:["https://files.catbox.moe/cb60uc.jpg","https://files.catbox.moe/8fq9sr.jpg","https://files.catbox.moe/grda6h.jpg","https://files.catbox.moe/8bke9b.jpg"]},
 {name:"MARIO",images:["https://files.catbox.moe/8l7dvz.jpg","https://files.catbox.moe/jabavi.jpg","https://files.catbox.moe/obbp5p.jpg","https://files.catbox.moe/xxf4qu.jpg"]}
 ];
 
+let activeCategory="ALL";
 let currentProduct=0,currentSize="M",currentColor="Hitam",quantity=1;
 let currentSlide=0,slideTimer=null,productPhotoIndex=0;
 let productTouchStart=0,headerTouchStart=0,currentCatalogPage=1;
@@ -538,8 +493,14 @@ function productsPerPage(){
  return window.innerWidth<=600?PRODUCTS_PER_MOBILE:PRODUCTS_PER_DESKTOP;
 }
 
+function getFilteredProducts(){
+ return products.map((product,index)=>({
+  product,index,category:product.category||"T-SHIRT"
+ })).filter(item=>activeCategory==="ALL"||item.category===activeCategory);
+}
+
 function totalPages(){
- return Math.max(1,Math.ceil(products.length/productsPerPage()));
+ return Math.max(1,Math.ceil(getFilteredProducts().length/productsPerPage()));
 }
 
 /* NAVIGATION */
@@ -557,14 +518,44 @@ function showPage(id){
  if(id!=="detail")history.replaceState({page:id},"","#"+id);
 }
 
+/* CATEGORY */
+function changeCategory(category){
+ activeCategory=category;
+ currentCatalogPage=1;
+
+ document.querySelectorAll("#categoryFilter button").forEach(button=>{
+  button.classList.toggle("active",button.dataset.category===category);
+ });
+
+ const names={
+  ALL:"ALL COLLECTION",
+  "T-SHIRT":"T-SHIRT COLLECTION",
+  HOODIE:"HOODIE COLLECTION",
+  JACKET:"JACKET COLLECTION",
+  PANTS:"PANTS COLLECTION",
+  BAGS:"BAGS COLLECTION"
+ };
+
+ document.getElementById("catalogTitle").textContent=names[category]||"ALL COLLECTION";
+ renderProducts();
+}
+
+document.getElementById("categoryFilter").addEventListener("click",function(event){
+ const button=event.target.closest("button[data-category]");
+ if(button)changeCategory(button.dataset.category);
+});
+
 /* PAGINATION */
 function renderPagination(){
  const pagination=document.getElementById("arelocPagination");
  const info=document.getElementById("pageInfo");
+ const filtered=getFilteredProducts();
+ const totalItems=filtered.length;
  const total=totalPages();
+
  currentCatalogPage=Math.min(currentCatalogPage,total);
 
- let html='<button type="button" data-page="prev" aria-label="Previous page" '+(currentCatalogPage===1?'disabled':'')+'>‹</button>';
+ let html='<button type="button" data-page="prev" '+(currentCatalogPage===1?'disabled':'')+'>‹</button>';
  let pages=[];
 
  if(total<=7){
@@ -582,16 +573,16 @@ function renderPagination(){
  }
 
  pages.forEach(page=>{
-  if(page==="...")html+='<span style="padding:0 4px;color:#777">…</span>';
+  if(page==="...")html+='<span style="padding:0 4px">…</span>';
   else html+='<button type="button" data-page="'+page+'" class="'+(page===currentCatalogPage?'active':'')+'">'+page+'</button>';
  });
 
- html+='<button type="button" data-page="next" aria-label="Next page" '+(currentCatalogPage===total?'disabled':'')+'>›</button>';
+ html+='<button type="button" data-page="next" '+(currentCatalogPage===total?'disabled':'')+'>›</button>';
  pagination.innerHTML=html;
 
- const first=products.length===0?0:(currentCatalogPage-1)*productsPerPage()+1;
- const last=Math.min(currentCatalogPage*productsPerPage(),products.length);
- info.textContent="SHOWING "+first+"–"+last+" OF "+products.length+" PRODUCTS";
+ const first=totalItems===0?0:(currentCatalogPage-1)*productsPerPage()+1;
+ const last=Math.min(currentCatalogPage*productsPerPage(),totalItems);
+ info.textContent="SHOWING "+first+"–"+last+" OF "+totalItems+" PRODUCTS";
 }
 
 function changeCatalogPage(page){
@@ -600,6 +591,7 @@ function changeCatalogPage(page){
  else if(page==="next")page=currentCatalogPage+1;
  else page=Number(page);
  if(!Number.isFinite(page))return;
+
  currentCatalogPage=Math.max(1,Math.min(total,page));
  renderProducts();
  window.scrollTo({top:document.getElementById("katalog").offsetTop,behavior:"smooth"});
@@ -615,21 +607,24 @@ document.getElementById("arelocPagination").addEventListener("click",function(ev
 function renderProducts(){
  const grid=document.getElementById("productGrid");
  const perPage=productsPerPage();
+ const filtered=getFilteredProducts();
  const start=(currentCatalogPage-1)*perPage;
- const visibleProducts=products.slice(start,start+perPage);
+ const visible=filtered.slice(start,start+perPage);
 
- grid.innerHTML=visibleProducts.map((product,index)=>{
-  const realIndex=start+index;
-  return `
-   <article class="product-card" onclick="openProduct(${realIndex})">
-    <img src="${product.images[0]}" alt="${product.name}" loading="lazy">
+ if(filtered.length===0){
+  grid.innerHTML='<div class="empty-category"><strong>COMING SOON</strong><br>Produk untuk kategori ini belum tersedia.<br>Nantikan koleksi terbaru ARELOC.</div>';
+ }else{
+  grid.innerHTML=visible.map(item=>`
+   <article class="product-card" onclick="openProduct(${item.index})">
+    <img src="${item.product.images[0]}" alt="${item.product.name}" loading="lazy">
     <div class="product-info">
-     <div class="product-name">${product.name}</div>
+     <div class="product-name">${item.product.name}</div>
      <div class="product-price">${rupiah(PRICE)}</div>
-     <button class="view-details" type="button" onclick="event.stopPropagation();openProduct(${realIndex})">VIEW DETAILS</button>
+     <button class="view-details" type="button" onclick="event.stopPropagation();openProduct(${item.index})">VIEW DETAILS</button>
     </div>
-   </article>`;
- }).join("");
+   </article>
+  `).join("");
+ }
  renderPagination();
 }
 
@@ -644,6 +639,13 @@ function openProduct(index){
  document.getElementById("detailPrice").textContent=rupiah(PRICE);
  document.getElementById("quantity").textContent=quantity;
 
+ updateSelection();
+ renderGallery();
+ showPage("detail");
+ history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
+}
+
+function updateSelection(){
  document.querySelectorAll(".size-options button").forEach(button=>{
   button.classList.toggle("selected",button.textContent===currentSize);
  });
@@ -651,10 +653,6 @@ function openProduct(index){
   const color=button.textContent.trim()==="BLACK"?"Hitam":"Putih";
   button.classList.toggle("selected",color===currentColor);
  });
-
- renderGallery();
- showPage("detail");
- history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
 }
 
 function renderGallery(){
@@ -684,17 +682,12 @@ function goProductPhoto(index){
 
 function chooseColor(color){
  currentColor=color;
- document.querySelectorAll(".color-options button").forEach(button=>{
-  const buttonColor=button.textContent.trim()==="BLACK"?"Hitam":"Putih";
-  button.classList.toggle("selected",buttonColor===color);
- });
+ updateSelection();
 }
 
 function chooseSize(size){
  currentSize=size;
- document.querySelectorAll(".size-options button").forEach(button=>{
-  button.classList.toggle("selected",button.textContent===size);
- });
+ updateSelection();
 }
 
 function changeQty(amount){
@@ -726,21 +719,15 @@ function addToCart(){
  updateCartCount();
 
  const button=document.querySelector(".add-cart-button");
- const original=button.textContent;
  button.textContent="✓ ADDED TO CART";
- button.style.background="#111";
- button.style.color="#fff";
- setTimeout(()=>{
-  button.textContent=original;
-  button.style.background="";
-  button.style.color="";
- },1500);
+ setTimeout(()=>button.textContent="＋ ADD TO CART",1400);
 }
 
 /* BUY NOW */
 function buyNow(){
  const product=products[currentProduct];
  if(!product)return;
+
  const message=
  `Hello ARELOC, I would like to order:\n\n`+
  `Product: ${product.name}\n`+
@@ -750,17 +737,18 @@ function buyNow(){
  `Quantity: ${quantity}\n`+
  `Total: ${rupiah(PRICE*quantity)}\n\n`+
  `Please confirm stock availability and shipping details. Thank you.`;
+
  window.open("https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message),"_blank");
 }
 
-/* CART DISPLAY */
+/* CART */
 function renderCart(){
  const container=document.getElementById("cartContent");
 
  if(cart.length===0){
   container.innerHTML=`
    <div class="cart-empty">
-    <div class="cart-empty-icon">🛒</div>
+    <div style="font-size:42px">🛒</div>
     <h2>YOUR CART IS EMPTY</h2>
     <p>You haven't added any products yet.<br>Explore our collection and find your style.</p>
     <button class="continue-button" onclick="showPage('katalog')">CONTINUE SHOPPING →</button>
@@ -778,27 +766,29 @@ function renderCart(){
     <div class="cart-item-meta">Color: ${item.color==="Hitam"?"Black":"White"}<br>Size: ${item.size}</div>
     <div class="cart-item-price">${rupiah(item.price)}</div>
     <div class="cart-item-actions">
-     <button onclick="changeCartQty(${index},-1)" aria-label="Decrease quantity">−</button>
+     <button onclick="changeCartQty(${index},-1)">−</button>
      <span>${item.qty}</span>
-     <button onclick="changeCartQty(${index},1)" aria-label="Increase quantity">+</button>
-     <button class="remove-item" onclick="removeCartItem(${index})" aria-label="Remove item">🗑</button>
+     <button onclick="changeCartQty(${index},1)">+</button>
+     <button class="remove-item" onclick="removeCartItem(${index})">×</button>
     </div>
    </div>
    <div class="cart-line-total">${rupiah(item.price*item.qty)}</div>
-  </div>`).join("");
+  </div>
+ `).join("");
 
  container.innerHTML=`
-  <div class="cart-list">${itemsHTML}</div>
+  <div>${itemsHTML}</div>
   <div class="cart-summary">
    <div class="summary-row"><span>Items</span><strong>${cartItemCount()} pcs</strong></div>
    <div class="summary-row"><span>Subtotal</span><strong>${rupiah(subtotal)}</strong></div>
    <div class="summary-row"><span>Shipping</span><span>Confirmed via WhatsApp</span></div>
    <div class="summary-row summary-total"><span>TOTAL</span><span>${rupiah(subtotal)}</span></div>
    <button class="checkout-button" onclick="checkoutWhatsApp()">CHECKOUT VIA WHATSAPP</button>
-   <p class="cart-note">Shipping costs will be confirmed by our team. Your order will be sent to ARELOC WhatsApp for confirmation.</p>
+   <p class="buy-note">Shipping costs will be confirmed by our team.</p>
   </div>
   <button class="clear-cart-button" onclick="clearCart()">CLEAR SHOPPING CART</button>
-  <button class="continue-button" onclick="showPage('katalog')">← CONTINUE SHOPPING</button>`;
+  <button class="continue-button" onclick="showPage('katalog')">← CONTINUE SHOPPING</button>
+ `;
 }
 
 function changeCartQty(index,amount){
@@ -827,23 +817,20 @@ function clearCart(){
  }
 }
 
-/* CHECKOUT */
 function checkoutWhatsApp(){
  if(cart.length===0)return;
  const subtotal=cart.reduce((sum,item)=>sum+(item.price*item.qty),0);
- let message="Hello ARELOC, I would like to place an order:\n\n";
- message+="ORDER DETAILS\n--------------------------\n";
+ let message="Hello ARELOC, I would like to place an order:\n\nORDER DETAILS\n--------------------------\n";
 
  cart.forEach((item,index)=>{
   message+=`${index+1}. ${item.name}\n`+
-   `   Color: ${item.color==="Hitam"?"Black":"White"}\n`+
-   `   Size: ${item.size}\n`+
-   `   Quantity: ${item.qty}\n`+
-   `   Price: ${rupiah(item.price)}\n`+
-   `   Subtotal: ${rupiah(item.price*item.qty)}\n\n`;
+   `Color: ${item.color==="Hitam"?"Black":"White"}\n`+
+   `Size: ${item.size}\n`+
+   `Quantity: ${item.qty}\n`+
+   `Price: ${rupiah(item.price)}\n`+
+   `Subtotal: ${rupiah(item.price*item.qty)}\n\n`;
  });
 
- message+="--------------------------\n";
  message+=`TOTAL ITEMS: ${cartItemCount()} pcs\n`;
  message+=`TOTAL ORDER: ${rupiah(subtotal)}\n\n`;
  message+="Please confirm product availability, shipping cost, and payment instructions. Thank you.";
@@ -928,16 +915,9 @@ function openProductFromHistory(index){
  document.getElementById("detailName").textContent=products[index].name;
  document.getElementById("detailPrice").textContent=rupiah(PRICE);
  document.getElementById("quantity").textContent=quantity;
-
- document.querySelectorAll(".size-options button").forEach(button=>{
-  button.classList.toggle("selected",button.textContent===currentSize);
- });
- document.querySelectorAll(".color-options button").forEach(button=>{
-  const color=button.textContent.trim()==="BLACK"?"Hitam":"Putih";
-  button.classList.toggle("selected",color===currentColor);
- });
-
+ updateSelection();
  renderGallery();
+
  document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
  document.getElementById("detail").classList.add("active");
  window.scrollTo({top:0,behavior:"smooth"});
@@ -948,6 +928,5 @@ updateCartCount();
 restartSlideTimer();
 renderProducts();
 </script>
-
 </body>
 </html>
