@@ -1100,6 +1100,353 @@ window.addEventListener("popstate",event=>{
 
 /* MULAI TOKO */
 history.replaceState({page:"home"},"","#home");
+ 
+/* =========================================
+   ARELOC — TAMBAH KE KERANJANG DARI KATALOG
+   ========================================= */
+
+/* CSS untuk pilihan warna, ukuran, dan tombol */
+(function(){
+ const style=document.createElement("style");
+ style.textContent=`
+  .catalog-options{
+   display:grid;
+   grid-template-columns:1fr 1fr;
+   gap:7px;
+   margin-top:10px;
+  }
+  .catalog-options select{
+   width:100%;
+   min-width:0;
+   padding:10px 5px;
+   border:1px solid #ddd;
+   background:#fff;
+   color:#111;
+   font-size:10px;
+   border-radius:0;
+  }
+  .catalog-add-button{
+   width:100%;
+   margin-top:8px;
+   padding:13px 5px;
+   border:1px solid #111;
+   background:#050505;
+   color:#fff;
+   font-size:9px;
+   font-weight:bold;
+   letter-spacing:.7px;
+  }
+  .catalog-add-button:active{opacity:.7}
+  .view-details{margin-top:8px}
+ `;
+ document.head.appendChild(style);
+})();
+
+/* Tambahkan produk langsung dari katalog */
+function addCatalogToCart(index){
+ const product=products[index];
+ if(!product)return;
+
+ const colorField=document.getElementById("catalogColor"+index);
+ const sizeField=document.getElementById("catalogSize"+index);
+
+ if(!colorField||!sizeField)return;
+
+ const color=colorField.value;
+ const size=sizeField.value;
+
+ const existing=cart.find(item=>
+  item.productIndex===index &&
+  item.size===size &&
+  item.color===color
+ );
+
+ if(existing){
+  existing.qty=Math.min(99,Number(existing.qty)+1);
+ }else{
+  cart.push({
+   productIndex:index,
+   name:product.name,
+   image:product.images[0],
+   price:PRICE,
+   size:size,
+   color:color,
+   qty:1
+  });
+ }
+
+ invalidateShipping(false);
+ saveCart();
+ updateCartCount();
+
+ const button=document.getElementById("catalogAdd"+index);
+
+ if(button){
+  button.textContent="✓ BERHASIL DITAMBAHKAN";
+  button.disabled=true;
+
+  setTimeout(()=>{
+   button.textContent="＋ TAMBAH KE KERANJANG";
+   button.disabled=false;
+  },1400);
+ }
+}
+
+/* Tampilkan pilihan warna dan ukuran di setiap kartu katalog */
+renderProducts=function(){
+ const grid=document.getElementById("productGrid");
+ const filtered=getFilteredProducts();
+ const perPage=productsPerPage();
+ const start=(currentCatalogPage-1)*perPage;
+ const visible=filtered.slice(start,start+perPage);
+
+ if(filtered.length===0){
+  grid.innerHTML=`
+   <div class="empty-category">
+    <strong>COMING SOON</strong><br>
+    Produk untuk kategori ini belum tersedia.<br>
+    Nantikan koleksi terbaru ARELOC.
+   </div>`;
+ }else{
+  grid.innerHTML=visible.map(item=>`
+   <article class="product-card">
+
+    <img
+     src="${escapeHTML(item.product.images[0])}"
+     alt="${escapeHTML(item.product.name)}"
+     loading="lazy"
+     onclick="openProduct(${item.index})"
+    >
+
+    <div class="product-info">
+
+     <div class="product-name">
+      ${escapeHTML(item.product.name)}
+     </div>
+
+     <div class="product-price">
+      ${rupiah(PRICE)}
+     </div>
+
+     <div class="catalog-options">
+
+      <select
+       id="catalogColor${item.index}"
+       aria-label="Pilih warna ${escapeHTML(item.product.name)}">
+       <option value="Hitam">Hitam</option>
+       <option value="Putih">Putih</option>
+      </select>
+
+      <select
+       id="catalogSize${item.index}"
+       aria-label="Pilih ukuran ${escapeHTML(item.product.name)}">
+       <option value="M">Ukuran M</option>
+       <option value="L" selected>Ukuran L</option>
+       <option value="XL">Ukuran XL</option>
+      </select>
+
+     </div>
+
+     <button
+      id="catalogAdd${item.index}"
+      class="catalog-add-button"
+      type="button"
+      onclick="addCatalogToCart(${item.index})">
+      ＋ TAMBAH KE KERANJANG
+     </button>
+
+     <button
+      class="view-details"
+      type="button"
+      onclick="openProduct(${item.index})">
+      LIHAT DETAIL
+     </button>
+
+    </div>
+   </article>
+  `).join("");
+ }
+
+ renderPagination();
+};
+
+/* =========================================
+   AKHIR FITUR KERANJANG KATALOG
+   ========================================= */
+
+/* =========================================
+   ARELOC — TAMBAH KE KERANJANG DARI KATALOG
+   ========================================= */
+
+/* CSS untuk pilihan warna, ukuran, dan tombol */
+(function(){
+ const style=document.createElement("style");
+ style.textContent=`
+  .catalog-options{
+   display:grid;
+   grid-template-columns:1fr 1fr;
+   gap:7px;
+   margin-top:10px;
+  }
+  .catalog-options select{
+   width:100%;
+   min-width:0;
+   padding:10px 5px;
+   border:1px solid #ddd;
+   background:#fff;
+   color:#111;
+   font-size:10px;
+   border-radius:0;
+  }
+  .catalog-add-button{
+   width:100%;
+   margin-top:8px;
+   padding:13px 5px;
+   border:1px solid #111;
+   background:#050505;
+   color:#fff;
+   font-size:9px;
+   font-weight:bold;
+   letter-spacing:.7px;
+  }
+  .catalog-add-button:active{opacity:.7}
+  .view-details{margin-top:8px}
+ `;
+ document.head.appendChild(style);
+})();
+
+/* Tambahkan produk langsung dari katalog */
+function addCatalogToCart(index){
+ const product=products[index];
+ if(!product)return;
+
+ const colorField=document.getElementById("catalogColor"+index);
+ const sizeField=document.getElementById("catalogSize"+index);
+
+ if(!colorField||!sizeField)return;
+
+ const color=colorField.value;
+ const size=sizeField.value;
+
+ const existing=cart.find(item=>
+  item.productIndex===index &&
+  item.size===size &&
+  item.color===color
+ );
+
+ if(existing){
+  existing.qty=Math.min(99,Number(existing.qty)+1);
+ }else{
+  cart.push({
+   productIndex:index,
+   name:product.name,
+   image:product.images[0],
+   price:PRICE,
+   size:size,
+   color:color,
+   qty:1
+  });
+ }
+
+ invalidateShipping(false);
+ saveCart();
+ updateCartCount();
+
+ const button=document.getElementById("catalogAdd"+index);
+
+ if(button){
+  button.textContent="✓ BERHASIL DITAMBAHKAN";
+  button.disabled=true;
+
+  setTimeout(()=>{
+   button.textContent="＋ TAMBAH KE KERANJANG";
+   button.disabled=false;
+  },1400);
+ }
+}
+
+/* Tampilkan pilihan warna dan ukuran di setiap kartu katalog */
+renderProducts=function(){
+ const grid=document.getElementById("productGrid");
+ const filtered=getFilteredProducts();
+ const perPage=productsPerPage();
+ const start=(currentCatalogPage-1)*perPage;
+ const visible=filtered.slice(start,start+perPage);
+
+ if(filtered.length===0){
+  grid.innerHTML=`
+   <div class="empty-category">
+    <strong>COMING SOON</strong><br>
+    Produk untuk kategori ini belum tersedia.<br>
+    Nantikan koleksi terbaru ARELOC.
+   </div>`;
+ }else{
+  grid.innerHTML=visible.map(item=>`
+   <article class="product-card">
+
+    <img
+     src="${escapeHTML(item.product.images[0])}"
+     alt="${escapeHTML(item.product.name)}"
+     loading="lazy"
+     onclick="openProduct(${item.index})"
+    >
+
+    <div class="product-info">
+
+     <div class="product-name">
+      ${escapeHTML(item.product.name)}
+     </div>
+
+     <div class="product-price">
+      ${rupiah(PRICE)}
+     </div>
+
+     <div class="catalog-options">
+
+      <select
+       id="catalogColor${item.index}"
+       aria-label="Pilih warna ${escapeHTML(item.product.name)}">
+       <option value="Hitam">Hitam</option>
+       <option value="Putih">Putih</option>
+      </select>
+
+      <select
+       id="catalogSize${item.index}"
+       aria-label="Pilih ukuran ${escapeHTML(item.product.name)}">
+       <option value="M">Ukuran M</option>
+       <option value="L" selected>Ukuran L</option>
+       <option value="XL">Ukuran XL</option>
+      </select>
+
+     </div>
+
+     <button
+      id="catalogAdd${item.index}"
+      class="catalog-add-button"
+      type="button"
+      onclick="addCatalogToCart(${item.index})">
+      ＋ TAMBAH KE KERANJANG
+     </button>
+
+     <button
+      class="view-details"
+      type="button"
+      onclick="openProduct(${item.index})">
+      LIHAT DETAIL
+     </button>
+
+    </div>
+   </article>
+  `).join("");
+ }
+
+ renderPagination();
+};
+
+/* =========================================
+   AKHIR FITUR KERANJANG KATALOG
+   ========================================= */
+
 updateCartCount();
 updateSlide();
 restartSlideTimer();
