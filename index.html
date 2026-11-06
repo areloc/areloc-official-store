@@ -425,7 +425,6 @@ const products=[
 {name:"MARIO",images:["https://files.catbox.moe/8l7dvz.jpg","https://files.catbox.moe/jabavi.jpg","https://files.catbox.moe/obbp5p.jpg","https://files.catbox.moe/xxf4qu.jpg"]}
 ];
 
-
 let activeCategory="ALL";
 let currentProduct=0,currentSize="M",currentColor="Hitam",quantity=1;
 let currentSlide=0,slideTimer=null,productPhotoIndex=0;
@@ -433,57 +432,25 @@ let productTouchStart=0,headerTouchStart=0,currentCatalogPage=1;
 let lastPerPage=0;
 let cart=loadCart();
 
-const ONGKIR_API="https://areloc-ongkir.areloc-id.workers.dev/";
-let shippingRates=[];
-let selectedShipping=null;
-let selectedDestinationArea=null;
-let areaSearchResults=[];
-let areaRequestToken=0;
-let rateRequestToken=0;
-
 function rupiah(value){
- return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(value)||0);
+ return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value);
 }
-function escapeHTML(value){
- return String(value??"").replace(/[&<>"']/g,char=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
- }[char]));
-}
+
 function loadCart(){
  try{
   const saved=JSON.parse(localStorage.getItem("arelocShoppingCart"))||[];
-  if(!Array.isArray(saved))return [];
-  return saved.filter(item=>item&&typeof item==="object").map(item=>({
-   productIndex:Number.isInteger(Number(item.productIndex))?Number(item.productIndex):-1,
-   name:String(item.name||"Produk ARELOC"),
-   image:String(item.image||""),
-   price:Number(item.price)||PRICE,
-   size:["M","L","XL"].includes(item.size)?item.size:"M",
-   color:item.color==="Putih"?"Putih":"Hitam",
-   qty:Math.max(1,Math.min(99,parseInt(item.qty,10)||1))
-  }));
+  return Array.isArray(saved)?saved:[];
  }catch(error){return []}
 }
 function saveCart(){
  try{localStorage.setItem("arelocShoppingCart",JSON.stringify(cart))}
- catch(error){console.warn("Keranjang tidak dapat disimpan",error)}
-}
-function loadBuyerData(){
- try{return JSON.parse(localStorage.getItem("arelocBuyerData"))||{}}
- catch(error){return {}}
-}
-let buyerData=loadBuyerData();
-function saveBuyerField(field,value){
- buyerData[field]=value;
- try{localStorage.setItem("arelocBuyerData",JSON.stringify(buyerData))}
- catch(error){}
+ catch(error){console.log("Penyimpanan keranjang tidak tersedia")}
 }
 function cartItemCount(){
  return cart.reduce((sum,item)=>sum+(Number(item.qty)||0),0);
 }
 function updateCartCount(){
- const el=document.getElementById("cartCount");
- if(el)el.textContent=cartItemCount();
+ document.getElementById("cartCount").textContent=cartItemCount();
 }
 function productsPerPage(){
  return window.innerWidth<=600?PRODUCTS_PER_MOBILE:PRODUCTS_PER_DESKTOP;
@@ -497,23 +464,17 @@ function totalPages(){
 }
 
 /* NAVIGASI */
-function displayPage(id,scroll=true){
- const allowed=["home","katalog","detail","cart","tentang","kontak"];
- if(!allowed.includes(id))id="home";
+function toggleMenu(){
+ document.getElementById("mobileNav").classList.toggle("open");
+}
+function showPage(id){
  document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
  const target=document.getElementById(id);
  if(target)target.classList.add("active");
  document.getElementById("mobileNav").classList.remove("open");
+ window.scrollTo({top:0,behavior:"smooth"});
  if(id==="cart")renderCart();
- if(scroll)window.scrollTo({top:0,behavior:"smooth"});
-}
-function showPage(id){
- if(!["home","katalog","detail","cart","tentang","kontak"].includes(id))return;
- displayPage(id);
- history.pushState({page:id},"","#"+id);
-}
-function toggleMenu(){
- document.getElementById("mobileNav").classList.toggle("open");
+ if(id!=="detail")history.replaceState({page:id},"","#"+id);
 }
 
 /* KATEGORI */
@@ -523,11 +484,7 @@ function changeCategory(category){
  document.querySelectorAll("#categoryFilter button").forEach(button=>{
   button.classList.toggle("active",button.dataset.category===category);
  });
- const names={
-  ALL:"ALL COLLECTION",
-  "T-SHIRT":"T-SHIRT COLLECTION",
-  HOODIE:"HOODIE COLLECTION",
- };
+ const names={ALL:"ALL COLLECTION","T-SHIRT":"T-SHIRT COLLECTION",HOODIE:"HOODIE COLLECTION",JACKET:"JACKET COLLECTION",PANTS:"PANTS COLLECTION",BAGS:"BAGS COLLECTION"};
  document.getElementById("catalogTitle").textContent=names[category]||"ALL COLLECTION";
  renderProducts();
 }
@@ -536,7 +493,7 @@ document.getElementById("categoryFilter").addEventListener("click",function(even
  if(button)changeCategory(button.dataset.category);
 });
 
-/* PAGINATION */
+/* NOMOR HALAMAN */
 function renderPagination(){
  const pagination=document.getElementById("arelocPagination");
  const info=document.getElementById("pageInfo");
@@ -545,9 +502,8 @@ function renderPagination(){
  currentCatalogPage=Math.min(currentCatalogPage,total);
  let html='<button type="button" data-page="prev" '+(currentCatalogPage===1?'disabled':'')+'>‹</button>';
  let pages=[];
- if(total<=7){
-  for(let i=1;i<=total;i++)pages.push(i);
- }else{
+ if(total<=7){for(let i=1;i<=total;i++)pages.push(i)}
+ else{
   pages.push(1);
   let start=Math.max(2,currentCatalogPage-1);
   let end=Math.min(total-1,currentCatalogPage+1);
@@ -580,14 +536,15 @@ function changeCatalogPage(page){
 }
 document.getElementById("arelocPagination").addEventListener("click",function(event){
  const button=event.target.closest("button[data-page]");
- if(button&&!button.disabled)changeCatalogPage(button.dataset.page);
+ if(!button||button.disabled)return;
+ changeCatalogPage(button.dataset.page);
 });
 
 /* KATALOG PRODUK */
 function renderProducts(){
  const grid=document.getElementById("productGrid");
- const filtered=getFilteredProducts();
  const perPage=productsPerPage();
+ const filtered=getFilteredProducts();
  const start=(currentCatalogPage-1)*perPage;
  const visible=filtered.slice(start,start+perPage);
  if(filtered.length===0){
@@ -595,9 +552,9 @@ function renderProducts(){
  }else{
   grid.innerHTML=visible.map(item=>`
    <article class="product-card" onclick="openProduct(${item.index})">
-    <img src="${escapeHTML(item.product.images[0])}" alt="${escapeHTML(item.product.name)}" loading="lazy">
+    <img src="${item.product.images[0]}" alt="${item.product.name}" loading="lazy">
     <div class="product-info">
-     <div class="product-name">${escapeHTML(item.product.name)}</div>
+     <div class="product-name">${item.product.name}</div>
      <div class="product-price">${rupiah(PRICE)}</div>
      <button class="view-details" type="button" onclick="event.stopPropagation();openProduct(${item.index})">LIHAT DETAIL</button>
     </div>
@@ -608,8 +565,8 @@ function renderProducts(){
 }
 
 /* DETAIL PRODUK */
-function prepareProduct(index){
- if(!products[index])return false;
+function openProduct(index){
+ if(!products[index])return;
  currentProduct=index;
  currentSize="M";
  currentColor="Hitam";
@@ -619,16 +576,12 @@ function prepareProduct(index){
  document.getElementById("quantity").textContent=quantity;
  updateSelection();
  renderGallery();
- return true;
-}
-function openProduct(index){
- if(!prepareProduct(index))return;
- displayPage("detail");
+ showPage("detail");
  history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
 }
 function updateSelection(){
  document.querySelectorAll(".size-options button").forEach(button=>{
-  button.classList.toggle("selected",button.textContent.trim()===currentSize);
+  button.classList.toggle("selected",button.textContent===currentSize);
  });
  document.querySelectorAll(".color-options button").forEach(button=>{
   const color=button.textContent.trim()==="BLACK"?"Hitam":"Putih";
@@ -639,7 +592,7 @@ function renderGallery(){
  const product=products[currentProduct];
  productPhotoIndex=0;
  document.getElementById("productSlides").innerHTML=product.images.map((url,index)=>
-  `<img src="${escapeHTML(url)}" alt="${escapeHTML(product.name)} foto ${index+1}" draggable="false">`
+  `<img src="${url}" alt="${product.name} foto ${index+1}" draggable="false">`
  ).join("");
  document.getElementById("productDots").innerHTML=product.images.map((url,index)=>
   `<button type="button" class="product-dot ${index===0?"active":""}" onclick="goProductPhoto(${index})" aria-label="Foto ${index+1}"></button>`
@@ -657,16 +610,8 @@ function goProductPhoto(index){
  productPhotoIndex=(index+total)%total;
  updateProductGallery();
 }
-function chooseColor(color){
- if(!["Hitam","Putih"].includes(color))return;
- currentColor=color;
- updateSelection();
-}
-function chooseSize(size){
- if(!["M","L","XL"].includes(size))return;
- currentSize=size;
- updateSelection();
-}
+function chooseColor(color){currentColor=color;updateSelection()}
+function chooseSize(size){currentSize=size;updateSelection()}
 function changeQty(amount){
  quantity=Math.max(1,Math.min(20,quantity+amount));
  document.getElementById("quantity").textContent=quantity;
@@ -678,43 +623,34 @@ function addToCart(){
  if(!product)return;
  const existing=cart.find(item=>item.productIndex===currentProduct&&item.size===currentSize&&item.color===currentColor);
  if(existing)existing.qty=Math.min(99,Number(existing.qty)+quantity);
- else cart.push({
-  productIndex:currentProduct,
-  name:product.name,
-  image:product.images[0],
-  price:PRICE,
-  size:currentSize,
-  color:currentColor,
-  qty:quantity
- });
- invalidateShipping(false);
+ else cart.push({productIndex:currentProduct,name:product.name,image:product.images[0],price:PRICE,size:currentSize,color:currentColor,qty:quantity});
  saveCart();
  updateCartCount();
  const button=document.querySelector(".add-cart-button");
- if(button){
-  button.textContent="✓ BERHASIL DITAMBAHKAN";
-  setTimeout(()=>button.textContent="＋ TAMBAH KE KERANJANG",1400);
- }
+ button.textContent="✓ BERHASIL DITAMBAHKAN";
+ setTimeout(()=>button.textContent="＋ TAMBAH KE KERANJANG",1400);
 }
 function buyNow(){
  addToCart();
  showPage("cart");
 }
+
+/* ONGKIR */
+const ONGKIR_API="https://areloc-ongkir.areloc-id.workers.dev/";
+let shippingRates=[];
+let selectedShipping=null;
+let selectedDestinationArea=null;
+window.arelocAreaSearchResults=[];
+
 function cartSubtotal(){
  return cart.reduce((sum,item)=>sum+(Number(item.price)||PRICE)*(Number(item.qty)||0),0);
 }
-function invalidateShipping(clearDestination=false){
- selectedShipping=null;
- shippingRates=[];
- rateRequestToken++;
- if(clearDestination)selectedDestinationArea=null;
-}
-
-/* TAMPILAN KERANJANG + DATA PEMBELI */
 function renderCart(){
  const container=document.getElementById("cartContent");
- if(!cart.length){
-  invalidateShipping(true);
+ if(cart.length===0){
+  selectedShipping=null;
+  shippingRates=[];
+  selectedDestinationArea=null;
   container.innerHTML=`
    <div class="cart-empty">
     <div style="font-size:42px">🛒</div>
@@ -728,10 +664,10 @@ function renderCart(){
  const shipping=selectedShipping?Number(selectedShipping.price)||0:0;
  const itemsHTML=cart.map((item,index)=>`
   <div class="cart-item">
-   <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)}">
+   <img src="${item.image}" alt="${item.name}">
    <div>
-    <div class="cart-item-name">${escapeHTML(item.name)}</div>
-    <div class="cart-item-meta">Warna: ${item.color==="Hitam"?"Black":"White"}<br>Ukuran: ${escapeHTML(item.size)}</div>
+    <div class="cart-item-name">${item.name}</div>
+    <div class="cart-item-meta">Warna: ${item.color==="Hitam"?"Black":"White"}<br>Ukuran: ${item.size}</div>
     <div class="cart-item-price">${rupiah(item.price)}</div>
     <div class="cart-item-actions">
      <button onclick="changeCartQty(${index},-1)">−</button>
@@ -743,44 +679,25 @@ function renderCart(){
    <div class="cart-line-total">${rupiah(item.price*item.qty)}</div>
   </div>
  `).join("");
-
  container.innerHTML=`
   <div>${itemsHTML}</div>
   <div class="cart-summary">
-   <h3 style="font-size:13px;letter-spacing:1px">DATA PEMBELI</h3>
-
-   <label style="display:block;font-size:11px;margin:12px 0 6px">NAMA PEMBELI *</label>
-   <input id="buyerName" type="text" autocomplete="name" value="${escapeHTML(buyerData.name||"")}" placeholder="Nama lengkap penerima" style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
-
-   <label style="display:block;font-size:11px;margin:12px 0 6px">NO. TELEPON / WHATSAPP *</label>
-   <input id="buyerPhone" type="tel" inputmode="tel" autocomplete="tel" value="${escapeHTML(buyerData.phone||"")}" placeholder="Contoh: 081234567890" style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
-
-   <label style="display:block;font-size:11px;margin:12px 0 6px">ALAMAT LENGKAP PEMBELI *</label>
-   <textarea id="buyerAddress" autocomplete="street-address" placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, kota, kode pos" style="width:100%;min-height:95px;padding:12px;border:1px solid #ccc;background:white;color:#111;font:inherit;resize:vertical">${escapeHTML(buyerData.address||"")}</textarea>
-
-   <h3 style="font-size:13px;letter-spacing:1px;margin-top:24px">PENGIRIMAN</h3>
+   <h3 style="font-size:13px;letter-spacing:1px">PENGIRIMAN</h3>
    <label style="display:block;font-size:11px;margin:12px 0 6px">KOTA / KABUPATEN TUJUAN</label>
    <input id="destinationCity" type="text" autocomplete="off" placeholder="Contoh: Surabaya" style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
    <button id="searchAreaButton" onclick="searchDestinationAreas()" style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">CARI KOTA / KECAMATAN</button>
    <div id="areaResults" style="margin-top:10px;font-size:12px"></div>
    <div id="shippingResult" style="margin-top:12px;font-size:12px"></div>
-
    <div class="summary-row" style="margin-top:22px"><span>Jumlah produk</span><strong>${cartItemCount()} pcs</strong></div>
    <div class="summary-row"><span>Subtotal produk</span><strong>${rupiah(subtotal)}</strong></div>
    <div class="summary-row"><span>Ongkir</span><strong id="shippingCost">${selectedShipping?rupiah(shipping):"Belum dipilih"}</strong></div>
    <div class="summary-row summary-total"><span>TOTAL</span><span id="grandTotal">${rupiah(subtotal+shipping)}</span></div>
    <button class="checkout-button" onclick="checkoutWhatsApp()">CHECKOUT VIA WHATSAPP</button>
-   <p class="buy-note">Lengkapi data pembeli, pilih wilayah, dan layanan pengiriman sebelum checkout.</p>
+   <p class="buy-note">Pilih wilayah dan layanan pengiriman sebelum checkout.</p>
   </div>
   <button class="clear-cart-button" onclick="clearCart()">KOSONGKAN KERANJANG</button>
   <button class="continue-button" onclick="showPage('katalog')">← LANJUT BELANJA</button>
  `;
-
- ["buyerName","buyerPhone","buyerAddress"].forEach(id=>{
-  const field=document.getElementById(id);
-  const key=id==="buyerName"?"name":id==="buyerPhone"?"phone":"address";
-  field.addEventListener("input",()=>saveBuyerField(key,field.value));
- });
 }
 
 /* CARI WILAYAH TUJUAN */
@@ -788,33 +705,32 @@ async function searchDestinationAreas(){
  const input=document.getElementById("destinationCity");
  const resultsBox=document.getElementById("areaResults");
  const button=document.getElementById("searchAreaButton");
- if(!input||!resultsBox||!button)return;
- const keyword=input.value.trim();
+ const keyword=input?input.value.trim():"";
  if(keyword.length<3){
   alert("Ketik minimal 3 huruf nama kota atau kecamatan.");
-  input.focus();
+  if(input)input.focus();
   return;
  }
- const requestId=++areaRequestToken;
- invalidateShipping(true);
- resultsBox.textContent="Sedang mencari kota dan kecamatan...";
- document.getElementById("shippingResult").innerHTML="";
+ selectedDestinationArea=null;
+ selectedShipping=null;
+ shippingRates=[];
  document.getElementById("shippingCost").textContent="Belum dipilih";
  document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
+ document.getElementById("shippingResult").innerHTML="";
  button.disabled=true;
  button.textContent="MENCARI WILAYAH...";
+ resultsBox.textContent="Sedang mencari kota dan kecamatan...";
  try{
   const response=await fetch(ONGKIR_API,{
    method:"POST",
    headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({action:"search_areas",keyword})
+   body:JSON.stringify({action:"search_areas",keyword:keyword})
   });
   const data=await response.json();
-  if(requestId!==areaRequestToken)return;
-  if(!response.ok||data.success===false)throw new Error(data.message||data.error||"Wilayah tidak ditemukan.");
-  const areas=data.areas||data.data?.areas||data.result?.areas||data.data?.data?.areas||[];
-  if(!Array.isArray(areas)||!areas.length)throw new Error("Wilayah tidak ditemukan. Coba nama kota atau kecamatan lain.");
-  areaSearchResults=areas;
+  if(!response.ok||!data.success)throw new Error(data.message||"Wilayah tidak ditemukan.");
+  const areas=Array.isArray(data.areas)?data.areas:[];
+  if(!areas.length)throw new Error("Wilayah tidak ditemukan. Coba nama kota atau kecamatan lain.");
+  window.arelocAreaSearchResults=areas;
   resultsBox.innerHTML='<p style="font-weight:bold;margin:8px 0">PILIH KECAMATAN / WILAYAH TUJUAN</p>'+
    areas.map((area,index)=>{
     const label=area.name||[
@@ -823,37 +739,34 @@ async function searchDestinationAreas(){
      area.administrative_division_level_1_name,
      area.postal_code
     ].filter(Boolean).join(", ");
-    return `<button type="button" onclick="chooseDestinationArea(${index})" style="display:block;width:100%;text-align:left;padding:12px;margin:5px 0;border:1px solid #ddd;background:#fff;color:#111">${escapeHTML(label)}</button>`;
+    return '<button type="button" onclick="chooseDestinationArea('+index+')" style="display:block;width:100%;text-align:left;padding:12px;margin:5px 0;border:1px solid #ddd;background:#fff;color:#111">'+label+'</button>';
    }).join("");
  }catch(error){
-  if(requestId===areaRequestToken)resultsBox.textContent="Gagal mencari wilayah: "+error.message;
+  resultsBox.textContent="Gagal mencari wilayah: "+error.message;
  }finally{
-  if(requestId===areaRequestToken){
-   button.disabled=false;
-   button.textContent="CARI KOTA / KECAMATAN";
-  }
+  button.disabled=false;
+  button.textContent="CARI KOTA / KECAMATAN";
  }
 }
-function areaLabel(area){
- return area.name||[
-  area.administrative_division_level_3_name,
-  area.administrative_division_level_2_name,
-  area.administrative_division_level_1_name,
-  area.postal_code
- ].filter(Boolean).join(", ");
-}
+
+/* PILIH WILAYAH */
 function chooseDestinationArea(index){
- const area=areaSearchResults[index];
- if(!area||area.id===undefined||area.id===null||area.id===""){
+ const area=(window.arelocAreaSearchResults||[])[index];
+ if(!area||!area.id){
   alert("Wilayah tidak valid. Silakan cari kembali.");
   return;
  }
  selectedDestinationArea=area;
- invalidateShipping(false);
+ selectedShipping=null;
+ shippingRates=[];
+ const label=area.name||[
+  area.administrative_division_level_3_name,
+  area.administrative_division_level_2_name,
+  area.administrative_division_level_1_name
+ ].filter(Boolean).join(", ");
  document.getElementById("areaResults").innerHTML=
-  `<div style="padding:11px;background:#eee;color:#111"><strong>WILAYAH DIPILIH:</strong><br>${escapeHTML(areaLabel(area))}</div>`;
- document.getElementById("shippingCost").textContent="Belum dipilih";
- document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
+  '<div style="padding:11px;background:#eee;color:#111"><strong>WILAYAH DIPILIH:</strong><br>'+label+
+  '<button type="button" onclick="searchDestinationAreas()" style="display:block;margin-top:8px;padding:7px 10px;border:1px solid #aaa;background:white">GANTI WILAYAH</button></div>';
  document.getElementById("shippingResult").innerHTML=
   '<button id="checkShippingButton" onclick="checkShippingRates()" style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">CEK ONGKIR</button>';
 }
@@ -862,16 +775,15 @@ function chooseDestinationArea(index){
 async function checkShippingRates(){
  const resultBox=document.getElementById("shippingResult");
  const button=document.getElementById("checkShippingButton");
- if(!selectedDestinationArea||selectedDestinationArea.id===undefined||selectedDestinationArea.id===null){
+ if(!selectedDestinationArea||!selectedDestinationArea.id){
   alert("Pilih kecamatan tujuan terlebih dahulu.");
   return;
  }
- const quantityTotal=cartItemCount();
+ const quantityTotal=cart.reduce((sum,item)=>sum+Number(item.qty||0),0);
  if(quantityTotal<1||quantityTotal>50){
-  alert("Jumlah produk untuk perhitungan ongkir harus antara 1 sampai 50.");
+  alert("Jumlah kaos harus antara 1 sampai 50.");
   return;
  }
- const requestId=++rateRequestToken;
  selectedShipping=null;
  shippingRates=[];
  document.getElementById("shippingCost").textContent="Belum dipilih";
@@ -890,45 +802,41 @@ async function checkShippingRates(){
    })
   });
   const data=await response.json();
-  if(requestId!==rateRequestToken)return;
-  if(!response.ok||data.success===false)throw new Error(data.message||data.error||"Tarif ongkir tidak tersedia.");
-  const raw=data.rates||data.data?.rates||data.result?.rates||data.data?.data?.rates||data.data||[];
-  shippingRates=Array.isArray(raw)?raw:(raw.pricing||raw.rates||raw.data||[]);
-  if(!Array.isArray(shippingRates)||!shippingRates.length)throw new Error("Tarif belum ditemukan untuk wilayah tersebut.");
-  const validRates=shippingRates.map((rate,index)=>({
-   ...rate,
-   _index:index,
-   _price:Number(rate.price??rate.cost??rate.value),
-   _courier:rate.courier_name||rate.courier_code||rate.courier||"Kurir",
-   _service:rate.courier_service_name||rate.service||rate.service_code||rate.service_name||"Reguler"
-  })).filter(rate=>Number.isFinite(rate._price)&&rate._price>=0);
-  if(!validRates.length)throw new Error("Tarif diterima tetapi tidak memiliki harga yang valid.");
-  shippingRates=validRates;
+  if(!response.ok||!data.success)throw new Error(data.message||data.error||"Tarif ongkir tidak tersedia.");
+  const ratesData=data.rates||{};
+  shippingRates=Array.isArray(ratesData)?ratesData:(ratesData.pricing||ratesData.rates||ratesData.data||[]);
+  if(!Array.isArray(shippingRates)||shippingRates.length===0)throw new Error("Tarif belum ditemukan untuk wilayah tersebut.");
   resultBox.innerHTML='<strong>PILIH LAYANAN PENGIRIMAN</strong>'+
-   validRates.map((rate,index)=>`
-    <label style="display:flex;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #ddd">
-     <input type="radio" name="shippingRate" value="${index}" onchange="selectShippingRate(${index})">
-     <span style="flex:1">
-      <strong>${escapeHTML(rate._courier)} — ${escapeHTML(rate._service)}</strong><br>
-      <small>${escapeHTML(rate.duration||rate.shipment_duration_range||"")}</small>
-     </span>
-     <strong>${rupiah(rate._price)}</strong>
-    </label>
-   `).join("");
+   shippingRates.map((rate,index)=>{
+    const courier=rate.courier_name||rate.courier_code||"Kurir";
+    const service=rate.courier_service_name||rate.service||rate.service_code||"Reguler";
+    const price=Number(rate.price);
+    if(!Number.isFinite(price))return "";
+    return `
+     <label style="display:flex;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #ddd">
+      <input type="radio" name="shippingRate" value="${index}" onchange="selectShippingRate(${index})">
+      <span style="flex:1">
+       <strong>${courier} — ${service}</strong><br>
+       <small>${rate.duration||rate.shipment_duration_range||""}</small>
+      </span>
+      <strong>${rupiah(price)}</strong>
+     </label>`;
+   }).join("");
+  if(!resultBox.querySelector('input[name="shippingRate"]'))throw new Error("Tarif yang diterima tidak memiliki harga yang valid.");
  }catch(error){
-  if(requestId===rateRequestToken)resultBox.textContent="Gagal cek ongkir: "+error.message;
+  resultBox.textContent="Gagal cek ongkir: "+error.message;
  }finally{
-  if(requestId===rateRequestToken){
-   button.disabled=false;
-   button.textContent="CEK ONGKIR";
-  }
+  button.disabled=false;
+  button.textContent="CEK ONGKIR";
  }
 }
+
+/* PILIH KURIR */
 function selectShippingRate(index){
  const rate=shippingRates[index];
  if(!rate)return;
  selectedShipping=rate;
- const shipping=Number(rate._price??rate.price)||0;
+ const shipping=Number(rate.price)||0;
  document.getElementById("shippingCost").textContent=rupiah(shipping);
  document.getElementById("grandTotal").textContent=rupiah(cartSubtotal()+shipping);
 }
@@ -937,7 +845,8 @@ function selectShippingRate(index){
 function changeCartQty(index,amount){
  if(!cart[index])return;
  cart[index].qty=Math.max(1,Math.min(99,Number(cart[index].qty)+amount));
- invalidateShipping(false);
+ selectedShipping=null;
+ shippingRates=[];
  saveCart();
  updateCartCount();
  renderCart();
@@ -945,7 +854,8 @@ function changeCartQty(index,amount){
 function removeCartItem(index){
  if(!cart[index])return;
  cart.splice(index,1);
- invalidateShipping(false);
+ selectedShipping=null;
+ shippingRates=[];
  saveCart();
  updateCartCount();
  renderCart();
@@ -954,43 +864,19 @@ function clearCart(){
  if(!cart.length)return;
  if(confirm("Yakin ingin mengosongkan keranjang?")){
   cart=[];
-  invalidateShipping(true);
+  selectedShipping=null;
+  shippingRates=[];
+  selectedDestinationArea=null;
   saveCart();
   updateCartCount();
   renderCart();
  }
 }
-function copyBankAccount(){
- const rekening="001101131218503";
 
- if(navigator.clipboard && window.isSecureContext){
-  navigator.clipboard.writeText(rekening)
-   .then(()=>alert("Nomor rekening BRI berhasil disalin."))
-   .catch(()=>prompt("Salin nomor rekening BRI:",rekening));
- }else{
-  prompt("Salin nomor rekening BRI:",rekening);
- }
-}
 /* CHECKOUT WHATSAPP */
 function checkoutWhatsApp(){
- if(!cart.length){
+ if(cart.length===0){
   alert("Keranjang masih kosong.");
-  return;
- }
- const name=(document.getElementById("buyerName")?.value||"").trim();
- const phone=(document.getElementById("buyerPhone")?.value||"").trim();
- const address=(document.getElementById("buyerAddress")?.value||"").trim();
- if(!name||!phone||!address){
-  alert("Mohon lengkapi nama, nomor telepon, dan alamat pembeli.");
-  if(!name)document.getElementById("buyerName").focus();
-  else if(!phone)document.getElementById("buyerPhone").focus();
-  else document.getElementById("buyerAddress").focus();
-  return;
- }
- const phoneClean=phone.replace(/\D/g,"");
- if(phoneClean.length<9||phoneClean.length>15){
-  alert("Periksa kembali nomor telepon pembeli.");
-  document.getElementById("buyerPhone").focus();
   return;
  }
  if(!selectedDestinationArea){
@@ -1001,36 +887,30 @@ function checkoutWhatsApp(){
   alert("Silakan pilih layanan ongkir terlebih dahulu.");
   return;
  }
+ const destinationLabel=selectedDestinationArea.name||[
+  selectedDestinationArea.administrative_division_level_3_name,
+  selectedDestinationArea.administrative_division_level_2_name,
+  selectedDestinationArea.administrative_division_level_1_name
+ ].filter(Boolean).join(", ");
  const subtotal=cartSubtotal();
- const shipping=Number(selectedShipping._price??selectedShipping.price)||0;
+ const shipping=Number(selectedShipping.price)||0;
  const total=subtotal+shipping;
- let message="HALO ARELOC, SAYA INGIN MEMESAN PRODUK.\n\n";
- message+="DATA PEMBELI\n";
- message+="Nama: "+name+"\n";
- message+="No. Telepon: "+phone+"\n";
- message+="Alamat lengkap: "+address+"\n\n";
- message+="DETAIL PESANAN\n";
+ let message="HALO ARELOC, SAYA INGIN MEMESAN:\n\n";
  cart.forEach((item,index)=>{
-  message+=(index+1)+". "+item.name+"\n";
-  message+="Warna: "+item.color+"\n";
-  message+="Ukuran: "+item.size+"\n";
-  message+="Jumlah: "+item.qty+"\n";
-  message+="Harga: "+rupiah(item.price*item.qty)+"\n\n";
+  message+=`${index+1}. ${item.name}\n`;
+  message+=`Warna: ${item.color}\nUkuran: ${item.size}\n`;
+  message+=`Jumlah: ${item.qty}\n`;
+  message+=`Subtotal: ${rupiah(item.price*item.qty)}\n\n`;
  });
- message+="Wilayah tujuan: "+areaLabel(selectedDestinationArea)+"\n";
- message+="Kurir: "+(selectedShipping._courier||selectedShipping.courier_name||selectedShipping.courier_code||"-")+"\n";
- message+="Layanan: "+(selectedShipping._service||selectedShipping.courier_service_name||selectedShipping.service||"-")+"\n";
- message+="Subtotal produk: "+rupiah(subtotal)+"\n";
- message+="Ongkir: "+rupiah(shipping)+"\n";
- message+="TOTAL PEMBAYARAN: "+rupiah(total)+"\n\n";
-message+="INFORMASI PEMBAYARAN\n";
-message+="Bank: BRI\n";
-message+="No. Rekening: 001101131218503\n";
-message+="Atas Nama: Much.ayom\n\n";
-message+="Mohon konfirmasi pesanan dan pembayaran. Terima kasih.";
+ message+=`Wilayah tujuan: ${destinationLabel}\n`;
+ message+=`Kurir: ${selectedShipping.courier_name||selectedShipping.courier_code||"-"}\n`;
+ message+=`Layanan: ${selectedShipping.courier_service_name||selectedShipping.service||"-"}\n`;
+ message+=`Subtotal produk: ${rupiah(subtotal)}\n`;
+ message+=`Ongkir: ${rupiah(shipping)}\n`;
+ message+=`TOTAL PEMBAYARAN: ${rupiah(total)}\n\n`;
+ message+="Mohon konfirmasi pesanan dan pembayaran. Terima kasih.";
  const url="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message);
- const opened=window.open(url,"_blank");
- if(!opened)window.location.href=url;
+ window.open(url,"_blank");
 }
 
 /* GESER FOTO PRODUK */
@@ -1083,371 +963,38 @@ window.addEventListener("resize",()=>{
  }
 });
 
-/* RIWAYAT TOMBOL KEMBALI */
+/* TOMBOL KEMBALI HP */
 window.addEventListener("popstate",event=>{
  const state=event.state;
  if(state&&state.page==="detail"&&Number.isInteger(state.product)){
-  if(prepareProduct(state.product))displayPage("detail");
-  return;
+  openProductFromHistory(state.product);
+ }else{
+  const hash=location.hash.replace("#","");
+  const page=["home","katalog","tentang","kontak","cart"].includes(hash)?hash:"home";
+  showPage(page);
  }
- const hash=location.hash.replace("#","");
- const page=["home","katalog","tentang","kontak","cart"].includes(hash)?hash:"home";
- displayPage(page);
 });
+function openProductFromHistory(index){
+ if(!products[index])return;
+ currentProduct=index;
+ currentSize="M";
+ currentColor="Hitam";
+ quantity=1;
+ document.getElementById("detailName").textContent=products[index].name;
+ document.getElementById("detailPrice").textContent=rupiah(PRICE);
+ document.getElementById("quantity").textContent=quantity;
+ updateSelection();
+ renderGallery();
+ document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
+ document.getElementById("detail").classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
 
 /* MULAI TOKO */
-history.replaceState({page:"home"},"","#home");
- 
-/* =========================================
-   ARELOC — TAMBAH KE KERANJANG DARI KATALOG
-   ========================================= */
-
-/* CSS untuk pilihan warna, ukuran, dan tombol */
-(function(){
- const style=document.createElement("style");
- style.textContent=`
-  .catalog-options{
-   display:grid;
-   grid-template-columns:1fr 1fr;
-   gap:7px;
-   margin-top:10px;
-  }
-  .catalog-options select{
-   width:100%;
-   min-width:0;
-   padding:10px 5px;
-   border:1px solid #ddd;
-   background:#fff;
-   color:#111;
-   font-size:10px;
-   border-radius:0;
-  }
-  .catalog-add-button{
-   width:100%;
-   margin-top:8px;
-   padding:13px 5px;
-   border:1px solid #111;
-   background:#050505;
-   color:#fff;
-   font-size:9px;
-   font-weight:bold;
-   letter-spacing:.7px;
-  }
-  .catalog-add-button:active{opacity:.7}
-  .view-details{margin-top:8px}
- `;
- document.head.appendChild(style);
-})();
-
-/* Tambahkan produk langsung dari katalog */
-function addCatalogToCart(index){
- const product=products[index];
- if(!product)return;
-
- const colorField=document.getElementById("catalogColor"+index);
- const sizeField=document.getElementById("catalogSize"+index);
-
- if(!colorField||!sizeField)return;
-
- const color=colorField.value;
- const size=sizeField.value;
-
- const existing=cart.find(item=>
-  item.productIndex===index &&
-  item.size===size &&
-  item.color===color
- );
-
- if(existing){
-  existing.qty=Math.min(99,Number(existing.qty)+1);
- }else{
-  cart.push({
-   productIndex:index,
-   name:product.name,
-   image:product.images[0],
-   price:PRICE,
-   size:size,
-   color:color,
-   qty:1
-  });
- }
-
- invalidateShipping(false);
- saveCart();
- updateCartCount();
-
- const button=document.getElementById("catalogAdd"+index);
-
- if(button){
-  button.textContent="✓ BERHASIL DITAMBAHKAN";
-  button.disabled=true;
-
-  setTimeout(()=>{
-   button.textContent="＋ TAMBAH KE KERANJANG";
-   button.disabled=false;
-  },1400);
- }
-}
-
-/* Tampilkan pilihan warna dan ukuran di setiap kartu katalog */
-renderProducts=function(){
- const grid=document.getElementById("productGrid");
- const filtered=getFilteredProducts();
- const perPage=productsPerPage();
- const start=(currentCatalogPage-1)*perPage;
- const visible=filtered.slice(start,start+perPage);
-
- if(filtered.length===0){
-  grid.innerHTML=`
-   <div class="empty-category">
-    <strong>COMING SOON</strong><br>
-    Produk untuk kategori ini belum tersedia.<br>
-    Nantikan koleksi terbaru ARELOC.
-   </div>`;
- }else{
-  grid.innerHTML=visible.map(item=>`
-   <article class="product-card">
-
-    <img
-     src="${escapeHTML(item.product.images[0])}"
-     alt="${escapeHTML(item.product.name)}"
-     loading="lazy"
-     onclick="openProduct(${item.index})"
-    >
-
-    <div class="product-info">
-
-     <div class="product-name">
-      ${escapeHTML(item.product.name)}
-     </div>
-
-     <div class="product-price">
-      ${rupiah(PRICE)}
-     </div>
-
-     <div class="catalog-options">
-
-      <select
-       id="catalogColor${item.index}"
-       aria-label="Pilih warna ${escapeHTML(item.product.name)}">
-       <option value="Hitam">Hitam</option>
-       <option value="Putih">Putih</option>
-      </select>
-
-      <select
-       id="catalogSize${item.index}"
-       aria-label="Pilih ukuran ${escapeHTML(item.product.name)}">
-       <option value="M">Ukuran M</option>
-       <option value="L" selected>Ukuran L</option>
-       <option value="XL">Ukuran XL</option>
-      </select>
-
-     </div>
-
-     <button
-      id="catalogAdd${item.index}"
-      class="catalog-add-button"
-      type="button"
-      onclick="addCatalogToCart(${item.index})">
-      ＋ TAMBAH KE KERANJANG
-     </button>
-
-     <button
-      class="view-details"
-      type="button"
-      onclick="openProduct(${item.index})">
-      LIHAT DETAIL
-     </button>
-
-    </div>
-   </article>
-  `).join("");
- }
-
- renderPagination();
-};
-
-/* =========================================
-   AKHIR FITUR KERANJANG KATALOG
-   ========================================= */
-
-/* =========================================
-   ARELOC — TAMBAH KE KERANJANG DARI KATALOG
-   ========================================= */
-
-/* CSS untuk pilihan warna, ukuran, dan tombol */
-(function(){
- const style=document.createElement("style");
- style.textContent=`
-  .catalog-options{
-   display:grid;
-   grid-template-columns:1fr 1fr;
-   gap:7px;
-   margin-top:10px;
-  }
-  .catalog-options select{
-   width:100%;
-   min-width:0;
-   padding:10px 5px;
-   border:1px solid #ddd;
-   background:#fff;
-   color:#111;
-   font-size:10px;
-   border-radius:0;
-  }
-  .catalog-add-button{
-   width:100%;
-   margin-top:8px;
-   padding:13px 5px;
-   border:1px solid #111;
-   background:#050505;
-   color:#fff;
-   font-size:9px;
-   font-weight:bold;
-   letter-spacing:.7px;
-  }
-  .catalog-add-button:active{opacity:.7}
-  .view-details{margin-top:8px}
- `;
- document.head.appendChild(style);
-})();
-
-/* Tambahkan produk langsung dari katalog */
-function addCatalogToCart(index){
- const product=products[index];
- if(!product)return;
-
- const colorField=document.getElementById("catalogColor"+index);
- const sizeField=document.getElementById("catalogSize"+index);
-
- if(!colorField||!sizeField)return;
-
- const color=colorField.value;
- const size=sizeField.value;
-
- const existing=cart.find(item=>
-  item.productIndex===index &&
-  item.size===size &&
-  item.color===color
- );
-
- if(existing){
-  existing.qty=Math.min(99,Number(existing.qty)+1);
- }else{
-  cart.push({
-   productIndex:index,
-   name:product.name,
-   image:product.images[0],
-   price:PRICE,
-   size:size,
-   color:color,
-   qty:1
-  });
- }
-
- invalidateShipping(false);
- saveCart();
- updateCartCount();
-
- const button=document.getElementById("catalogAdd"+index);
-
- if(button){
-  button.textContent="✓ BERHASIL DITAMBAHKAN";
-  button.disabled=true;
-
-  setTimeout(()=>{
-   button.textContent="＋ TAMBAH KE KERANJANG";
-   button.disabled=false;
-  },1400);
- }
-}
-
-/* Tampilkan pilihan warna dan ukuran di setiap kartu katalog */
-renderProducts=function(){
- const grid=document.getElementById("productGrid");
- const filtered=getFilteredProducts();
- const perPage=productsPerPage();
- const start=(currentCatalogPage-1)*perPage;
- const visible=filtered.slice(start,start+perPage);
-
- if(filtered.length===0){
-  grid.innerHTML=`
-   <div class="empty-category">
-    <strong>COMING SOON</strong><br>
-    Produk untuk kategori ini belum tersedia.<br>
-    Nantikan koleksi terbaru ARELOC.
-   </div>`;
- }else{
-  grid.innerHTML=visible.map(item=>`
-   <article class="product-card">
-
-    <img
-     src="${escapeHTML(item.product.images[0])}"
-     alt="${escapeHTML(item.product.name)}"
-     loading="lazy"
-     onclick="openProduct(${item.index})"
-    >
-
-    <div class="product-info">
-
-     <div class="product-name">
-      ${escapeHTML(item.product.name)}
-     </div>
-
-     <div class="product-price">
-      ${rupiah(PRICE)}
-     </div>
-
-     <div class="catalog-options">
-
-      <select
-       id="catalogColor${item.index}"
-       aria-label="Pilih warna ${escapeHTML(item.product.name)}">
-       <option value="Hitam">Hitam</option>
-       <option value="Putih">Putih</option>
-      </select>
-
-      <select
-       id="catalogSize${item.index}"
-       aria-label="Pilih ukuran ${escapeHTML(item.product.name)}">
-       <option value="M">Ukuran M</option>
-       <option value="L" selected>Ukuran L</option>
-       <option value="XL">Ukuran XL</option>
-      </select>
-
-     </div>
-
-     <button
-      id="catalogAdd${item.index}"
-      class="catalog-add-button"
-      type="button"
-      onclick="addCatalogToCart(${item.index})">
-      ＋ TAMBAH KE KERANJANG
-     </button>
-
-     <button
-      class="view-details"
-      type="button"
-      onclick="openProduct(${item.index})">
-      LIHAT DETAIL
-     </button>
-
-    </div>
-   </article>
-  `).join("");
- }
-
- renderPagination();
-};
-
-/* =========================================
-   AKHIR FITUR KERANJANG KATALOG
-   ========================================= */
-
 updateCartCount();
-updateSlide();
 restartSlideTimer();
 renderProducts();
 </script>
 </body>
 </html>
+
