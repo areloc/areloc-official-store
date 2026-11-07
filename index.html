@@ -861,89 +861,238 @@ function chooseDestinationArea(index){
   '<button id="checkShippingButton" onclick="checkShippingRates()" style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">CEK ONGKIR</button>';
 }
 
-/* HITUNG ONGKIR */
+ const normalized=courierText
+ 
+/* =========================================
+   ARELOC — CEK ONGKIR J&T EXPRESS
+========================================= */
+
 async function checkShippingRates(){
- const resultBox=document.getElementById("shippingResult");
- const button=document.getElementById("checkShippingButton");
- if(!selectedDestinationArea||selectedDestinationArea.id===undefined||selectedDestinationArea.id===null){
-  alert("Pilih kecamatan tujuan terlebih dahulu.");
-  return;
- }
- const quantityTotal=cartItemCount();
- if(quantityTotal<1||quantityTotal>50){
-  alert("Jumlah produk untuk perhitungan ongkir harus antara 1 sampai 50.");
-  return;
- }
- const requestId=++rateRequestToken;
- selectedShipping=null;
- shippingRates=[];
- document.getElementById("shippingCost").textContent="Belum dipilih";
- document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
- button.disabled=true;
- button.textContent="SEDANG MENGECEK...";
- resultBox.textContent="Mengambil tarif pengiriman...";
- try{
-  const response=await fetch(ONGKIR_API,{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({
-    action:"calculate_rates",
-    destination_area_id:selectedDestinationArea.id,
-    quantity:quantityTotal
-   })
-  });
-  const data=await response.json();
-  if(requestId!==rateRequestToken)return;
-  if(!response.ok||data.success===false)throw new Error(data.message||data.error||"Tarif ongkir tidak tersedia.");
-  const raw=data.rates||data.data?.rates||data.result?.rates||data.data?.data?.rates||data.data||[];
-  shippingRates=Array.isArray(raw)?raw:(raw.pricing||raw.rates||raw.data||[]);
-  if(!Array.isArray(shippingRates)||!shippingRates.length)throw new Error("Tarif belum ditemukan untuk wilayah tersebut.");
-  const validRates=shippingRates.map((rate,index)=>({
-   ...rate,
-   _index:index,
-   _price:Number(rate.price??rate.cost??rate.value),
-   _courier:rate.courier_name||rate.courier_code||rate.courier||"Kurir",
-   _service:rate.courier_service_name||rate.service||rate.service_code||rate.service_name||"Reguler"
-  })).filter(rate=>Number.isFinite(rate._price)&&rate._price>=0);
-  if(!validRates.length)throw new Error("Tarif diterima tetapi tidak memiliki harga yang valid.");
-  shippingRates=validRates;
-  resultBox.innerHTML='<strong>PILIH LAYANAN PENGIRIMAN</strong>'+
-   validRates.map((rate,index)=>`
-    <label style="display:flex;gap:9px;align-items:center;padding:11px 0;border-bottom:1px solid #ddd">
-     <input type="radio" name="shippingRate" value="${index}" onchange="selectShippingRate(${index})">
-     <span style="flex:1">
-      <strong>${escapeHTML(rate._courier)} — ${escapeHTML(rate._service)}</strong><br>
-      <small>${escapeHTML(rate.duration||rate.shipment_duration_range||"")}</small>
-     </span>
-     <strong>${rupiah(rate._price)}</strong>
-    </label>
-   `).join("");
- }catch(error){
-  if(requestId===rateRequestToken)resultBox.textContent="Gagal cek ongkir: "+error.message;
- }finally{
-  if(requestId===rateRequestToken){
-   button.disabled=false;
-   button.textContent="CEK ONGKIR";
+
+  const resultBox = document.getElementById("shippingResult");
+  const button = document.getElementById("checkShippingButton");
+
+  // VALIDASI ALAMAT
+  if(!selectedDestinationArea){
+    alert("Pilih kecamatan tujuan terlebih dahulu.");
+    return;
   }
- }
+
+  // VALIDASI JUMLAH PRODUK
+  const quantityTotal = cartItemCount();
+
+  if(quantityTotal < 1 || quantityTotal > 50){
+    alert("Jumlah produk harus antara 1 sampai 50.");
+    return;
+  }
+
+  // RESET ONGKIR
+  const requestId = ++rateRequestToken;
+
+  selectedShipping = null;
+  shippingRates = [];
+
+  document.getElementById("shippingCost").textContent = "Belum dipilih";
+  document.getElementById("grandTotal").textContent = rupiah(cartSubtotal());
+
+  button.disabled = true;
+  button.textContent = "SEDANG MENGECEK...";
+  resultBox.textContent = "Mengambil tarif J&T Express...";
+
+  try{
+
+    // KIRIM PERMINTAAN KE API
+    const response = await fetch(ONGKIR_API,{
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        action: "calculate_rates",
+        destination_area_id: selectedDestinationArea.id,
+        quantity: quantityTotal
+      })
+    });
+
+    const data = await response.json();
+
+    if(requestId !== rateRequestToken) return;
+
+    if(!response.ok || data.success === false){
+      throw new Error(
+        data.message ||
+        data.error ||
+        "Tarif ongkir tidak tersedia."
+      );
+    }
+
+    // AMBIL DATA TARIF
+    const rawRates =
+      data.rates ||
+      data.data?.rates ||
+      data.result?.rates ||
+      data.data?.data?.rates ||
+      data.data ||
+      [];
+
+    const allRates = Array.isArray(rawRates)
+      ? rawRates
+      : (
+          rawRates.pricing ||
+          rawRates.rates ||
+          rawRates.data ||
+          []
+        );
+
+    // FILTER J&T EXPRESS SAJA
+    shippingRates = allRates
+      .map((rate,index) => {
+
+        const courier = String(
+          rate.courier_name ||
+          rate.courier_code ||
+          rate.courier ||
+          ""
+        );
+
+        const normalizedCourier = courier
+          .toLowerCase()
+          .replace(/&/g,"n")
+          .replace(/[^a-z0-9]/g,"");
+
+        return {
+          ...rate,
+
+          _index: index,
+
+          _price: Number(
+            rate.price ??
+            rate.cost ??
+            rate.value
+          ),
+
+          _courier: courier,
+
+          _service:
+            rate.courier_service_name ||
+            rate.service ||
+            rate.service_code ||
+            rate.service_name ||
+            "Reguler",
+
+          _isJNT: normalizedCourier.includes("jnt")
+        };
+
+      })
+      .filter(rate =>
+        rate._isJNT &&
+        Number.isFinite(rate._price) &&
+        rate._price >= 0
+      );
+
+    // JIKA J&T TIDAK TERSEDIA
+    if(shippingRates.length === 0){
+      throw new Error(
+        "Tarif J&T Express tidak tersedia untuk wilayah tujuan ini."
+      );
+    }
+
+    // TAMPILKAN PILIHAN ONGKIR
+    resultBox.innerHTML =
+      "<strong>LAYANAN J&T EXPRESS</strong>" +
+
+      shippingRates.map((rate,index) => `
+
+        <label style="
+          display:flex;
+          align-items:center;
+          gap:10px;
+          padding:13px 0;
+          border-bottom:1px solid #ddd;
+          cursor:pointer;
+        ">
+
+          <input
+            type="radio"
+            name="shippingRate"
+            value="${index}"
+            onchange="selectShippingRate(${index})"
+          >
+
+          <span style="flex:1">
+
+            <strong>
+              ${escapeHTML(rate._courier)}
+              —
+              ${escapeHTML(rate._service)}
+            </strong>
+
+            <br>
+
+            <small>
+              ${escapeHTML(
+                rate.duration ||
+                rate.shipment_duration_range ||
+                ""
+              )}
+            </small>
+
+          </span>
+
+          <strong>
+            ${rupiah(rate._price)}
+          </strong>
+
+        </label>
+
+      `).join("");
+
+  }catch(error){
+
+    if(requestId === rateRequestToken){
+      resultBox.textContent =
+        "Gagal cek ongkir: " + error.message;
+    }
+
+  }finally{
+
+    if(requestId === rateRequestToken){
+      button.disabled = false;
+      button.textContent = "CEK ONGKIR";
+    }
+
+  }
+
 }
 
-const validRates=shippingRates.map((rate,index)=>({
- ...rate,
- _index:index,
- _price:Number(rate.price??rate.cost??rate.value),
- _courier:rate.courier_name||rate.courier_code||rate.courier||"Kurir",
- _service:rate.courier_service_name||rate.service||rate.service_code||rate.service_name||"Reguler"
-})).filter(rate=>{
- const courierText=[
-  rate._courier,
-  rate.courier_name,
-  rate.courier_code,
-  rate.courier
- ].filter(Boolean).join(" ").toLowerCase();
 
- const normalized=courierText
-  .replace(/&/g,"n")
+/* =========================================
+   ARELOC — PILIH ONGKIR J&T EXPRESS
+========================================= */
+
+function selectShippingRate(index){
+
+  const rate = shippingRates[index];
+
+  if(!rate) return;
+
+  // SIMPAN ONGKIR YANG DIPILIH
+  selectedShipping = rate;
+
+  // HITUNG TOTAL PEMBAYARAN
+  const shipping = Number(rate._price) || 0;
+  const subtotal = cartSubtotal();
+  const total = subtotal + shipping;
+
+  // PERBARUI TAMPILAN
+  document.getElementById("shippingCost").textContent =
+    rupiah(shipping);
+
+  document.getElementById("grandTotal").textContent =
+    rupiah(total);
+
+}
+ .replace(/&/g,"n")
   .replace(/[^a-z0-9]/g,"");
 
  return normalized.includes("jnt") &&
