@@ -927,14 +927,35 @@ async function checkShippingRates(){
   }
  }
 }
-function selectShippingRate(index){
- const rate=shippingRates[index];
- if(!rate)return;
- selectedShipping=rate;
- const shipping=Number(rate._price??rate.price)||0;
- document.getElementById("shippingCost").textContent=rupiah(shipping);
- document.getElementById("grandTotal").textContent=rupiah(cartSubtotal()+shipping);
+
+const validRates=shippingRates.map((rate,index)=>({
+ ...rate,
+ _index:index,
+ _price:Number(rate.price??rate.cost??rate.value),
+ _courier:rate.courier_name||rate.courier_code||rate.courier||"Kurir",
+ _service:rate.courier_service_name||rate.service||rate.service_code||rate.service_name||"Reguler"
+})).filter(rate=>{
+ const courierText=[
+  rate._courier,
+  rate.courier_name,
+  rate.courier_code,
+  rate.courier
+ ].filter(Boolean).join(" ").toLowerCase();
+
+ const normalized=courierText
+  .replace(/&/g,"n")
+  .replace(/[^a-z0-9]/g,"");
+
+ return normalized.includes("jnt") &&
+  Number.isFinite(rate._price) &&
+  rate._price>=0;
+});
+
+if(!validRates.length){
+ throw new Error("Tarif J&T Express belum tersedia untuk wilayah tujuan ini. Silakan coba kembali.");
 }
+
+shippingRates=validRates;
 
 /* UBAH JUMLAH / HAPUS ITEM */
 function changeCartQty(index,amount){
@@ -1094,31 +1115,3 @@ renderProducts();
 </body>
 </html>
 
-const validRates=shippingRates.map((rate,index)=>({
- ...rate,
- _index:index,
- _price:Number(rate.price??rate.cost??rate.value),
- _courier:rate.courier_name||rate.courier_code||rate.courier||"Kurir",
- _service:rate.courier_service_name||rate.service||rate.service_code||rate.service_name||"Reguler"
-})).filter(rate=>{
- const courierText=[
-  rate._courier,
-  rate.courier_name,
-  rate.courier_code,
-  rate.courier
- ].filter(Boolean).join(" ").toLowerCase();
-
- const normalized=courierText
-  .replace(/&/g,"n")
-  .replace(/[^a-z0-9]/g,"");
-
- return normalized.includes("jnt") &&
-  Number.isFinite(rate._price) &&
-  rate._price>=0;
-});
-
-if(!validRates.length){
- throw new Error("Tarif J&T Express belum tersedia untuk wilayah tujuan ini. Silakan coba kembali.");
-}
-
-shippingRates=validRates;
