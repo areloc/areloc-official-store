@@ -13,7 +13,8 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:#fff;color:#111;font-family:Arial,Helvetica,sans-serif}
-button{font:inherit;cursor:pointer}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%}
 #app{width:100%;max-width:1500px;margin:auto;overflow:hidden}
@@ -72,7 +73,7 @@ img{display:block;max-width:100%}
 #arelocPagination{display:flex;flex-wrap:wrap;justify-content:center;gap:7px;padding:10px 12px 30px}
 #arelocPagination button{min-width:36px;height:36px;padding:0 10px;border:1px solid #ccc;background:#fff;color:#111}
 #arelocPagination button.active{background:#000;color:#fff}
-#arelocPagination button:disabled{opacity:.3}
+#arelocPagination button:disabled{opacity:.3;cursor:not-allowed}
 .page-info{text-align:center;font-size:10px;color:#777;letter-spacing:1px;padding:0 10px 35px}
 .detail-wrap{padding:30px 5% 60px;max-width:1100px;margin:auto}
 .back-button{border:0;background:none;padding:10px 0;margin-bottom:18px;font-size:11px;letter-spacing:1px}
@@ -182,6 +183,7 @@ footer h3{font-size:10px;letter-spacing:2px}
 
 <body>
 <div id="app">
+
 <header class="topbar">
  <button class="header-icon" onclick="showPage('katalog')" aria-label="Cari produk">
   <svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 5 5"></path></svg>
@@ -242,6 +244,7 @@ footer h3{font-size:10px;letter-spacing:2px}
   </div>
   <img class="home-photo" src="https://files.catbox.moe/crdbwb.jpg" alt="ARELOC Brand Introduction" loading="lazy">
  </section>
+
  <section class="home-section dark">
   <img class="home-photo" src="https://files.catbox.moe/sv3ifc.jpg" alt="ARELOC Streetwear" loading="lazy">
   <div class="home-copy">
@@ -250,6 +253,7 @@ footer h3{font-size:10px;letter-spacing:2px}
    <p>GOOD THINGS TAKE TIME.</p>
   </div>
  </section>
+
  <section class="home-section">
   <div class="home-copy">
    <div class="kicker">03 — EXPLORE COLLECTION</div>
@@ -259,6 +263,7 @@ footer h3{font-size:10px;letter-spacing:2px}
   </div>
   <img class="home-photo" src="https://files.catbox.moe/uaw67i.jpg" alt="ARELOC Collection" loading="lazy">
  </section>
+
  <section class="home-end">
   <h2>WELCOME TO ARELOC</h2>
   <p>YOUR STYLE. YOUR IDENTITY.</p>
@@ -393,12 +398,21 @@ footer h3{font-size:10px;letter-spacing:2px}
 <script>
 "use strict";
 
-const WA_NUMBER="6285196674994";
-const PRICE=158000;
-const PRODUCTS_PER_MOBILE=4;
-const PRODUCTS_PER_DESKTOP=12;
+/* =========================================
+   ARELOC — PENGATURAN TOKO
+========================================= */
 
-const products=[
+const WA_NUMBER = "6285196674994";
+const PRICE = 158000;
+const PRODUCTS_PER_MOBILE = 4;
+const PRODUCTS_PER_DESKTOP = 12;
+const ONGKIR_API = "https://areloc-ongkir.areloc-id.workers.dev/";
+
+/* =========================================
+   DATA 24 PRODUK ARELOC
+========================================= */
+
+const products = [
 {name:"MASTER ZEN TEE",images:["https://files.catbox.moe/oa18nr.png","https://files.catbox.moe/kvs69e.png","https://files.catbox.moe/xcw2by.jpg","https://files.catbox.moe/m2c54f.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/wb4bbu.png"]},
 {name:"ARELOC ORIGINAL",images:["https://files.catbox.moe/7agje5.webp","https://files.catbox.moe/bfwogp.webp","https://files.catbox.moe/agpjfp.png","https://files.catbox.moe/z2af5u.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/0g1gcr.webp"]},
 {name:"ARELOC IDENTITY",images:["https://files.catbox.moe/oymgva.png","https://files.catbox.moe/i2mzln.png","https://files.catbox.moe/7bpgnz.png","https://files.catbox.moe/ks69s6.png","https://files.catbox.moe/sgpzwg.png","https://files.catbox.moe/sv9tsu.png"]},
@@ -425,34 +439,60 @@ const products=[
 {name:"MARIO",images:["https://files.catbox.moe/8l7dvz.jpg","https://files.catbox.moe/jabavi.jpg","https://files.catbox.moe/obbp5p.jpg","https://files.catbox.moe/xxf4qu.jpg"]}
 ];
 
+/* =========================================
+   STATUS TOKO
+========================================= */
 
-let activeCategory="ALL";
-let currentProduct=0,currentSize="M",currentColor="Hitam",quantity=1;
-let currentSlide=0,slideTimer=null,productPhotoIndex=0;
-let productTouchStart=0,headerTouchStart=0,currentCatalogPage=1;
-let lastPerPage=0;
-let cart=loadCart();
+let activeCategory = "ALL";
+let currentProduct = 0;
+let currentSize = "M";
+let currentColor = "Hitam";
+let quantity = 1;
+let currentSlide = 0;
+let slideTimer = null;
+let productPhotoIndex = 0;
+let productTouchStart = 0;
+let headerTouchStart = 0;
+let currentCatalogPage = 1;
+let lastPerPage = 0;
 
-const ONGKIR_API="https://areloc-ongkir.areloc-id.workers.dev/";
-let shippingRates=[];
-let selectedShipping=null;
-let selectedDestinationArea=null;
-let areaSearchResults=[];
-let areaRequestToken=0;
-let rateRequestToken=0;
+let cart = loadCart();
+let buyerData = loadBuyerData();
+
+let shippingRates = [];
+let selectedShipping = null;
+let selectedDestinationArea = null;
+let areaSearchResults = [];
+let areaRequestToken = 0;
+let rateRequestToken = 0;
+
+/* =========================================
+   FUNGSI DASAR
+========================================= */
 
 function rupiah(value){
- return new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(Number(value)||0);
+ return new Intl.NumberFormat("id-ID",{
+  style:"currency",
+  currency:"IDR",
+  maximumFractionDigits:0
+ }).format(Number(value)||0);
 }
+
 function escapeHTML(value){
  return String(value??"").replace(/[&<>"']/g,char=>({
-  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+  "&":"&amp;",
+  "<":"&lt;",
+  ">":"&gt;",
+  '"':"&quot;",
+  "'":"&#39;"
  }[char]));
 }
+
 function loadCart(){
  try{
   const saved=JSON.parse(localStorage.getItem("arelocShoppingCart"))||[];
   if(!Array.isArray(saved))return [];
+
   return saved.filter(item=>item&&typeof item==="object").map(item=>({
    productIndex:Number.isInteger(Number(item.productIndex))?Number(item.productIndex):-1,
    name:String(item.name||"Produk ARELOC"),
@@ -462,67 +502,112 @@ function loadCart(){
    color:item.color==="Putih"?"Putih":"Hitam",
    qty:Math.max(1,Math.min(99,parseInt(item.qty,10)||1))
   }));
- }catch(error){return []}
+ }catch(error){
+  return [];
+ }
 }
+
 function saveCart(){
- try{localStorage.setItem("arelocShoppingCart",JSON.stringify(cart))}
- catch(error){console.warn("Keranjang tidak dapat disimpan",error)}
+ try{
+  localStorage.setItem("arelocShoppingCart",JSON.stringify(cart));
+ }catch(error){
+  console.warn("Keranjang tidak dapat disimpan",error);
+ }
 }
+
 function loadBuyerData(){
- try{return JSON.parse(localStorage.getItem("arelocBuyerData"))||{}}
- catch(error){return {}}
+ try{
+  return JSON.parse(localStorage.getItem("arelocBuyerData"))||{};
+ }catch(error){
+  return {};
+ }
 }
-let buyerData=loadBuyerData();
+
 function saveBuyerField(field,value){
  buyerData[field]=value;
- try{localStorage.setItem("arelocBuyerData",JSON.stringify(buyerData))}
- catch(error){}
+ try{
+  localStorage.setItem("arelocBuyerData",JSON.stringify(buyerData));
+ }catch(error){}
 }
+
 function cartItemCount(){
  return cart.reduce((sum,item)=>sum+(Number(item.qty)||0),0);
 }
+
+function cartSubtotal(){
+ return cart.reduce((sum,item)=>
+  sum+(Number(item.price)||PRICE)*(Number(item.qty)||0),0);
+}
+
 function updateCartCount(){
  const el=document.getElementById("cartCount");
  if(el)el.textContent=cartItemCount();
 }
+
 function productsPerPage(){
  return window.innerWidth<=600?PRODUCTS_PER_MOBILE:PRODUCTS_PER_DESKTOP;
 }
+
+/* Semua produk pada daftar ini merupakan koleksi T-shirt. */
 function getFilteredProducts(){
- return products.map((product,index)=>({product,index,category:product.category||"T-SHIRT"}))
- .filter(item=>activeCategory==="ALL"||item.category===activeCategory);
+ return products.map((product,index)=>({
+  product,
+  index,
+  category:product.category||"T-SHIRT"
+ })).filter(item=>
+  activeCategory==="ALL"||item.category===activeCategory
+ );
 }
+
 function totalPages(){
  return Math.max(1,Math.ceil(getFilteredProducts().length/productsPerPage()));
 }
 
-/* NAVIGASI */
+/* =========================================
+   NAVIGASI
+========================================= */
+
 function displayPage(id,scroll=true){
  const allowed=["home","katalog","detail","cart","tentang","kontak"];
  if(!allowed.includes(id))id="home";
- document.querySelectorAll(".page").forEach(page=>page.classList.remove("active"));
+
+ document.querySelectorAll(".page").forEach(page=>
+  page.classList.remove("active")
+ );
+
  const target=document.getElementById(id);
  if(target)target.classList.add("active");
+
  document.getElementById("mobileNav").classList.remove("open");
+
  if(id==="cart")renderCart();
+
  if(scroll)window.scrollTo({top:0,behavior:"smooth"});
 }
+
 function showPage(id){
  if(!["home","katalog","detail","cart","tentang","kontak"].includes(id))return;
+
  displayPage(id);
  history.pushState({page:id},"","#"+id);
 }
+
 function toggleMenu(){
  document.getElementById("mobileNav").classList.toggle("open");
 }
 
-/* KATEGORI */
+/* =========================================
+   KATEGORI DAN KATALOG
+========================================= */
+
 function changeCategory(category){
  activeCategory=category;
  currentCatalogPage=1;
+
  document.querySelectorAll("#categoryFilter button").forEach(button=>{
   button.classList.toggle("active",button.dataset.category===category);
  });
+
  const names={
   ALL:"ALL COLLECTION",
   "T-SHIRT":"T-SHIRT COLLECTION",
@@ -531,68 +616,90 @@ function changeCategory(category){
   PANTS:"PANTS COLLECTION",
   BAGS:"BAGS COLLECTION"
  };
+
  document.getElementById("catalogTitle").textContent=names[category]||"ALL COLLECTION";
  renderProducts();
 }
+
 document.getElementById("categoryFilter").addEventListener("click",function(event){
  const button=event.target.closest("button[data-category]");
  if(button)changeCategory(button.dataset.category);
 });
 
-/* PAGINATION */
 function renderPagination(){
  const pagination=document.getElementById("arelocPagination");
  const info=document.getElementById("pageInfo");
  const totalItems=getFilteredProducts().length;
  const total=totalPages();
+
  currentCatalogPage=Math.min(currentCatalogPage,total);
+
  let html='<button type="button" data-page="prev" '+(currentCatalogPage===1?'disabled':'')+'>‹</button>';
  let pages=[];
+
  if(total<=7){
   for(let i=1;i<=total;i++)pages.push(i);
  }else{
   pages.push(1);
   let start=Math.max(2,currentCatalogPage-1);
   let end=Math.min(total-1,currentCatalogPage+1);
+
   if(currentCatalogPage<=3)end=4;
   if(currentCatalogPage>=total-2)start=total-3;
+
   if(start>2)pages.push("...");
   for(let i=start;i<=end;i++)pages.push(i);
   if(end<total-1)pages.push("...");
   pages.push(total);
  }
+
  pages.forEach(page=>{
-  if(page==="...")html+='<span style="padding:0 4px">…</span>';
-  else html+='<button type="button" data-page="'+page+'" class="'+(page===currentCatalogPage?'active':'')+'">'+page+'</button>';
+  if(page==="..."){
+   html+='<span style="padding:0 4px">…</span>';
+  }else{
+   html+='<button type="button" data-page="'+page+'" class="'+(page===currentCatalogPage?'active':'')+'">'+page+'</button>';
+  }
  });
+
  html+='<button type="button" data-page="next" '+(currentCatalogPage===total?'disabled':'')+'>›</button>';
  pagination.innerHTML=html;
+
  const first=totalItems===0?0:(currentCatalogPage-1)*productsPerPage()+1;
  const last=Math.min(currentCatalogPage*productsPerPage(),totalItems);
+
  info.textContent="SHOWING "+first+"–"+last+" OF "+totalItems+" PRODUCTS";
 }
+
 function changeCatalogPage(page){
  const total=totalPages();
+
  if(page==="prev")page=currentCatalogPage-1;
  else if(page==="next")page=currentCatalogPage+1;
  else page=Number(page);
+
  if(!Number.isFinite(page))return;
+
  currentCatalogPage=Math.max(1,Math.min(total,page));
  renderProducts();
- window.scrollTo({top:document.getElementById("katalog").offsetTop,behavior:"smooth"});
+
+ window.scrollTo({
+  top:document.getElementById("katalog").offsetTop,
+  behavior:"smooth"
+ });
 }
+
 document.getElementById("arelocPagination").addEventListener("click",function(event){
  const button=event.target.closest("button[data-page]");
  if(button&&!button.disabled)changeCatalogPage(button.dataset.page);
 });
 
-/* KATALOG PRODUK */
 function renderProducts(){
  const grid=document.getElementById("productGrid");
  const filtered=getFilteredProducts();
  const perPage=productsPerPage();
  const start=(currentCatalogPage-1)*perPage;
  const visible=filtered.slice(start,start+perPage);
+
  if(filtered.length===0){
   grid.innerHTML='<div class="empty-category"><strong>COMING SOON</strong><br>Produk untuk kategori ini belum tersedia.<br>Nantikan koleksi terbaru ARELOC.</div>';
  }else{
@@ -607,134 +714,508 @@ function renderProducts(){
    </article>
   `).join("");
  }
+
  renderPagination();
 }
 
-/* DETAIL PRODUK */
+/* =========================================
+   DETAIL PRODUK
+========================================= */
+
 function prepareProduct(index){
  if(!products[index])return false;
+
  currentProduct=index;
  currentSize="M";
  currentColor="Hitam";
  quantity=1;
+
  document.getElementById("detailName").textContent=products[index].name;
  document.getElementById("detailPrice").textContent=rupiah(PRICE);
  document.getElementById("quantity").textContent=quantity;
+
  updateSelection();
  renderGallery();
+
  return true;
 }
+
 function openProduct(index){
  if(!prepareProduct(index))return;
+
  displayPage("detail");
  history.pushState({page:"detail",product:index},"","#produk-"+(index+1));
 }
+
 function updateSelection(){
  document.querySelectorAll(".size-options button").forEach(button=>{
   button.classList.toggle("selected",button.textContent.trim()===currentSize);
  });
+
  document.querySelectorAll(".color-options button").forEach(button=>{
   const color=button.textContent.trim()==="BLACK"?"Hitam":"Putih";
   button.classList.toggle("selected",color===currentColor);
  });
 }
+
 function renderGallery(){
  const product=products[currentProduct];
  productPhotoIndex=0;
+
  document.getElementById("productSlides").innerHTML=product.images.map((url,index)=>
   `<img src="${escapeHTML(url)}" alt="${escapeHTML(product.name)} foto ${index+1}" draggable="false">`
  ).join("");
+
  document.getElementById("productDots").innerHTML=product.images.map((url,index)=>
   `<button type="button" class="product-dot ${index===0?"active":""}" onclick="goProductPhoto(${index})" aria-label="Foto ${index+1}"></button>`
  ).join("");
+
  updateProductGallery();
 }
+
 function updateProductGallery(){
- document.getElementById("productSlides").style.transform="translateX(-"+(productPhotoIndex*100)+"%)";
+ document.getElementById("productSlides").style.transform=
+  "translateX(-"+(productPhotoIndex*100)+"%)";
+
  document.querySelectorAll(".product-dot").forEach((dot,index)=>{
   dot.classList.toggle("active",index===productPhotoIndex);
  });
 }
+
 function goProductPhoto(index){
  const total=products[currentProduct].images.length;
  productPhotoIndex=(index+total)%total;
  updateProductGallery();
 }
+
 function chooseColor(color){
  if(!["Hitam","Putih"].includes(color))return;
  currentColor=color;
  updateSelection();
 }
+
 function chooseSize(size){
  if(!["M","L","XL"].includes(size))return;
  currentSize=size;
  updateSelection();
 }
+
 function changeQty(amount){
  quantity=Math.max(1,Math.min(20,quantity+amount));
  document.getElementById("quantity").textContent=quantity;
 }
 
-/* KERANJANG */
-function addToCart(){
- const product=products[currentProduct];
- if(!product)return;
- const existing=cart.find(item=>item.productIndex===currentProduct&&item.size===currentSize&&item.color===currentColor);
- if(existing)existing.qty=Math.min(99,Number(existing.qty)+quantity);
- else cart.push({
-  productIndex:currentProduct,
-  name:product.name,
-  image:product.images[0],
-  price:PRICE,
-  size:currentSize,
-  color:currentColor,
-  qty:quantity
- });
- invalidateShipping(false);
- saveCart();
- updateCartCount();
- const button=document.querySelector(".add-cart-button");
- if(button){
-  button.textContent="✓ BERHASIL DITAMBAHKAN";
-  setTimeout(()=>button.textContent="＋ TAMBAH KE KERANJANG",1400);
- }
-}
-function buyNow(){
- addToCart();
- showPage("cart");
-}
-function cartSubtotal(){
- return cart.reduce((sum,item)=>sum+(Number(item.price)||PRICE)*(Number(item.qty)||0),0);
-}
+/* =========================================
+   KERANJANG BELANJA
+========================================= */
+
 function invalidateShipping(clearDestination=false){
  selectedShipping=null;
  shippingRates=[];
  rateRequestToken++;
- if(clearDestination)selectedDestinationArea=null;
+
+ if(clearDestination){
+  selectedDestinationArea=null;
+  areaSearchResults=[];
+ }
 }
 
-/* TAMPILAN KERANJANG + DATA PEMBELI */
+function addToCart(){
+ const product=products[currentProduct];
+ if(!product)return;
+
+ const existing=cart.find(item=>
+  item.productIndex===currentProduct&&
+  item.size===currentSize&&
+  item.color===currentColor
+ );
+
+ if(existing){
+  existing.qty=Math.min(99,Number(existing.qty)+quantity);
+ }else{
+  cart.push({
+   productIndex:currentProduct,
+   name:product.name,
+   image:product.images[0],
+   price:PRICE,
+   size:currentSize,
+   color:currentColor,
+   qty:quantity
+  });
+ }
+
+ invalidateShipping(false);
+ saveCart();
+ updateCartCount();
+
+ const button=document.querySelector(".add-cart-button");
+
+ if(button){
+  button.textContent="✓ BERHASIL DITAMBAHKAN";
+  setTimeout(()=>{
+   button.textContent="＋ TAMBAH KE KERANJANG";
+  },1400);
+ }
+}
+
+function buyNow(){
+ addToCart();
+ showPage("cart");
+}
+
+function changeCartQty(index,amount){
+ if(!cart[index])return;
+
+ const newQty=Number(cart[index].qty)+amount;
+
+ if(newQty<1){
+  removeCartItem(index);
+  return;
+ }
+
+ if(newQty>99){
+  alert("Maksimal 99 pcs untuk satu pilihan produk.");
+  return;
+ }
+
+ cart[index].qty=newQty;
+
+ invalidateShipping(false);
+ saveCart();
+ updateCartCount();
+ renderCart();
+}
+
+function removeCartItem(index){
+ if(!cart[index])return;
+
+ cart.splice(index,1);
+
+ invalidateShipping(false);
+ saveCart();
+ updateCartCount();
+ renderCart();
+}
+
+function clearCart(){
+ if(!confirm("Yakin ingin mengosongkan keranjang?"))return;
+
+ cart=[];
+ invalidateShipping(true);
+ saveCart();
+ updateCartCount();
+ renderCart();
+}
+
+/* =========================================
+   WILAYAH TUJUAN
+========================================= */
+
+function areaLabel(area){
+ return area.name||[
+  area.administrative_division_level_3_name,
+  area.administrative_division_level_2_name,
+  area.administrative_division_level_1_name,
+  area.postal_code
+ ].filter(Boolean).join(", ");
+}
+
+async function searchDestinationAreas(){
+ const input=document.getElementById("destinationCity");
+ const resultsBox=document.getElementById("areaResults");
+ const button=document.getElementById("searchAreaButton");
+
+ if(!input||!resultsBox||!button)return;
+
+ const keyword=input.value.trim();
+
+ if(keyword.length<3){
+  alert("Ketik minimal 3 huruf nama kota atau kecamatan.");
+  input.focus();
+  return;
+ }
+
+ const requestId=++areaRequestToken;
+
+ invalidateShipping(true);
+
+ resultsBox.textContent="Sedang mencari kota dan kecamatan...";
+ document.getElementById("shippingResult").innerHTML="";
+ document.getElementById("shippingCost").textContent="Belum dipilih";
+ document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
+
+ button.disabled=true;
+ button.textContent="MENCARI WILAYAH...";
+
+ try{
+  const response=await fetch(ONGKIR_API,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+    action:"search_areas",
+    keyword:keyword
+   })
+  });
+
+  const data=await response.json();
+
+  if(requestId!==areaRequestToken)return;
+
+  if(!response.ok||data.success===false){
+   throw new Error(data.message||data.error||"Wilayah tidak ditemukan.");
+  }
+
+  const areas=
+   data.areas||
+   data.data?.areas||
+   data.result?.areas||
+   data.data?.data?.areas||
+   [];
+
+  if(!Array.isArray(areas)||!areas.length){
+   throw new Error("Wilayah tidak ditemukan. Coba nama kota atau kecamatan lain.");
+  }
+
+  areaSearchResults=areas;
+
+  resultsBox.innerHTML=
+   '<p style="font-weight:bold;margin:8px 0">PILIH KECAMATAN / WILAYAH TUJUAN</p>'+
+   areas.map((area,index)=>{
+    return `
+     <button type="button"
+      onclick="chooseDestinationArea(${index})"
+      style="display:block;width:100%;text-align:left;padding:12px;margin:5px 0;border:1px solid #ddd;background:#fff;color:#111">
+      ${escapeHTML(areaLabel(area))}
+     </button>
+    `;
+   }).join("");
+
+ }catch(error){
+
+  if(requestId===areaRequestToken){
+   resultsBox.textContent="Gagal mencari wilayah: "+error.message;
+  }
+
+ }finally{
+
+  if(requestId===areaRequestToken){
+   button.disabled=false;
+   button.textContent="CARI KOTA / KECAMATAN";
+  }
+
+ }
+}
+
+function chooseDestinationArea(index){
+ const area=areaSearchResults[index];
+
+ if(!area||area.id===undefined||area.id===null||area.id===""){
+  alert("Wilayah tidak valid. Silakan cari kembali.");
+  return;
+ }
+
+ selectedDestinationArea=area;
+ invalidateShipping(false);
+
+ document.getElementById("areaResults").innerHTML=`
+  <div style="padding:11px;background:#eee;color:#111">
+   <strong>WILAYAH DIPILIH:</strong><br>
+   ${escapeHTML(areaLabel(area))}
+  </div>
+ `;
+
+ document.getElementById("shippingCost").textContent="Belum dipilih";
+ document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
+
+ document.getElementById("shippingResult").innerHTML=`
+  <button id="checkShippingButton"
+   onclick="checkShippingRates()"
+   style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">
+   CEK ONGKIR J&T EXPRESS
+  </button>
+ `;
+}
+
+/* =========================================
+   CEK ONGKIR — J&T EXPRESS SAJA
+========================================= */
+
+async function checkShippingRates(){
+ const resultBox=document.getElementById("shippingResult");
+ const button=document.getElementById("checkShippingButton");
+
+ if(!selectedDestinationArea){
+  alert("Pilih kecamatan tujuan terlebih dahulu.");
+  return;
+ }
+
+ const quantityTotal=cartItemCount();
+
+ if(quantityTotal<1||quantityTotal>50){
+  alert("Jumlah produk harus antara 1 sampai 50.");
+  return;
+ }
+
+ const requestId=++rateRequestToken;
+
+ selectedShipping=null;
+ shippingRates=[];
+
+ document.getElementById("shippingCost").textContent="Belum dipilih";
+ document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
+
+ button.disabled=true;
+ button.textContent="SEDANG MENGECEK...";
+ resultBox.textContent="Mengambil tarif J&T Express...";
+
+ try{
+  const response=await fetch(ONGKIR_API,{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+    action:"calculate_rates",
+    destination_area_id:selectedDestinationArea.id,
+    quantity:quantityTotal
+   })
+  });
+
+  const data=await response.json();
+
+  if(requestId!==rateRequestToken)return;
+
+  if(!response.ok||data.success===false){
+   throw new Error(data.message||data.error||"Tarif ongkir tidak tersedia.");
+  }
+
+  const rawRates=
+   data.rates||
+   data.data?.rates||
+   data.result?.rates||
+   data.data?.data?.rates||
+   data.data||
+   [];
+
+  const allRates=Array.isArray(rawRates)
+   ?rawRates
+   :(rawRates.pricing||rawRates.rates||rawRates.data||[]);
+
+  if(!Array.isArray(allRates)){
+   throw new Error("Format tarif dari server tidak dikenali.");
+  }
+
+  /* Hanya mengambil tarif J&T */
+  shippingRates=allRates.map((rate,index)=>{
+   const courier=String(
+    rate.courier_name||
+    rate.courier_code||
+    rate.courier||
+    ""
+   );
+
+   const normalizedCourier=courier
+    .toLowerCase()
+    .replace(/&/g,"n")
+    .replace(/[^a-z0-9]/g,"");
+
+   return {
+    ...rate,
+    _index:index,
+    _price:Number(rate.price??rate.cost??rate.value),
+    _courier:courier,
+    _service:
+     rate.courier_service_name||
+     rate.service||
+     rate.service_code||
+     rate.service_name||
+     "Reguler",
+    _isJNT:normalizedCourier.includes("jnt")
+   };
+  }).filter(rate=>
+   rate._isJNT&&
+   Number.isFinite(rate._price)&&
+   rate._price>=0
+  );
+
+  if(!shippingRates.length){
+   throw new Error("Tarif J&T Express tidak tersedia untuk wilayah tujuan ini.");
+  }
+
+  resultBox.innerHTML=
+   "<strong>LAYANAN J&T EXPRESS</strong>"+
+   shippingRates.map((rate,index)=>`
+    <label style="display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid #ddd;cursor:pointer">
+     <input type="radio" name="shippingRate" value="${index}"
+      onchange="selectShippingRate(${index})">
+     <span style="flex:1">
+      <strong>${escapeHTML(rate._courier)} — ${escapeHTML(rate._service)}</strong><br>
+      <small>${escapeHTML(rate.duration||rate.shipment_duration_range||"")}</small>
+     </span>
+     <strong>${rupiah(rate._price)}</strong>
+    </label>
+   `).join("");
+
+ }catch(error){
+
+  if(requestId===rateRequestToken){
+   resultBox.textContent="Gagal cek ongkir: "+error.message;
+  }
+
+ }finally{
+
+  if(requestId===rateRequestToken){
+   button.disabled=false;
+   button.textContent="CEK ONGKIR J&T EXPRESS";
+  }
+
+ }
+}
+
+function selectShippingRate(index){
+ const rate=shippingRates[index];
+ if(!rate)return;
+
+ selectedShipping=rate;
+
+ const shipping=Number(rate._price)||0;
+ const total=cartSubtotal()+shipping;
+
+ document.getElementById("shippingCost").textContent=rupiah(shipping);
+ document.getElementById("grandTotal").textContent=rupiah(total);
+}
+
+/* =========================================
+   TAMPILAN KERANJANG DAN DATA PEMBELI
+========================================= */
+
 function renderCart(){
  const container=document.getElementById("cartContent");
+
  if(!cart.length){
   invalidateShipping(true);
+
   container.innerHTML=`
    <div class="cart-empty">
     <div style="font-size:42px">🛒</div>
     <h2>KERANJANG MASIH KOSONG</h2>
     <p>Belum ada produk yang ditambahkan.<br>Silakan lihat koleksi ARELOC.</p>
     <button class="continue-button" onclick="showPage('katalog')">MULAI BELANJA →</button>
-   </div>`;
+   </div>
+  `;
   return;
  }
+
  const subtotal=cartSubtotal();
- const shipping=selectedShipping?Number(selectedShipping.price)||0:0;
+ const shipping=selectedShipping?Number(selectedShipping._price)||0:0;
+
  const itemsHTML=cart.map((item,index)=>`
   <div class="cart-item">
    <img src="${escapeHTML(item.image)}" alt="${escapeHTML(item.name)}">
    <div>
     <div class="cart-item-name">${escapeHTML(item.name)}</div>
-    <div class="cart-item-meta">Warna: ${item.color==="Hitam"?"Black":"White"}<br>Ukuran: ${escapeHTML(item.size)}</div>
+    <div class="cart-item-meta">
+     Warna: ${item.color==="Hitam"?"Black":"White"}<br>
+     Ukuran: ${escapeHTML(item.size)}
+    </div>
     <div class="cart-item-price">${rupiah(item.price)}</div>
     <div class="cart-item-actions">
      <button onclick="changeCartQty(${index},-1)">−</button>
@@ -749,32 +1230,87 @@ function renderCart(){
 
  container.innerHTML=`
   <div>${itemsHTML}</div>
+
   <div class="cart-summary">
    <h3 style="font-size:13px;letter-spacing:1px">DATA PEMBELI</h3>
 
    <label style="display:block;font-size:11px;margin:12px 0 6px">NAMA PEMBELI *</label>
-   <input id="buyerName" type="text" autocomplete="name" value="${escapeHTML(buyerData.name||"")}" placeholder="Nama lengkap penerima" style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
+   <input id="buyerName" type="text" autocomplete="name"
+    value="${escapeHTML(buyerData.name||"")}"
+    placeholder="Nama lengkap penerima"
+    style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
 
    <label style="display:block;font-size:11px;margin:12px 0 6px">NO. TELEPON / WHATSAPP *</label>
-   <input id="buyerPhone" type="tel" inputmode="tel" autocomplete="tel" value="${escapeHTML(buyerData.phone||"")}" placeholder="Contoh: 081234567890" style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
+   <input id="buyerPhone" type="tel" inputmode="tel" autocomplete="tel"
+    value="${escapeHTML(buyerData.phone||"")}"
+    placeholder="Contoh: 081234567890"
+    style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
 
    <label style="display:block;font-size:11px;margin:12px 0 6px">ALAMAT LENGKAP PEMBELI *</label>
-   <textarea id="buyerAddress" autocomplete="street-address" placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, kota, kode pos" style="width:100%;min-height:95px;padding:12px;border:1px solid #ccc;background:white;color:#111;font:inherit;resize:vertical">${escapeHTML(buyerData.address||"")}</textarea>
+   <textarea id="buyerAddress" autocomplete="street-address"
+    placeholder="Nama jalan, nomor rumah, RT/RW, kelurahan, kecamatan, kota, kode pos"
+    style="width:100%;min-height:95px;padding:12px;border:1px solid #ccc;background:white;color:#111;font:inherit;resize:vertical">${escapeHTML(buyerData.address||"")}</textarea>
 
    <h3 style="font-size:13px;letter-spacing:1px;margin-top:24px">PENGIRIMAN</h3>
-   <label style="display:block;font-size:11px;margin:12px 0 6px">KOTA / KABUPATEN TUJUAN</label>
-   <input id="destinationCity" type="text" autocomplete="off" placeholder="Contoh: Surabaya" style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
-   <button id="searchAreaButton" onclick="searchDestinationAreas()" style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">CARI KOTA / KECAMATAN</button>
-   <div id="areaResults" style="margin-top:10px;font-size:12px"></div>
-   <div id="shippingResult" style="margin-top:12px;font-size:12px"></div>
 
-   <div class="summary-row" style="margin-top:22px"><span>Jumlah produk</span><strong>${cartItemCount()} pcs</strong></div>
-   <div class="summary-row"><span>Subtotal produk</span><strong>${rupiah(subtotal)}</strong></div>
-   <div class="summary-row"><span>Ongkir</span><strong id="shippingCost">${selectedShipping?rupiah(shipping):"Belum dipilih"}</strong></div>
-   <div class="summary-row summary-total"><span>TOTAL</span><span id="grandTotal">${rupiah(subtotal+shipping)}</span></div>
-   <button class="checkout-button" onclick="checkoutWhatsApp()">CHECKOUT VIA WHATSAPP</button>
-   <p class="buy-note">Lengkapi data pembeli, pilih wilayah, dan layanan pengiriman sebelum checkout.</p>
+   <label style="display:block;font-size:11px;margin:12px 0 6px">KOTA / KABUPATEN / KECAMATAN TUJUAN</label>
+
+   <input id="destinationCity" type="text" autocomplete="off"
+    placeholder="Contoh: Denpasar atau Kuta"
+    style="width:100%;padding:12px;border:1px solid #ccc;background:white;color:#111">
+
+   <button id="searchAreaButton" onclick="searchDestinationAreas()"
+    style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">
+    CARI KOTA / KECAMATAN
+   </button>
+
+   <div id="areaResults" style="margin-top:10px;font-size:12px">
+    ${selectedDestinationArea?`
+     <div style="padding:11px;background:#eee;color:#111">
+      <strong>WILAYAH DIPILIH:</strong><br>
+      ${escapeHTML(areaLabel(selectedDestinationArea))}
+     </div>
+    `:""}
+   </div>
+
+   <div id="shippingResult" style="margin-top:12px;font-size:12px">
+    ${selectedDestinationArea?`
+     <button id="checkShippingButton" onclick="checkShippingRates()"
+      style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">
+      CEK ONGKIR J&T EXPRESS
+     </button>
+    `:""}
+   </div>
+
+   <div class="summary-row" style="margin-top:22px">
+    <span>Jumlah produk</span>
+    <strong>${cartItemCount()} pcs</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Subtotal produk</span>
+    <strong>${rupiah(subtotal)}</strong>
+   </div>
+
+   <div class="summary-row">
+    <span>Ongkir</span>
+    <strong id="shippingCost">${selectedShipping?rupiah(shipping):"Belum dipilih"}</strong>
+   </div>
+
+   <div class="summary-row summary-total">
+    <span>TOTAL</span>
+    <span id="grandTotal">${rupiah(subtotal+shipping)}</span>
+   </div>
+
+   <button class="checkout-button" onclick="checkoutWhatsApp()">
+    CHECKOUT VIA WHATSAPP
+   </button>
+
+   <p class="buy-note">
+    Lengkapi data pembeli, pilih wilayah, dan pilih tarif J&T Express sebelum checkout.
+   </p>
   </div>
+
   <button class="clear-cart-button" onclick="clearCart()">KOSONGKAN KERANJANG</button>
   <button class="continue-button" onclick="showPage('katalog')">← LANJUT BELANJA</button>
  `;
@@ -782,459 +1318,158 @@ function renderCart(){
  ["buyerName","buyerPhone","buyerAddress"].forEach(id=>{
   const field=document.getElementById(id);
   const key=id==="buyerName"?"name":id==="buyerPhone"?"phone":"address";
-  field.addEventListener("input",()=>saveBuyerField(key,field.value));
+
+  field.addEventListener("input",()=>{
+   saveBuyerField(key,field.value);
+  });
  });
 }
 
-/* CARI WILAYAH TUJUAN */
-async function searchDestinationAreas(){
- const input=document.getElementById("destinationCity");
- const resultsBox=document.getElementById("areaResults");
- const button=document.getElementById("searchAreaButton");
- if(!input||!resultsBox||!button)return;
- const keyword=input.value.trim();
- if(keyword.length<3){
-  alert("Ketik minimal 3 huruf nama kota atau kecamatan.");
-  input.focus();
-  return;
- }
- const requestId=++areaRequestToken;
- invalidateShipping(true);
- resultsBox.textContent="Sedang mencari kota dan kecamatan...";
- document.getElementById("shippingResult").innerHTML="";
- document.getElementById("shippingCost").textContent="Belum dipilih";
- document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
- button.disabled=true;
- button.textContent="MENCARI WILAYAH...";
- try{
-  const response=await fetch(ONGKIR_API,{
-   method:"POST",
-   headers:{"Content-Type":"application/json"},
-   body:JSON.stringify({action:"search_areas",keyword})
-  });
-  const data=await response.json();
-  if(requestId!==areaRequestToken)return;
-  if(!response.ok||data.success===false)throw new Error(data.message||data.error||"Wilayah tidak ditemukan.");
-  const areas=data.areas||data.data?.areas||data.result?.areas||data.data?.data?.areas||[];
-  if(!Array.isArray(areas)||!areas.length)throw new Error("Wilayah tidak ditemukan. Coba nama kota atau kecamatan lain.");
-  areaSearchResults=areas;
-  resultsBox.innerHTML='<p style="font-weight:bold;margin:8px 0">PILIH KECAMATAN / WILAYAH TUJUAN</p>'+
-   areas.map((area,index)=>{
-    const label=area.name||[
-     area.administrative_division_level_3_name,
-     area.administrative_division_level_2_name,
-     area.administrative_division_level_1_name,
-     area.postal_code
-    ].filter(Boolean).join(", ");
-    return `<button type="button" onclick="chooseDestinationArea(${index})" style="display:block;width:100%;text-align:left;padding:12px;margin:5px 0;border:1px solid #ddd;background:#fff;color:#111">${escapeHTML(label)}</button>`;
-   }).join("");
- }catch(error){
-  if(requestId===areaRequestToken)resultsBox.textContent="Gagal mencari wilayah: "+error.message;
- }finally{
-  if(requestId===areaRequestToken){
-   button.disabled=false;
-   button.textContent="CARI KOTA / KECAMATAN";
-  }
- }
-}
-function areaLabel(area){
- return area.name||[
-  area.administrative_division_level_3_name,
-  area.administrative_division_level_2_name,
-  area.administrative_division_level_1_name,
-  area.postal_code
- ].filter(Boolean).join(", ");
-}
-function chooseDestinationArea(index){
- const area=areaSearchResults[index];
- if(!area||area.id===undefined||area.id===null||area.id===""){
-  alert("Wilayah tidak valid. Silakan cari kembali.");
-  return;
- }
- selectedDestinationArea=area;
- invalidateShipping(false);
- document.getElementById("areaResults").innerHTML=
-  `<div style="padding:11px;background:#eee;color:#111"><strong>WILAYAH DIPILIH:</strong><br>${escapeHTML(areaLabel(area))}</div>`;
- document.getElementById("shippingCost").textContent="Belum dipilih";
- document.getElementById("grandTotal").textContent=rupiah(cartSubtotal());
- document.getElementById("shippingResult").innerHTML=
-  '<button id="checkShippingButton" onclick="checkShippingRates()" style="width:100%;padding:13px;margin-top:10px;background:#111;color:white;border:0;font-weight:bold">CEK ONGKIR</button>';
-}
-
- const normalized=courierText
- 
 /* =========================================
-   ARELOC — CEK ONGKIR J&T EXPRESS
+   CHECKOUT WHATSAPP
 ========================================= */
 
-async function checkShippingRates(){
-
-  const resultBox = document.getElementById("shippingResult");
-  const button = document.getElementById("checkShippingButton");
-
-  // VALIDASI ALAMAT
-  if(!selectedDestinationArea){
-    alert("Pilih kecamatan tujuan terlebih dahulu.");
-    return;
-  }
-
-  // VALIDASI JUMLAH PRODUK
-  const quantityTotal = cartItemCount();
-
-  if(quantityTotal < 1 || quantityTotal > 50){
-    alert("Jumlah produk harus antara 1 sampai 50.");
-    return;
-  }
-
-  // RESET ONGKIR
-  const requestId = ++rateRequestToken;
-
-  selectedShipping = null;
-  shippingRates = [];
-
-  document.getElementById("shippingCost").textContent = "Belum dipilih";
-  document.getElementById("grandTotal").textContent = rupiah(cartSubtotal());
-
-  button.disabled = true;
-  button.textContent = "SEDANG MENGECEK...";
-  resultBox.textContent = "Mengambil tarif J&T Express...";
-
-  try{
-
-    // KIRIM PERMINTAAN KE API
-    const response = await fetch(ONGKIR_API,{
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        action: "calculate_rates",
-        destination_area_id: selectedDestinationArea.id,
-        quantity: quantityTotal
-      })
-    });
-
-    const data = await response.json();
-
-    if(requestId !== rateRequestToken) return;
-
-    if(!response.ok || data.success === false){
-      throw new Error(
-        data.message ||
-        data.error ||
-        "Tarif ongkir tidak tersedia."
-      );
-    }
-
-    // AMBIL DATA TARIF
-    const rawRates =
-      data.rates ||
-      data.data?.rates ||
-      data.result?.rates ||
-      data.data?.data?.rates ||
-      data.data ||
-      [];
-
-    const allRates = Array.isArray(rawRates)
-      ? rawRates
-      : (
-          rawRates.pricing ||
-          rawRates.rates ||
-          rawRates.data ||
-          []
-        );
-
-    // FILTER J&T EXPRESS SAJA
-    shippingRates = allRates
-      .map((rate,index) => {
-
-        const courier = String(
-          rate.courier_name ||
-          rate.courier_code ||
-          rate.courier ||
-          ""
-        );
-
-        const normalizedCourier = courier
-          .toLowerCase()
-          .replace(/&/g,"n")
-          .replace(/[^a-z0-9]/g,"");
-
-        return {
-          ...rate,
-
-          _index: index,
-
-          _price: Number(
-            rate.price ??
-            rate.cost ??
-            rate.value
-          ),
-
-          _courier: courier,
-
-          _service:
-            rate.courier_service_name ||
-            rate.service ||
-            rate.service_code ||
-            rate.service_name ||
-            "Reguler",
-
-          _isJNT: normalizedCourier.includes("jnt")
-        };
-
-      })
-      .filter(rate =>
-        rate._isJNT &&
-        Number.isFinite(rate._price) &&
-        rate._price >= 0
-      );
-
-    // JIKA J&T TIDAK TERSEDIA
-    if(shippingRates.length === 0){
-      throw new Error(
-        "Tarif J&T Express tidak tersedia untuk wilayah tujuan ini."
-      );
-    }
-
-    // TAMPILKAN PILIHAN ONGKIR
-    resultBox.innerHTML =
-      "<strong>LAYANAN J&T EXPRESS</strong>" +
-
-      shippingRates.map((rate,index) => `
-
-        <label style="
-          display:flex;
-          align-items:center;
-          gap:10px;
-          padding:13px 0;
-          border-bottom:1px solid #ddd;
-          cursor:pointer;
-        ">
-
-          <input
-            type="radio"
-            name="shippingRate"
-            value="${index}"
-            onchange="selectShippingRate(${index})"
-          >
-
-          <span style="flex:1">
-
-            <strong>
-              ${escapeHTML(rate._courier)}
-              —
-              ${escapeHTML(rate._service)}
-            </strong>
-
-            <br>
-
-            <small>
-              ${escapeHTML(
-                rate.duration ||
-                rate.shipment_duration_range ||
-                ""
-              )}
-            </small>
-
-          </span>
-
-          <strong>
-            ${rupiah(rate._price)}
-          </strong>
-
-        </label>
-
-      `).join("");
-
-  }catch(error){
-
-    if(requestId === rateRequestToken){
-      resultBox.textContent =
-        "Gagal cek ongkir: " + error.message;
-    }
-
-  }finally{
-
-    if(requestId === rateRequestToken){
-      button.disabled = false;
-      button.textContent = "CEK ONGKIR";
-    }
-
-  }
-
-}
-
-
-/* =========================================
-   ARELOC — PILIH ONGKIR J&T EXPRESS
-========================================= */
-
-function selectShippingRate(index){
-
-  const rate = shippingRates[index];
-
-  if(!rate) return;
-
-  // SIMPAN ONGKIR YANG DIPILIH
-  selectedShipping = rate;
-
-  // HITUNG TOTAL PEMBAYARAN
-  const shipping = Number(rate._price) || 0;
-  const subtotal = cartSubtotal();
-  const total = subtotal + shipping;
-
-  // PERBARUI TAMPILAN
-  document.getElementById("shippingCost").textContent =
-    rupiah(shipping);
-
-  document.getElementById("grandTotal").textContent =
-    rupiah(total);
-
-}
- .replace(/&/g,"n")
-  .replace(/[^a-z0-9]/g,"");
-
- return normalized.includes("jnt") &&
-  Number.isFinite(rate._price) &&
-  rate._price>=0;
-});
-
-if(!validRates.length){
- throw new Error("Tarif J&T Express belum tersedia untuk wilayah tujuan ini. Silakan coba kembali.");
-}
-
-shippingRates=validRates;
-
-/* UBAH JUMLAH / HAPUS ITEM */
-function changeCartQty(index,amount){
- if(!cart[index])return;
- cart[index].qty=Math.max(1,Math.min(99,Number(cart[index].qty)+amount));
- invalidateShipping(false);
- saveCart();
- updateCartCount();
- renderCart();
-}
-function removeCartItem(index){
- if(!cart[index])return;
- cart.splice(index,1);
- invalidateShipping(false);
- saveCart();
- updateCartCount();
- renderCart();
-}
-function clearCart(){
- if(!cart.length)return;
- if(confirm("Yakin ingin mengosongkan keranjang?")){
-  cart=[];
-  invalidateShipping(true);
-  saveCart();
-  updateCartCount();
-  renderCart();
- }
-}
-
-/* CHECKOUT WHATSAPP */
 function checkoutWhatsApp(){
+ const name=document.getElementById("buyerName")?.value.trim()||"";
+ const phone=document.getElementById("buyerPhone")?.value.trim()||"";
+ const address=document.getElementById("buyerAddress")?.value.trim()||"";
+
  if(!cart.length){
   alert("Keranjang masih kosong.");
   return;
  }
- const name=(document.getElementById("buyerName")?.value||"").trim();
- const phone=(document.getElementById("buyerPhone")?.value||"").trim();
- const address=(document.getElementById("buyerAddress")?.value||"").trim();
+
  if(!name||!phone||!address){
-  alert("Mohon lengkapi nama, nomor telepon, dan alamat pembeli.");
-  if(!name)document.getElementById("buyerName").focus();
-  else if(!phone)document.getElementById("buyerPhone").focus();
-  else document.getElementById("buyerAddress").focus();
+  alert("Lengkapi nama, nomor WhatsApp, dan alamat pembeli.");
   return;
  }
- const phoneClean=phone.replace(/\D/g,"");
- if(phoneClean.length<9||phoneClean.length>15){
-  alert("Periksa kembali nomor telepon pembeli.");
-  document.getElementById("buyerPhone").focus();
-  return;
- }
+
  if(!selectedDestinationArea){
-  alert("Silakan pilih kota/kecamatan tujuan terlebih dahulu.");
+  alert("Pilih wilayah tujuan pengiriman terlebih dahulu.");
   return;
  }
+
  if(!selectedShipping){
-  alert("Silakan pilih layanan ongkir terlebih dahulu.");
+  alert("Silakan cek dan pilih tarif J&T Express terlebih dahulu.");
   return;
  }
+
+ const shipping=Number(selectedShipping._price)||0;
  const subtotal=cartSubtotal();
- const shipping=Number(selectedShipping._price??selectedShipping.price)||0;
  const total=subtotal+shipping;
- let message="HALO ARELOC, SAYA INGIN MEMESAN PRODUK.\n\n";
- message+="DATA PEMBELI\n";
- message+="Nama: "+name+"\n";
- message+="No. Telepon: "+phone+"\n";
- message+="Alamat lengkap: "+address+"\n\n";
- message+="DETAIL PESANAN\n";
- cart.forEach((item,index)=>{
-  message+=(index+1)+". "+item.name+"\n";
-  message+="Warna: "+item.color+"\n";
-  message+="Ukuran: "+item.size+"\n";
-  message+="Jumlah: "+item.qty+"\n";
-  message+="Harga: "+rupiah(item.price*item.qty)+"\n\n";
- });
- message+="Wilayah tujuan: "+areaLabel(selectedDestinationArea)+"\n";
- message+="Kurir: "+(selectedShipping._courier||selectedShipping.courier_name||selectedShipping.courier_code||"-")+"\n";
- message+="Layanan: "+(selectedShipping._service||selectedShipping.courier_service_name||selectedShipping.service||"-")+"\n";
- message+="Subtotal produk: "+rupiah(subtotal)+"\n";
- message+="Ongkir: "+rupiah(shipping)+"\n";
- message+="TOTAL PEMBAYARAN: "+rupiah(total)+"\n\n";
- message+="Mohon konfirmasi pesanan dan pembayaran. Terima kasih.";
+
+ const productLines=cart.map((item,index)=>
+  `${index+1}. ${item.name}\n`+
+  `Warna: ${item.color}\n`+
+  `Ukuran: ${item.size}\n`+
+  `Jumlah: ${item.qty} pcs\n`+
+  `Harga: ${rupiah(item.price*item.qty)}`
+ ).join("\n\n");
+
+ const message=
+`PESANAN BARU — ARELOC OFFICIAL STORE
+
+DATA PEMBELI
+Nama: ${name}
+No. WhatsApp: ${phone}
+Alamat: ${address}
+
+WILAYAH TUJUAN
+${areaLabel(selectedDestinationArea)}
+
+DETAIL PESANAN
+${productLines}
+
+Subtotal: ${rupiah(subtotal)}
+Kurir: ${selectedShipping._courier||"J&T Express"}
+Layanan: ${selectedShipping._service||"Reguler"}
+Ongkir: ${rupiah(shipping)}
+
+TOTAL PEMBAYARAN: ${rupiah(total)}
+
+Mohon konfirmasi pesanan saya.
+Terima kasih.
+ARELOC — TRUST THE PROCESS.`;
+
  const url="https://wa.me/"+WA_NUMBER+"?text="+encodeURIComponent(message);
- const opened=window.open(url,"_blank");
- if(!opened)window.location.href=url;
+
+ /* Navigasi langsung agar lebih kompatibel dengan browser HP */
+ window.location.href=url;
 }
 
-/* GESER FOTO PRODUK */
+/* =========================================
+   GESER FOTO PRODUK
+========================================= */
+
 const productSlider=document.getElementById("productSlider");
+
 productSlider.addEventListener("touchstart",event=>{
  productTouchStart=event.touches[0].clientX;
 },{passive:true});
+
 productSlider.addEventListener("touchend",event=>{
  const distance=event.changedTouches[0].clientX-productTouchStart;
- if(Math.abs(distance)>40)goProductPhoto(productPhotoIndex+(distance<0?1:-1));
+
+ if(Math.abs(distance)>40){
+  goProductPhoto(productPhotoIndex+(distance<0?1:-1));
+ }
 },{passive:true});
 
-/* SLIDER BERANDA */
+/* =========================================
+   SLIDER BERANDA
+========================================= */
+
 function updateSlide(){
- document.getElementById("arelocSlides").style.transform="translateX(-"+(currentSlide*100)+"%)";
+ document.getElementById("arelocSlides").style.transform=
+  "translateX(-"+(currentSlide*100)+"%)";
+
  document.querySelectorAll(".slider-dot").forEach((dot,index)=>{
   dot.classList.toggle("active",index===currentSlide);
  });
 }
+
 function goSlide(index){
  currentSlide=(index+5)%5;
  updateSlide();
  restartSlideTimer();
 }
-function moveSlide(direction){goSlide(currentSlide+direction)}
+
+function moveSlide(direction){
+ goSlide(currentSlide+direction);
+}
+
 function restartSlideTimer(){
  clearInterval(slideTimer);
+
  slideTimer=setInterval(()=>{
   currentSlide=(currentSlide+1)%5;
   updateSlide();
  },4000);
 }
+
 const headerSlider=document.getElementById("arelocSlider");
+
 headerSlider.addEventListener("touchstart",event=>{
  headerTouchStart=event.touches[0].clientX;
 },{passive:true});
+
 headerSlider.addEventListener("touchend",event=>{
  const distance=event.changedTouches[0].clientX-headerTouchStart;
- if(Math.abs(distance)>45)moveSlide(distance<0?1:-1);
+
+ if(Math.abs(distance)>45){
+  moveSlide(distance<0?1:-1);
+ }
 },{passive:true});
 
-/* RESPONSIVE */
+/* =========================================
+   RESPONSIVE PAGINATION
+========================================= */
+
 lastPerPage=productsPerPage();
+
 window.addEventListener("resize",()=>{
  const newPerPage=productsPerPage();
+
  if(newPerPage!==lastPerPage){
   lastPerPage=newPerPage;
   currentCatalogPage=1;
@@ -1242,25 +1477,35 @@ window.addEventListener("resize",()=>{
  }
 });
 
-/* RIWAYAT TOMBOL KEMBALI */
+/* =========================================
+   TOMBOL KEMBALI BROWSER
+========================================= */
+
 window.addEventListener("popstate",event=>{
  const state=event.state;
+
  if(state&&state.page==="detail"&&Number.isInteger(state.product)){
   if(prepareProduct(state.product))displayPage("detail");
   return;
  }
+
  const hash=location.hash.replace("#","");
  const page=["home","katalog","tentang","kontak","cart"].includes(hash)?hash:"home";
+
  displayPage(page);
 });
 
-/* MULAI TOKO */
+/* =========================================
+   MULAI TOKO ARELOC
+========================================= */
+
 history.replaceState({page:"home"},"","#home");
+
 updateCartCount();
 updateSlide();
 restartSlideTimer();
 renderProducts();
+
 </script>
 </body>
 </html>
-
